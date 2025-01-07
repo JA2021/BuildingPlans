@@ -157,8 +157,7 @@ table {
 }
 
 input {
-  color: white !important;
-  border-color: #1b222b8c !important;
+ background:none !important;
 }
 
 .mat-input {

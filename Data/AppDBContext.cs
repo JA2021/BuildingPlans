@@ -115,6 +115,8 @@ namespace BuildingPlans.Data
 
         public DbSet<Bugs> Bugs { get; set; }
         public DbSet<EmailMessages> EmailMessages { get; set; }
+
+        public DbSet<BPBuildingControlChecklist> BPBuildingControlChecklist { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer("YourPostgreSqlConnectionStringHere")
