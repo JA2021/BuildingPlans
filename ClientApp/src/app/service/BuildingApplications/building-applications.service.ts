@@ -138,4 +138,14 @@ export class BuildingApplicationsService {
   public getAllDraftApplications() {
     return this.httpClient.get(this.baseURL + "GetAllDraftApplications");
   }
+
+
+  public UpdatePlanActivationStatus(applicationID: number | null, isActivated: boolean | null, activationDate: any | null) {
+    const body = {
+      ApplicationID: applicationID,
+      isActivated: isActivated,
+      ActivationDate: activationDate
+    }
+  }
+
 }

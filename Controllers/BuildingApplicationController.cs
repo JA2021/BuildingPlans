@@ -1049,6 +1049,7 @@ namespace BuildingPlans.Controllers
                         NameOfCompany = buildingApplication.NameOfCompany,
                         RegNoOfCompany = buildingApplication.RegNoOfCompany,
                         isDraft = buildingApplication.isDraft,
+                        
 
                     }).ToListAsync();
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got Application By ApplicationID", result));
@@ -1135,6 +1136,45 @@ namespace BuildingPlans.Controllers
         }
 
 
-        
+        [HttpPost("UpdatePlanActivationStatus")]
+        public async Task<object> UpdatePlanActivationStatus([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                var result = new object();
+
+                if(model.isActivated == null || model.ActivationDate == null || model.ApplicationID == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var tempApplication = _context.BuildingApplications.FirstOrDefault(x => x.ApplicationID == model.ApplicationID);
+
+                    if(tempApplication == null)
+                    {
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Could not find entry in database", null));
+                    }
+
+                    else
+                    {
+                        tempApplication.isActivated = model.isActivated;
+                        tempApplication.ActivationDate = model.ActivationDate;
+                        tempApplication.DateUpdated = DateTime.Now;
+
+                        _context.Update(tempApplication);
+                        await _context.SaveChangesAsync();
+
+                        result = tempApplication;
+
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Plan Activated Successfully", result));
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+            }
+        }
     }
 }
