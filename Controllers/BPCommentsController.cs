@@ -102,7 +102,7 @@ namespace BuildingPlans.Controllers
             try
             {
                 var result = await (from comment in _context.BPComments
-                                    where comment.ApplicationID == model.ApplicationID && comment.isActive == true
+                                    where comment.ApplicationID == model.ApplicationID && comment.isActive == true 
                                     select new CommentDTO()
                                     {
                                         CommentID = comment.CommentID,

@@ -136,6 +136,8 @@ import { BPApplicationChecklistComponent } from './bpapplication-checklist/bpapp
 import { BPFunctionalAreaComponent } from './bpfunctional-area/bpfunctional-area.component'
 import { BugsConfigComponent } from './bugs-config/bugs-config.component';
 import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-controls-checklist-config/bpbuilding-controls-checklist-config.component';
+import { BPConstructionStagesComponent } from './bpconstruction-stages/bpconstruction-stages.component';
+import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpconstruction-checklist.component';
 
 //import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -257,6 +259,8 @@ import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-control
     BPFunctionalAreaComponent,
     BugsConfigComponent,
     BPBuildingControlsChecklistConfigComponent,
+    BPConstructionStagesComponent,
+    BPConstructionChecklistComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -372,6 +376,8 @@ import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-control
     BPApplicationChecklistComponent,
     BugsConfigComponent,
     BPBuildingControlsChecklistConfigComponent,
+    BPConstructionStagesComponent,
+    BPConstructionChecklistComponent,
   
   ],
   bootstrap: [AppComponent]

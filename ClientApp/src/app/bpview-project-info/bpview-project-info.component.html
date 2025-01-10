@@ -222,7 +222,7 @@
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
                       <!-- projectTracker Sindiswa 12 January 2024 -->
-                      <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review"/>
+                      <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
 
                       <!-- projectTracker Sindiswa 12 January 2024 -->
                     </div>
@@ -260,14 +260,19 @@
 
               <p class="currentStageText">This {{bpApplicationType}} application is Currently at a {{currentStage}} stage.</p>
             </mat-tab>
-            <mat-tab label="Stage Checklist"  *ngIf="this.CurrentUserProfile[0].isInternal == true && showChecklist && currentStage == 'Building Inspector'" >
+            <mat-tab label="Stage Checklist" *ngIf="this.CurrentUserProfile[0].isInternal == true && showChecklist && currentStage == 'Building Inspector'">
               <app-bpapplication-checklist [ApplicationID]="applicationId"
                                            [StageName]="currentStage"
                                            [FunctionalArea]="bpApplicationType"></app-bpapplication-checklist>
             </mat-tab>
+
             <mat-tab label="Tasks" *ngIf="currentStage == 'Building Inspector'">
               <app-bptasks></app-bptasks>
-</mat-tab>
+            </mat-tab>
+
+            <mat-tab label="Contruction Stage Checklist" >
+              <app-bpconstruction-stages></app-bpconstruction-stages>
+            </mat-tab>
           </mat-tab-group>
 
 
@@ -792,7 +797,7 @@
           </div>
         </div>
 
-        <p class="projectTimeLine" >Project TimeLine</p>
+        <p class="projectTimeLine">Project TimeLine</p>
         <div class="generalcomments" *ngIf="this.CurrentUserProfile[0].isInternal == true">
 
           <div *ngFor="let comment of CommentsList ; let i = index">
@@ -823,6 +828,10 @@
       </mat-tab>
       <mat-tab label="Tasks" *ngIf="this.CurrentUserProfile[0].isInternal == true && currentStage == 'Building Inspector'">
         <app-bptasks></app-bptasks>
+      </mat-tab>
+
+      <mat-tab label="Contruction Stage Checklist">
+        <app-bpconstruction-stages></app-bpconstruction-stages>
       </mat-tab>
     </mat-tab-group>
   </div>

@@ -51,7 +51,9 @@ export class BPBuildingControlsChecklistConfigComponent implements OnInit {
   newChecklistItem: string;
 
   stringifiedData: any;
-  CurrentUser: any; 
+  CurrentUser: any;
+
+ 
   ngOnInit(): void {
 
     this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
@@ -138,4 +140,6 @@ export class BPBuildingControlsChecklistConfigComponent implements OnInit {
       console.log("Add Checklist Item Error", error);
     })
   }
+
+
 }

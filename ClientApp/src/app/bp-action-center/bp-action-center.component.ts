@@ -65,6 +65,7 @@ import { NeighbourConsentService } from '../service/NeighbourConsent/neighbour-c
 import { BPStagesChecklistsService } from '../service/BPStagesChecklists/bpstages-checklists.service';
 import { BPApplicationChecklistService } from '../service/BPApplicationChecklists/bpapplication-checklist.service';
 import { BPServiceItemsService } from '../service/BPServiceItems/bpservice-items.service';
+import { BPConstructionChecklistService } from '../service/BPConstructionChecklist/bpconstruction-checklist.service'; 
 //Audit Trail Kyle
 declare var tinymce: any;
 
@@ -579,6 +580,7 @@ export class BpActionCenterComponent implements OnInit {
     private bpStageChecklistService: BPStagesChecklistsService,
     private bpApplicationChecklistService: BPApplicationChecklistService,
     private bpServiceItemsService: BPServiceItemsService,
+    private bpConstructionChecklistService: BPConstructionChecklistService
 ) { }
 
   ngOnInit(): void {
@@ -4514,6 +4516,18 @@ export class BpActionCenterComponent implements OnInit {
       }
     }
   }
+  addAllChecklistItemsToApplication() {
+    this.bpConstructionChecklistService.addAllChecklistItemsToApplication(0, this.ApplicationID, this.CurrentUser.appUserId).subscribe((data: any) => {
+      if (data.responseCode == 1) {
+        alert(data.responseMessage);
+      }
+      else {
+        alert(data.responseMessage);
+      }
+    }, error => {
+      console.log("Construction Checklist Error");
+    })
+  }
 
   MoveApplicationtoBuildingInspection(interact: any) {
 
@@ -4544,6 +4558,7 @@ export class BpActionCenterComponent implements OnInit {
 
                 this.AddComment("LS Approved", null);
                 this.AddStageChecklistForApplication("Building Inspector");
+                this.addAllChecklistItemsToApplication(); 
               }
               else {
                 alert(data.responseMessage)

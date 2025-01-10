@@ -1,0 +1,33 @@
+h4{
+    font-weight:bold;
+    text-align:center;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #3d74a41c;
+  box-shadow: inset 1px 1px 6px 4px #1d3e5933;
+  /* padding: 1px !important; */
+}
+table {
+  width: 100%;
+  border: solid 2px #a2c5e3 ;
+  margin-bottom : 10px ; 
+}
+
+mat-expansion-panel {
+  margin: 10px;
+  border: solid 1px black ;
+  border-radius: 5px;
+}
+
+.mat-green {
+  background-color: #2dd568;
+  /*margin: 5px;*/
+  color: #fff;
+}

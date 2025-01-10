@@ -23,5 +23,6 @@ namespace BuildingPlans.Data.Entities
       
         public string? CanReplyUserID { get; set; }
        
+        
     }
 }
