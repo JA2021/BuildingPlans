@@ -41,3 +41,32 @@ const { env } = require('process');
 //]
 
 //module.exports = PROXY_CONFIG;
+//const { env } = require('process');
+
+const target = env.ASPNETCORE_HTTPS_PORT
+    ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}`
+    : env.ASPNETCORE_URLS
+        ? env.ASPNETCORE_URLS.split(';')[0]
+        : 'https://localhost:7001';  // Replace with your actual ASP.NET Core backend URL
+
+const PROXY_CONFIG = [
+  {
+    context: ["/api"],  // Match all API routes
+    target: target,
+    secure: false,
+    changeOrigin: true,
+    onProxyRes: function (proxyRes, req, res) {
+      // Allow both origins
+      const allowedOrigins = ['http://localhost:4200'];
+      const origin = req.headers.origin;
+
+      if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);  // Dynamically allow the correct origin
+      }
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Authorization');
+    }
+  }
+];
+
+module.exports = PROXY_CONFIG;
