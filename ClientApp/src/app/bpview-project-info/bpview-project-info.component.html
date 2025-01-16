@@ -270,7 +270,7 @@
               <app-bptasks></app-bptasks>
             </mat-tab>
 
-            <mat-tab label="Contruction Stage Checklist" >
+            <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist" >
               <app-bpconstruction-stages></app-bpconstruction-stages>
             </mat-tab>
           </mat-tab-group>
@@ -830,7 +830,7 @@
         <app-bptasks></app-bptasks>
       </mat-tab>
 
-      <mat-tab label="Contruction Stage Checklist">
+      <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist">
         <app-bpconstruction-stages></app-bpconstruction-stages>
       </mat-tab>
     </mat-tab-group>

@@ -278,6 +278,11 @@ export interface ApplicationsListBP {
   Longitude: string;
   Originator: string;
   LSNumber: string;
+  isActivated: boolean;
+  ActivationDate: any;
+  ActivationConfirm: boolean;
+  PermitExpired: boolean;
+  
 }
 
 export interface ArchitectClients {
@@ -8189,6 +8194,21 @@ this.subscriptions.push(subscription);
           tempApplication.Latitude = current.latitude;
           tempApplication.Longitude = current.longitude;
 
+          tempApplication.isActivated = current.isActivated;
+          tempApplication.ActivationConfirm = current.activationConfirmed;
+          if (current.activationDate != null) {
+            
+            tempApplication.ActivationDate = current.activationDate.substring(0, current.activationDate.indexOf("T"));
+
+            const permitTime = await this.checkPlanExpiration(tempApplication.ActivationDate);
+
+            if (permitTime > 6) {
+              tempApplication.PermitExpired = true;
+            }
+          }
+         
+         
+          
           if (current.createdById != null) {
             const originator: string = await this.getOriginatorName(current.createdById);
             tempApplication.Originator = originator;
@@ -8226,7 +8246,7 @@ this.subscriptions.push(subscription);
           tempApplication.stageAge = stageDateDiff;
           tempApplication.status = current.status;
           tempApplication.justForFilteringByDate = current.dateCreated;
-
+          
           this.AllApplications.push(tempApplication);
         }
         console.log("All Applications", this.AllApplications);
@@ -8308,7 +8328,19 @@ this.subscriptions.push(subscription);
     })
   }
 
+  async checkPlanExpiration(activationDate: Date) {
+
+    const currentDate = new Date();
+    const newDate = new Date(activationDate);
+    debugger;
+    const years = currentDate.getFullYear() - newDate.getFullYear();
+    const months = currentDate.getMonth() - newDate.getMonth();
+
+    const totalMonths = years * 12 + months;
+
+    return totalMonths;
   }
+}
 
 
 

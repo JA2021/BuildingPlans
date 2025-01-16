@@ -65,6 +65,8 @@ namespace BuildingPlans.Models.BindingModel
 
         public bool? isActivated { get; set; }
         public DateTime? ActivationDate { get; set; }
+        public bool? ActivationConfirmed { get; set; }
+
 
     }
 }

@@ -111,6 +111,7 @@ export class BuildingApplicationsService {
   }
 
   public getBuildingApplicationByStageName(stageName: string | null) {
+
     const body = {
       Stage :stageName
     }
@@ -140,12 +141,30 @@ export class BuildingApplicationsService {
   }
 
 
-  public UpdatePlanActivationStatus(applicationID: number | null, isActivated: boolean | null, activationDate: any | null) {
+  public UpdatePlanActivationStatus(applicationID: number | null, isActivated: boolean | null, ) {
     const body = {
       ApplicationID: applicationID,
       isActivated: isActivated,
-      ActivationDate: activationDate
+     
     }
+
+    return this.httpClient.post(this.baseURL + "UpdatePlanActivationStatus", body);
   }
 
+  public getAllApplicationsForActivationConfirmation(createdById: string | null) {
+    const body = {
+      CreatedById: createdById
+    }
+
+    return this.httpClient.post(this.baseURL + "GetAllApplicationsForActivationConfirmation", body);
+  }
+
+  public confirmPlanActivation(applicationID: number | null, activationConfirmed: boolean | null) {
+    const body = {
+      ApplicationID: applicationID,
+      ActivationConfirmed: activationConfirmed 
+    }
+
+    return this.httpClient.post(this.baseURL + "ConfirmPlanActivation", body);
+  }
 }

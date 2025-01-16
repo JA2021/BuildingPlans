@@ -278,7 +278,9 @@ export interface CurrentApplicationBeingViewed {
   currentStatus: string;
   fullName: string;
   userID: string;
-  
+  architectUserID: string; 
+  activationDate: any;
+  activationConfirmed: boolean;
 }
   //Service Information Kyle 31/01/24
 
@@ -364,7 +366,7 @@ export class BpActionCenterComponent implements OnInit {
     ActionCenter: boolean = false;
     LSAdminRole: boolean = false;
     TPAdminRole: boolean = false;
-
+  isBuildingInspector: boolean = false; 
   //  loggedInUserName: any;
   /*textfields*/
 
@@ -8090,8 +8092,18 @@ export class BpActionCenterComponent implements OnInit {
         tempApplication.currentStage = current.stage;
         tempApplication.fullName = current.firstName + " " + current.surname;
         tempApplication.userID = current.userID;
+        tempApplication.architectUserID = current.architectedUserID; 
         tempApplication.currentStatus = current.status;
         tempApplication.BPApplicationType = current.bpApplicationType;
+
+        if (current.activationDate != null) {
+          tempApplication.activationDate = current.activationDate.substring(0, current.activationDate.indexOf("T"));
+        }
+        else {
+          tempApplication.activationDate = current.activationDate;
+        }
+        tempApplication.activationConfirmed = current.activationConfirmed; 
+
         this.CurrentApplicationBeingViewed.push(tempApplication);
         debugger;
         if (tempApplication.currentStage == "Closed" && tempApplication.userID == this.CurrentUser.appUserId) {
@@ -8108,6 +8120,7 @@ export class BpActionCenterComponent implements OnInit {
       console.log("Error: ", error);
     })
   }
+
 
 
   moveToPaidBPApplication() {
@@ -8423,7 +8436,8 @@ export class BpActionCenterComponent implements OnInit {
       }, error => {
         console.log("getConfigsByConfigNameError: ", error);
       })
-    
+
+
   }
 
   MoveApplicationToDistribution() {
@@ -8644,6 +8658,9 @@ export class BpActionCenterComponent implements OnInit {
       }
       if (roleName == 'TP Admin') {
         this.TPAdminRole = true;
+      }
+      if (roleName == 'Building Inspector') {
+        this.isBuildingInspector = true;
       }
 
     }
@@ -9300,6 +9317,49 @@ export class BpActionCenterComponent implements OnInit {
   
   }
 
+
+  ActivateBuildingPlan() {
+    if (confirm("Are you sure you want to activate this plan?")) {
+      this.applicationService.UpdatePlanActivationStatus(this.ApplicationID, true).subscribe((data: any) => {
+        if (data.responseCode == 1) {
+          alert(data.responseMessage);
+          this.router.navigate(["/home"])
+        }
+        else {
+          alert(data.responseMessage);
+        }
+      }, error => {
+        console.log("Plan Activation Error", error);
+      })
+    }
+    else {
+      // nothing to be done if yes is not selected 
+    }
+    
+  }
+
+  confirmPlanActivation() {
+
+    if (confirm("Do you confirm that the current building application was activated from " + this.CurrentApplicationBeingViewed[0].activationDate)) {
+      this.applicationService.confirmPlanActivation(this.ApplicationID, true).subscribe((data: any) => {
+        if (data.responseCode == 1) {
+          alert(data.responseMessage);
+          this.router.navigate(["/home"]);
+        }
+        else {
+          alert(data.responseMessage);
+        }
+      }, error => {
+        console.log("Plan Activation Confirmation Error", error);
+      })
+    }
+
+    else {
+      //nothing to be done if the activation is not confirmed 
+    }
+
+  }
+  
 
 }
 

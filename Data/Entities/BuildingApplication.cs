@@ -70,6 +70,7 @@ namespace BuildingPlans.Data.Entities
 
        public bool? isActivated { get; set; } 
        public DateTime? ActivationDate { get; set; }  
+       public bool? ActivationConfirmed { get; set; } 
 
     }
 }
