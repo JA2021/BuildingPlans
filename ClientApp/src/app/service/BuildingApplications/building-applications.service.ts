@@ -167,4 +167,12 @@ export class BuildingApplicationsService {
 
     return this.httpClient.post(this.baseURL + "ConfirmPlanActivation", body);
   }
+
+  public getAllRelaxationRequestsForUser(userID : string | null) {
+    const body = {
+      UserID :userID
+    }
+
+    return this.httpClient.post(this.baseURL + "GetAllRelaxationRequestsForUser", body);
+  }
 }

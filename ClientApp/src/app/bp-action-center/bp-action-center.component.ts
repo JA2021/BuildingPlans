@@ -5706,8 +5706,8 @@ selectedComments.forEach((comment, index) => {
   }
 
   openAssignToUser(assignProjectToUser: any) {
-    this.getAllReviewers();
-    this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
+    this.getAllReviewers(assignProjectToUser);
+    
   }
   openAssignToUserGISReviewer(assignProjectToUserGISReviewer: any) {
     this.modalService.open(assignProjectToUserGISReviewer, { backdrop: 'static', size: 'xl' });
@@ -8901,8 +8901,11 @@ selectedComments.forEach((comment, index) => {
   }
 
 
-  getAllReviewers() {
+  getAllReviewers(assignProjectToUser:any) {
     debugger;
+
+    this.ReviewerUserList.splice(0, this.ReviewerUserList.length);
+
     if (this.LSAdminRole == true) {
       this.bpAccessGroupUserLinkService.getPeopleByAccessGroupAndSubDept(11, this.loggedInUsersDepartmentID).subscribe((data: any) => {
         if (data.responseCode == 1) {
@@ -8923,6 +8926,10 @@ selectedComments.forEach((comment, index) => {
                   this.ReviewerUserList.push(tempZoneList);
                   console.log("Got All LS Review Users", this.ReviewerUserList);
                 }
+
+                this.dataSourceViewLSUsersForLink = this.ReviewerUserList;
+                this.LSReviewerListTable?.renderRows();
+                this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
               }
               else {
                 alert(data.responseMessage)
@@ -8931,7 +8938,7 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
-          this.LSReviewerListTable?.renderRows();
+         
         }
         else {
           alert(data.responseMessage)
@@ -8968,7 +8975,9 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
+          this.dataSourceViewLSUsersForLink = this.ReviewerUserList;
           this.LSReviewerListTable?.renderRows();
+          this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
         }
         else {
           alert(data.responseMessage)
@@ -8980,7 +8989,7 @@ selectedComments.forEach((comment, index) => {
     else {
 
     }
-
+    
   }
 
 
