@@ -1328,8 +1328,8 @@ namespace BuildingPlans.Controllers
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
             }
         }
-    }
-}
+    
+
         [HttpPost("GetAllRelaxationRequestsForUser")]
         public async Task<object> GetAllRelaxationRequestsForUser([FromBody] BuildingApplicationBindingModel model)
         {
