@@ -37,12 +37,13 @@ h3 span {
   overflow: auto;
 }
 .mat-horizontal-stepper .mat-step mat-horizontal-stepper mat-step #stepper {
-  background: #ffffff30 !important;
+  background: #ffffff33 !important;
+  -webkit-backdrop-filter: blur(15px) !important;
   backdrop-filter: blur(15px) !important;
+  box-shadow: 0 0 7px 4px #0000003b !important;
   border-radius: 10px !important;
-  box-shadow: 0px 0px 12px 2px #00000038 !important;
-  max-height: 593px !important;
-  overflow: auto !important;
+  height: 8vh !important;
+  overflow: hidden;
 }
 .card {
   box-shadow: 0 4px 8px 0 #262626, 0 6px 20px 0 #71717100;

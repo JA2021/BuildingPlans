@@ -2,8 +2,8 @@
   <button mat-raised-button color="infoBTN"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/bolt.svg" class="icon"></button>
   <button mat-raised-button color="createWayleave" (click)="actionCentreView(content)" *ngIf="ActionCenter == true">Show My Actions</button>
   <div class="applicantActions" *ngIf="ActionCenter == false">
-    <button mat-raised-button color="applicantBTN" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus == 'Relaxation Pending'" (click)="applyForRelaxation()"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid.svg" class="icon">  Apply For Relaxation</button>
-    <button mat-raised-button color="applicantBTN" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'Closed'" (click)="applyForBuildingPLans()"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid.svg" class="icon">  Create Building plans Application</button>
+    <button mat-raised-button color="applicantBTN" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus == 'Relaxation Pending'" (click)="applyForRelaxation()"> Apply For Relaxation</button>
+    <button mat-raised-button color="applicantBTN" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'Closed'" (click)="applyForBuildingPLans()"> Create Building plans Application</button>
   </div>
 </div>
 
@@ -70,7 +70,7 @@
 
       <!--       #region Land Survey Review Actions -->
 
-      <div class="cont2" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'LS Review' && AssignUserForComment ||this.CurrentApplicationBeingViewed[0].currentStage == 'LS Relaxation' && AssignUserForComment  ">
+      <div class="cont2" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'LS Review' && AssignUserForComment ||this.CurrentApplicationBeingViewed[0].currentStage == 'LS Relaxation'">
         <p>LS Reviewer</p>
 
         <mat-form-field class="example-full-width">
@@ -202,7 +202,7 @@
       <!-- #region Land survey departments review -->
       <div class="cont2" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus == 'Distribution' && !LSReviewerRole && this.CurrentApplicationBeingViewed[0].currentStage == 'Distribution'">
         <mat-form-field class="example-full-width">
-          <mat-label>Type new Comment/Special Condition. Please also make reference to the Services Conditions tab, if documents have been uploaded.</mat-label>
+          <mat-label>Type new Comment/Special Condition.</mat-label>
           <textarea matInput [(ngModel)]="leaveAComment" placeholder="Eg. This is good" id="myTextarea" maxlength="250" (input)="updateCharacterCount()"></textarea>
           <div>{{ leaveAComment.length }}/250</div>
         </mat-form-field>

@@ -747,7 +747,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.sharedService.setFromReApplyArchive(false);
       // #endregion
     /* this.GetAllApplications();*/
-    this.getAllSystemApplications();
+
       this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
       this.CurrentUser = JSON.parse(this.stringifiedData);
       this.getAllStages();
@@ -761,7 +761,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log("Is this the directorate?", this.CurrentUserProfile[0].directorate);
       // #endregion
 
-
+   
       // #region escalation Sindiswa 30 Janu
       // #endregion
       //Audit Trail Kyle
@@ -809,14 +809,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 /*      this.onToggleChange(this.selectedVal);*/
       /*      this.initializeApp();*/
       //this.function();
-  
+    this.getAllSystemApplications();
     this.getAllDraftApplications();
     //this.defaultPageSize = 10;
   }
 /*  dataSourceLinkUsers = new MatTableDataSource<ClientUserList>([]);*/
-  ngAfterViewInit() {
-
-  }
 
 
   //builder's break banner
@@ -8180,10 +8177,10 @@ this.subscriptions.push(subscription);
           tempApplication.Latitude = current.latitude;
           tempApplication.Longitude = current.longitude;
 
-          if (current.createdById != null) {
+/*          if (current.createdById != null) {
             const originator: string = await this.getOriginatorName(current.createdById);
             tempApplication.Originator = originator;
-          }
+          }*/
         
 
           const address = current.physicalAddress
