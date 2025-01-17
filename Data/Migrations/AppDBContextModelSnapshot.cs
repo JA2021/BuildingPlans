@@ -672,6 +672,37 @@ namespace BuildingPlans.Data.Migrations
                     b.ToTable("BPBannerApplication");
                 });
 
+            modelBuilder.Entity("BuildingPlans.Data.Entities.BPBuildingControlChecklist", b =>
+                {
+                    b.Property<int?>("BuildingControlChecklistID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("BuildingControlChecklistID"), 1L, 1);
+
+                    b.Property<string>("ChecklistItem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FunctionalArea")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("BuildingControlChecklistID");
+
+                    b.ToTable("BPBuildingControlChecklist");
+                });
+
             modelBuilder.Entity("BuildingPlans.Data.Entities.BPComments", b =>
                 {
                     b.Property<int>("CommentID")
@@ -780,6 +811,43 @@ namespace BuildingPlans.Data.Migrations
                     b.HasKey("ComplaintID");
 
                     b.ToTable("BPComplaints");
+                });
+
+            modelBuilder.Entity("BuildingPlans.Data.Entities.BPConstructionChecklists", b =>
+                {
+                    b.Property<int?>("ConstructionChecklistID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ConstructionChecklistID"), 1L, 1);
+
+                    b.Property<int?>("ApplicationID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChecklistItem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsChecked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isApplicable")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ConstructionChecklistID");
+
+                    b.ToTable("BPConstructionChecklists");
                 });
 
             modelBuilder.Entity("BuildingPlans.Data.Entities.BPDemolitionApplication", b =>
@@ -1284,6 +1352,49 @@ namespace BuildingPlans.Data.Migrations
                     b.ToTable("BPFunctionalAreas");
                 });
 
+            modelBuilder.Entity("BuildingPlans.Data.Entities.BPInspections", b =>
+                {
+                    b.Property<int?>("InspectionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("InspectionID"), 1L, 1);
+
+                    b.Property<int?>("ApplicationID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateInspected")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Inspected")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("InspectionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("InspectionID");
+
+                    b.ToTable("BPInspections");
+                });
+
             modelBuilder.Entity("BuildingPlans.Data.Entities.BPMandatoryDepartmentDocuments", b =>
                 {
                     b.Property<int?>("DocumentID")
@@ -1675,6 +1786,9 @@ namespace BuildingPlans.Data.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FunctionalArea")
                         .HasColumnType("nvarchar(max)");
 
@@ -1742,6 +1856,12 @@ namespace BuildingPlans.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationID"), 1L, 1);
+
+                    b.Property<bool?>("ActivationConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ActivationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("AddressType")
                         .HasColumnType("nvarchar(max)");
@@ -1901,6 +2021,9 @@ namespace BuildingPlans.Data.Migrations
 
                     b.Property<string>("ValueOfProperty")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isActivated")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");

@@ -135,6 +135,10 @@ import { BPTasksComponent } from './bptasks/bptasks.component';
 import { BPApplicationChecklistComponent } from './bpapplication-checklist/bpapplication-checklist.component';
 import { BPFunctionalAreaComponent } from './bpfunctional-area/bpfunctional-area.component'
 import { BugsConfigComponent } from './bugs-config/bugs-config.component';
+import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-controls-checklist-config/bpbuilding-controls-checklist-config.component';
+import { BPConstructionStagesComponent } from './bpconstruction-stages/bpconstruction-stages.component';
+import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpconstruction-checklist.component';
+
 //import { MatExpansionModule } from '@angular/material/expansion';
 
 //import { MapModule } from 'arcgis-js-api';
@@ -254,6 +258,9 @@ import { BugsConfigComponent } from './bugs-config/bugs-config.component';
     BPApplicationChecklistComponent,
     BPFunctionalAreaComponent,
     BugsConfigComponent,
+    BPBuildingControlsChecklistConfigComponent,
+    BPConstructionStagesComponent,
+    BPConstructionChecklistComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -368,6 +375,9 @@ import { BugsConfigComponent } from './bugs-config/bugs-config.component';
     CreateNewApplicationComponent,
     BPApplicationChecklistComponent,
     BugsConfigComponent,
+    BPBuildingControlsChecklistConfigComponent,
+    BPConstructionStagesComponent,
+    BPConstructionChecklistComponent,
   
   ],
   bootstrap: [AppComponent]

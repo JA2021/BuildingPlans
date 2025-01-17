@@ -12,7 +12,7 @@ import { Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { concat } from 'rxjs';
 import { NavMenuComponent } from '../nav-menu/nav-menu.component';
-
+import { BPNotificationsService } from '../service/BPNotifications/bpnotifications.service';
 export interface NotificationsList {
   NotificationID: number;
   NotificationName: string;
@@ -116,7 +116,7 @@ export class NotificationCenterComponent implements OnInit {
   viewNotification: any;
 
   constructor(private modalService: NgbModal, private sharedService: SharedService, private userProfileService: UserProfileService, private notificationService: NotificationsService, private applicationService: ApplicationsService, private hhtp: HttpClient, private router: Router, private dialog: MatDialog, /*routeToProject*/
-    private viewContainerRef: ViewContainerRef) { }
+    private viewContainerRef: ViewContainerRef, private bpNotificationsService: BPNotificationsService) { }
  fakeDatenow: any = new Date();
   ngOnInit(): void {
 
@@ -149,7 +149,7 @@ export class NotificationCenterComponent implements OnInit {
  const secondObservable = this.notificationService.getNotificationsForUserID(this.CurrentUser.appUserId);
 
    concat(firstObservable, secondObservable).subscribe(*/
-    this.notificationService.getNotificationsForUserID(this.CurrentUser.appUserId).subscribe(
+    this.bpNotificationsService.getAllNewNotificationsForUser(this.CurrentUser.appUserId).subscribe(
       (data: any) => {
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
@@ -200,7 +200,7 @@ export class NotificationCenterComponent implements OnInit {
     this.dialog.closeAll();
 
     this.NotificationsList.splice(0, this.NotificationsList.length);
-    this.notificationService.getNotificationByNotificationID(notificationID).subscribe((data: any) => {
+    this.bpNotificationsService.getNotificationByNotificationID(notificationID).subscribe((data: any) => {
 
       if (data.responseCode == 1) {
 
@@ -223,20 +223,20 @@ export class NotificationCenterComponent implements OnInit {
           this.ApplicationID = current.applicationID;
           this.MessageList = tempNotificationsList;
           // checkingNotifications Sindiswa 12 February 2024
-          this.notificationService.addUpdateNotification(tempNotificationsList.NotificationID, tempNotificationsList.NotificationName, tempNotificationsList.NotificationDescription, tempNotificationsList.IsRead, null, tempNotificationsList.ApplicationID, null, tempNotificationsList.Message).subscribe((data: any) => {
+          //this.bpNotificationsService.addUpdateNotification(tempNotificationsList.NotificationID, tempNotificationsList.NotificationName, tempNotificationsList.NotificationDescription, tempNotificationsList.IsRead, null, tempNotificationsList.ApplicationID, null, tempNotificationsList.Message).subscribe((data: any) => {
 
-            if (data.responseCode == 1) {
-              /*alert(data.responseMessage);*/
+          //  if (data.responseCode == 1) {
+          //    /*alert(data.responseMessage);*/
 
-            }
-            else {
-              alert(data.responseMessage);
-            }
+          //  }
+          //  else {
+          //    alert(data.responseMessage);
+          //  }
 
-            console.log("response", data);
-          }, error => {
-            console.log("Error", error);
-          })
+          //  console.log("response", data);
+          //}, error => {
+          //  console.log("Error", error);
+          //})
 
 
 
@@ -550,7 +550,8 @@ export class NotificationCenterComponent implements OnInit {
   }
   //#region notifications Sindiswa 12 February 2024
   updateCount() {
-    window.location.reload(); // Uhh, there has to be a better way
+    /* window.location.reload(); */// Uhh, there has to be a better way
+    this.modalService.dismissAll();
   }
   //#endregion
   getUserInfo() {
@@ -723,6 +724,8 @@ export class NotificationCenterComponent implements OnInit {
     this.router.navigate(["/view-project-info"]);
   }
   //#endregion
+
+  
 }
 
 

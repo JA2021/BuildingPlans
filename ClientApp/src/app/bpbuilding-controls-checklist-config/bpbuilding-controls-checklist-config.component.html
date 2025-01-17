@@ -1,0 +1,54 @@
+<button mat-raised-button color="create" (click)=" openAddNewChecklistItem(addChecklistItem)">Add New Building Control Checklist Item</button>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="ChecklistItem">
+    <th mat-header-cell *matHeaderCellDef>Checklist Item</th>
+    <td mat-cell *matCellDef="let element">{{element.ChecklistItem}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let i = index">
+      <button mat-raised-button color="orange" matToolTip="View Checklist Item"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/pencil.svg" class="icon4" /> </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
+</table>
+
+
+<ng-template #addChecklistItem let-modal class="mat-elevation-z8">
+
+  <div class="modal-header">
+    <h4 class="modal-title"> Adding a new Checklist Item</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross Click')"></button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col">
+        <div class="form-floating mb-3 mt-3">
+          <input type="text" class="form-control" [(ngModel)]="newFunctionalArea" name="newFunctionalArea" placeholder="Enter functional Area" disabled>
+          <label for="newFunctionalArea">Functional Area * </label>
+        </div>
+      </div>
+    </div>
+  
+
+  <div class="row">
+    <div class="col">
+      <div class="form-floating mb-3 mt-3">
+        <input type="text" class="form-control" [(ngModel)]="newChecklistItem" name="newChecklistItem" placeholder="Enter  new checklist item">
+        <label for="newChecklistItem">Checklist Item * </label>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-success" (click)=" AddUpdateBuildingControlChecklistItem()">Save</button>
+  </div>
+</ng-template>

@@ -147,7 +147,7 @@ namespace BuildingPlans.Controllers
             try
             {
                 var result = await (from notifications in _context.BPNotifications
-                                    where notifications.UserId == model.UserID && notifications.isActive == true 
+                                    where notifications.UserId == model.UserID  && notifications.isActive == true 
                                     && notifications.isRead == false
                                     select new NotificationDTO()
                                     {

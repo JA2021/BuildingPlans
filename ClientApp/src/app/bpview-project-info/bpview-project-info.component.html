@@ -261,14 +261,19 @@
 
               <p class="currentStageText">This {{bpApplicationType}} application is Currently at a {{currentStage}} stage.</p>
             </mat-tab>
-            <mat-tab label="Stage Checklist"  *ngIf="this.CurrentUserProfile[0].isInternal == true && showChecklist && currentStage == 'Building Inspector'" >
+            <mat-tab label="Stage Checklist" *ngIf="this.CurrentUserProfile[0].isInternal == true && showChecklist && currentStage == 'Building Inspector'">
               <app-bpapplication-checklist [ApplicationID]="applicationId"
                                            [StageName]="currentStage"
                                            [FunctionalArea]="bpApplicationType"></app-bpapplication-checklist>
             </mat-tab>
+
             <mat-tab label="Tasks" *ngIf="currentStage == 'Building Inspector'">
               <app-bptasks></app-bptasks>
-</mat-tab>
+            </mat-tab>
+
+            <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist" >
+              <app-bpconstruction-stages></app-bpconstruction-stages>
+            </mat-tab>
           </mat-tab-group>
 
 
@@ -793,7 +798,7 @@
           </div>
         </div>
 
-        <p class="projectTimeLine" >Project TimeLine</p>
+        <p class="projectTimeLine">Project TimeLine</p>
         <div class="generalcomments" *ngIf="this.CurrentUserProfile[0].isInternal == true">
 
           <div *ngFor="let comment of CommentsList ; let i = index">
@@ -824,6 +829,10 @@
       </mat-tab>
       <mat-tab label="Tasks" *ngIf="this.CurrentUserProfile[0].isInternal == true && currentStage == 'Building Inspector'">
         <app-bptasks></app-bptasks>
+      </mat-tab>
+
+      <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist">
+        <app-bpconstruction-stages></app-bpconstruction-stages>
       </mat-tab>
     </mat-tab-group>
   </div>
