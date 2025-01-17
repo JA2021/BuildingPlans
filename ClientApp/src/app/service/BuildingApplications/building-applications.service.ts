@@ -138,4 +138,12 @@ export class BuildingApplicationsService {
   public getAllDraftApplications() {
     return this.httpClient.get(this.baseURL + "GetAllDraftApplications");
   }
+
+  public getAllRelaxationRequestsForUser(userID : string | null) {
+    const body = {
+      UserID :userID
+    }
+
+    return this.httpClient.post(this.baseURL + "GetAllRelaxationRequestsForUser", body);
+  }
 }

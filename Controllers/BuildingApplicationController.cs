@@ -1135,6 +1135,35 @@ namespace BuildingPlans.Controllers
         }
 
 
-        
+        [HttpPost("GetAllRelaxationRequestsForUser")]
+        public async Task<object> GetAllRelaxationRequestsForUser([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                if(model.UserID == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var result = await (from buildingApplication in _context.BuildingApplications
+                                        where (buildingApplication.UserID == model.UserID || buildingApplication.ArchitectUserID == model.UserID) && buildingApplication.Status == "Relaxation Pending" && buildingApplication.isActive == true
+                                        select new BuildingApplicationDTO()
+                                        {
+                                            ApplicationID = buildingApplication.ApplicationID,
+                                            LSNumber = buildingApplication.LSNumber,
+                                            BPApplicationID = buildingApplication.BPApplicationID,
+
+                                        }).ToListAsync();
+
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got all requests for relaxation", result));
+                }
+            }
+            catch(Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+
+            }
+        }
     }
 }
