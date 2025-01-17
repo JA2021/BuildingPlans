@@ -221,6 +221,7 @@
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/retweet-solid-purple.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Reviewer Requested Relaxation' || element.CommentStatus === 'TP Reviewer Requested Relaxation'" matTooltip="Requested Relaxation">
                       <!-- projectTracker Sindiswa 12 January 2024 -->
                       <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
 
@@ -270,7 +271,7 @@
               <app-bptasks></app-bptasks>
             </mat-tab>
 
-            <mat-tab label="Contruction Stage Checklist" >
+            <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist" >
               <app-bpconstruction-stages></app-bpconstruction-stages>
             </mat-tab>
           </mat-tab-group>
@@ -830,7 +831,7 @@
         <app-bptasks></app-bptasks>
       </mat-tab>
 
-      <mat-tab label="Contruction Stage Checklist">
+      <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist">
         <app-bpconstruction-stages></app-bpconstruction-stages>
       </mat-tab>
     </mat-tab-group>

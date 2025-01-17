@@ -63,5 +63,10 @@ namespace BuildingPlans.Models.BindingModel
         public string? TypeOfExcavation { get; set; }
         public string? NatureOfWorks { get; set; }
 
+        public bool? isActivated { get; set; }
+        public DateTime? ActivationDate { get; set; }
+        public bool? ActivationConfirmed { get; set; }
+
+
     }
 }
