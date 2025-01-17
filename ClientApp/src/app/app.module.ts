@@ -138,6 +138,7 @@ import { BugsConfigComponent } from './bugs-config/bugs-config.component';
 import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-controls-checklist-config/bpbuilding-controls-checklist-config.component';
 import { BPConstructionStagesComponent } from './bpconstruction-stages/bpconstruction-stages.component';
 import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpconstruction-checklist.component';
+import { BpReusableModalsModule } from './bp-reusable-modals/bp-reusable-modals.module';
 
 //import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -323,7 +324,8 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
       { path: 'bpdemolition-application', component: BPDemolitionApplicationComponent },
       { path: 'bpsignage-application', component: BPSignageApplicationComponent },
       { path: 'bpbanner-application', component: BPBannerApplicationComponent },
-    ])
+    ]),
+    BpReusableModalsModule,
   ],
   providers: [
     //InitializationService,

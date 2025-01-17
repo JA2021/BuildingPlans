@@ -8210,7 +8210,7 @@ this.subscriptions.push(subscription);
             //const originator: string = await this.getOriginatorName(current.createdById);
             //tempApplication.Originator = originator;
           }
-        
+
 
           const address = current.physicalAddress
             ? (current.physicalAddress.includes(",") ? current.physicalAddress.split(",") : [current.physicalAddress])
