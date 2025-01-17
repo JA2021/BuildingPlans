@@ -65,7 +65,9 @@ import { NeighbourConsentService } from '../service/NeighbourConsent/neighbour-c
 import { BPStagesChecklistsService } from '../service/BPStagesChecklists/bpstages-checklists.service';
 import { BPApplicationChecklistService } from '../service/BPApplicationChecklists/bpapplication-checklist.service';
 import { BPServiceItemsService } from '../service/BPServiceItems/bpservice-items.service';
-import { BPConstructionChecklistService } from '../service/BPConstructionChecklist/bpconstruction-checklist.service'; 
+import { BPConstructionChecklistService } from '../service/BPConstructionChecklist/bpconstruction-checklist.service';
+import { CommentsModalComponent } from '../bp-reusable-modals/comments-modal/comments-modal.component';
+import { BPDocumentsUploadsService } from 'src/app/service/BPDocumentsUploads/bpdocuments-uploads.service';
 //Audit Trail Kyle
 declare var tinymce: any;
 
@@ -278,7 +280,11 @@ export interface CurrentApplicationBeingViewed {
   currentStatus: string;
   fullName: string;
   userID: string;
-  
+  architectUserID: string;
+  activationDate: any;
+  activationConfirmed: boolean;
+  physicalAddress: string;
+
 }
   //Service Information Kyle 31/01/24
 
@@ -335,6 +341,7 @@ export class BpActionCenterComponent implements OnInit {
   MandatoryDocumentUploadList: MandatoryDocumentUploadList[] = [];
   MandatoryDocumentsLinkedStagesList = new BehaviorSubject<MandatoryDocumentsLinkedStagesList[]>([]);
 
+
   currentDate = new Date();
   datePipe = new DatePipe('en-ZA');
   formattedDate = this.datePipe.transform(this.currentDate, 'yyyy-MM-dd');
@@ -364,7 +371,7 @@ export class BpActionCenterComponent implements OnInit {
     ActionCenter: boolean = false;
     LSAdminRole: boolean = false;
     TPAdminRole: boolean = false;
-
+  isBuildingInspector: boolean = false;
   //  loggedInUserName: any;
   /*textfields*/
 
@@ -381,7 +388,7 @@ export class BpActionCenterComponent implements OnInit {
         image.src = e.target.result;
         image.onload = (rs) => {
           let imgBase64Path = e.target.result;
-          //  console.log("e.target.result", e.target.result); 
+          //  console.log("e.target.result", e.target.result);
         };
       };
       reader.readAsDataURL(imgFile.target.files[0]);
@@ -580,13 +587,14 @@ export class BpActionCenterComponent implements OnInit {
     private bpStageChecklistService: BPStagesChecklistsService,
     private bpApplicationChecklistService: BPApplicationChecklistService,
     private bpServiceItemsService: BPServiceItemsService,
-    private bpConstructionChecklistService: BPConstructionChecklistService
+    private bpConstructionChecklistService: BPConstructionChecklistService,
+    private bpDocumentUploadService: BPDocumentsUploadsService
 ) { }
 
   ngOnInit(): void {
     // setTimeout(() => {
     //this.getDepartmentManagerUserID();
-    //Get Current Application Infomation 
+    //Get Current Application Infomation
     this.EMBLoggedIn = this.sharedService.getIsEMBUser();
     this.initializeTinyMCE();
     this.applicationData = this.sharedService.getViewApplicationIndex();
@@ -631,8 +639,8 @@ export class BpActionCenterComponent implements OnInit {
     //this.newAssignORReassign(); //actionCentreEdits Sindiswa 16 January 2024
     this.checkUserAssignSituation(); //actionCentreEdits Sindiswa 18 January 2024
 /*    this.getAllUsersLinkedToZone(this.loggedInUsersSubDepartmentID);*/
-  
-   
+
+
     this.bpApplicationId = this.sharedService.getApplicationID();
     this.getApplicationInfo();
     debugger;
@@ -657,11 +665,11 @@ export class BpActionCenterComponent implements OnInit {
     this.CheckApplicant();
     /*this.setProjectNumber();*/
     this.getAllDocumentsForServiceInformation();
-   
+
 
     console.log("BP Action Center ApplicationID ", this.ApplicationID);
     debugger;
-  
+
 /*    this.GetSubDepartment();*/
 /*    this.getAllDepartmentsForCommentForBPApplication();*/
 
@@ -691,7 +699,7 @@ export class BpActionCenterComponent implements OnInit {
   occupationClassification: string;
   buildingPlanFor: string;
   physicalAddress: string;
-  
+
   sGCode: string;
 
   functionalArea: string;
@@ -753,7 +761,7 @@ export class BpActionCenterComponent implements OnInit {
   initializeTinyMCE() {
 
     tinymce.init({
-      selector: '#myTextarea', // Replace with the ID of your textarea 
+      selector: '#myTextarea', // Replace with the ID of your textarea
       plugins: ['lists', 'textcolor'],
       toolbar: 'bold italic | numlist bullist forecolor backcolor',
       menubar: false
@@ -981,8 +989,8 @@ export class BpActionCenterComponent implements OnInit {
     })
     //Delete Uploader Kyle 29-01-24
   }
-  
- 
+
+
   getAllStages() {
 
     this.StagesList.splice(0, this.StagesList.length);
@@ -1003,7 +1011,7 @@ export class BpActionCenterComponent implements OnInit {
           // this.sharedService.setStageData(this.StagesList);
         }
         this.CanComment();
-     
+
         console.log("this.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesListthis.StagesList ", this.StagesList);
       }
       else {
@@ -1211,7 +1219,7 @@ export class BpActionCenterComponent implements OnInit {
       console.log("Error: ", error);
     })
   }
-  
+
   getPreviousReviewerUserID() {
 
 
@@ -1368,7 +1376,7 @@ export class BpActionCenterComponent implements OnInit {
   }
 
 
- 
+
 
   onManuallyAssignUser() {
     if (confirm("Are you sure you what to assign this project to " + this.UserSelectionForManualLink.selected[0].fullName + "?")) {
@@ -1611,7 +1619,7 @@ export class BpActionCenterComponent implements OnInit {
           console.log("BuildingApplicationError: ", error)
         })
       }
-     
+
     }
     else {
 
@@ -1630,7 +1638,7 @@ export class BpActionCenterComponent implements OnInit {
           this.viewProjectInfoComponent.getAllComments();
           this.refreshParent.emit();
 
-      
+
 
 
           this.notificationsService.sendEmail(this.UserSelectionForManualLink.selected[0].Email, "Review Wayleave Application", emailContent, emailContent);
@@ -1675,7 +1683,7 @@ export class BpActionCenterComponent implements OnInit {
   }
   /*JJS 13-03-24*/
   /*JJS 07-03-24 GIS Reviewer*/
- 
+
 
   getUsersByRoleName(roleName?: string | null) {
     debugger;
@@ -2005,7 +2013,7 @@ export class BpActionCenterComponent implements OnInit {
       null, null, null, null, null, null, null,
       null, null, null, null, null, null, "Relaxation", "TP Relaxation - Paid", 2, null, null, null, null, null, null, null, null, null, null, null, null,null).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
           /*            this.CreateNotification(this.CurrentUser.appUserId);
                       this.CreateNotification(this.clientUserID);*/
           /*  this.moveToFinalApprovalForDepartment();*/
@@ -2080,7 +2088,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -2290,9 +2298,9 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
-       
+
         case "ApproveLSAdmin": {
 
 
@@ -2337,7 +2345,7 @@ export class BpActionCenterComponent implements OnInit {
               else {
                 alert("Error With Fetching getDepForCommentByID");
               }
-              
+
 
             }
             else {
@@ -2436,9 +2444,9 @@ export class BpActionCenterComponent implements OnInit {
                       null, null, null, null, null, null, null, null, null,
                       null, null, null, null, null, null, null,
                       null, null, null, null, null, null, "Submission Plan", "TP Review", 1, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-          
+
                         if (data.responseCode == 1) {
-          
+
                           *//*            this.CreateNotification(this.CurrentUser.appUserId);
                       this.CreateNotification(this.clientUserID);*//*
 *//*  this.moveToFinalApprovalForDepartment();*//*
@@ -2485,7 +2493,7 @@ export class BpActionCenterComponent implements OnInit {
                             null, null, null, null, null, null, "Approved(Pending)", "LS Review", 1, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
 
                               if (data.responseCode == 1) {
-                                
+
                                 this.AddComment("LS Approved", this.currentBPDepartmentforCommentID);
                                 this.AddStageChecklistForApplication("LS Review");
                               }
@@ -2584,7 +2592,7 @@ export class BpActionCenterComponent implements OnInit {
         case "LSRelaxationRequest": {
 
                 this.bpDepartmentForCommentService.getDepartmentForCommentByDepID(this.ApplicationID, this.loggedInUsersDepartmentID, this.CurrentUserProfile[0].userID).subscribe((data: any) => {
-             
+
                   if (data.responseCode == 1) {
 
 
@@ -2673,7 +2681,7 @@ export class BpActionCenterComponent implements OnInit {
           })
           break;
 
-         
+
         }
 
         case "Clarify": {
@@ -2693,7 +2701,7 @@ export class BpActionCenterComponent implements OnInit {
             }, error => {
               console.log("BuildingApplicationError: ", error)
             })
-        
+
           break;
         }
         case "Refer": {
@@ -2735,15 +2743,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
                 this.accessGroupsService.GetUserAndZoneBasedOnRoleName("Senior Reviewer", this.loggedInUsersSubDepartmentID).subscribe((data: any) => {
@@ -2784,15 +2792,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}. Kindly login to the Wayleave Management System and provide input.</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
                       this.notificationsService.sendEmail(approver.email, "Request for Perusal", emailContent12, emailContent12);
                     });
@@ -2874,7 +2882,7 @@ export class BpActionCenterComponent implements OnInit {
     }
   }
 
-  
+
   currentBPDepartmentforCommentID: any;
   countApproveBP = 0;
 
@@ -2883,7 +2891,7 @@ export class BpActionCenterComponent implements OnInit {
     this.bpDepartmentForCommentService.getDepartmentForComment(this.ApplicationID).subscribe((data: any) => {
       if (data.responseCode === 1) {
         this.countApproveBP = 0; // Initialize countApproveBP
-        
+
         for (let i = 0; i < this.BPDepartmentsForCommentList.length; i++) {
           if (data.dateSet[i] && data.dateSet[i].isFinalApproved === true) {
             this.countApproveBP++;
@@ -2900,7 +2908,7 @@ export class BpActionCenterComponent implements OnInit {
             this.moveApplicationToPlanExaminer();
           }
           else {
-    
+
           }
 
         } else {
@@ -2997,7 +3005,7 @@ export class BpActionCenterComponent implements OnInit {
           break;
         }
       }
-    
+
   }
   }
   onBPComment(interact: any) {
@@ -3011,33 +3019,33 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
 
           this.bpDepartmentForCommentService.getDepartmentForCommentByDepID(this.ApplicationID, this.loggedInUsersDepartmentID, this.CurrentUserProfile[0].userID).subscribe((data: any) => {
-            
+
             if (data.responseCode == 1) {
-              
+
               const current = data.dateSet[0];
               this.currentBPDepartmentforCommentID = data.dateSet[0].bpDepartmentForCommentID;
 /*check approve count*/        console.log("BPDepartmentsForCommentList2", this.BPDepartmentsForCommentList);
-             
-              
+
+
 
 
 /*Updating the department for comments table after getting the ID for the row*/
-              
+
               this.bpDepartmentForCommentService.updateCommentStatus(this.currentBPDepartmentforCommentID, "Approved", false, null, true).subscribe((data: any) => {
-             
+
              if (data.responseCode == 1) {
-               
-               
+
+
                this.checkCountForApprovals();
                this.openSnackBar("Application Actioned");
                this.router.navigate(["/home"]);
-              
+
             }
             else {
               alert(data.responseMessage)
@@ -3053,7 +3061,7 @@ export class BpActionCenterComponent implements OnInit {
             console.log("BuildingApplicationError: ", error)
           })
 
-         
+
 
 
 
@@ -3129,15 +3137,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -3179,15 +3187,15 @@ export class BpActionCenterComponent implements OnInit {
                <p >Please login to the <a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a> and provide a response</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -3301,15 +3309,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
                 this.accessGroupsService.GetUserAndZoneBasedOnRoleName("Senior Reviewer", this.loggedInUsersSubDepartmentID).subscribe((data: any) => {
@@ -3350,15 +3358,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}. Kindly login to the Wayleave Management System and provide input.</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
                       this.notificationsService.sendEmail(approver.email, "Request for Perusal", emailContent12, emailContent12);
                     });
@@ -3440,6 +3448,213 @@ export class BpActionCenterComponent implements OnInit {
     }
   }
 
+
+  generateReferralLetter(selectedComments: any[]): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        console.log('Starting referral letter generation');
+
+        const doc = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        // Add logo
+        console.log('Adding logo');
+        const img = new Image();
+        img.src = 'assets/Msunduzi-logo-new2.png';
+        doc.addImage(img, 'png', 10, 10, 35, 35);
+
+        // Title
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text('Msunduzi Muncipality', 105, 20, { align: 'center' });
+        doc.text('Referral Letter', 105, 30, { align: 'center' });
+
+        // Left address block
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text('Private Bag X 205', 10, 55);
+        doc.text('PIETERMARITZBURG', 10, 61);
+        doc.text('3200', 10, 67);
+
+        // Right address block
+        doc.text('333 CHURCH STREET', 170, 55, { align: 'right' });
+        doc.text('PIETERMARITZBURG', 170, 61, { align: 'right' });
+        doc.text('3200', 170, 67, { align: 'right' });
+
+        // Enquiry line
+        doc.rect(10, 85, 190, 15);
+        doc.text('Enq:', 15, 94);
+        doc.text('LS Admin', 30, 94);
+        doc.text('0814536648', 90, 94);
+        doc.text('lsadmin2@gmail.com', 140, 94);
+        doc.text(new Date().toISOString().slice(0, 10), 190 , 110, { align: 'right' });
+
+        // // Location
+        // doc.text('Pietermaritzburg', 10, 120);
+        // doc.text('3201', 10, 126);
+
+        // Dear Sir/s
+        doc.text(`Dear Mr/Mrs, ${this.CurrentApplicationBeingViewed[0].fullName}`, 10, 110);
+
+        // Building Plan header
+        doc.setFont('helvetica', 'bold');
+        doc.text(`BUILDING PLAN NO ${this.ApplicationID} PROPOSED: APPLICATION`, 10, 120);
+        doc.text(`ADDRESS: ${this.CurrentApplicationBeingViewed[0].physicalAddress}`, 10, 130);
+        // Standard rejection text with color
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0, 0, 0);
+        doc.text('With reference to the proposed building work, you are hereby advised that the plans submitted by you to this office', 10, 140);
+        doc.text('cannot be considered for approval until the items listed hereunder have been marked on the plans or amended to', 10, 145);
+
+        doc.text('comply with the Building Bylaws/Regulations. This letter therefore constitutes a rejection of your application', 10, 150);
+        doc.text('in terms of Section 7 of Act 103 of 1977, as amended.', 10, 155);
+        doc.text('The regulations require that you ensure that the plan is approved within 12 months of the first referral letter', 10, 160);
+        doc.text('sent to you, failing which new submission fees must be paid by you.', 10, 165);
+
+      // Comments section
+// Comments section
+console.log('Adding selected comments:', selectedComments);
+let yPos = 175;
+doc.setFont('helvetica', 'normal');
+doc.setTextColor(0, 0, 0);
+
+selectedComments.forEach((comment, index) => {
+  // Use the edited text from the modal
+  const commentText = comment.editedText || comment.text || comment.Comment;
+  doc.text('• ' + commentText, 10, yPos);
+  yPos += 10;
+  console.log(`Added comment ${index + 1}:`, commentText);
+});
+
+        // Footer section
+        yPos = doc.internal.pageSize.height - 60;
+        doc.setTextColor(255, 102, 0); // Orange color
+        doc.text('For further assistance or queries, please contact:', 10, yPos);
+        doc.text('Building Development Management Office', 10, yPos + 6);
+        doc.text('Business Hours: 08:00 - 13:00 (Monday to Friday)', 10, yPos + 12);
+
+        // Right side footer
+        doc.text('for', 170, yPos, { align: 'right' });
+        doc.text('PROCESS MANAGER', 170, yPos + 6, { align: 'right' });
+        doc.text('INFRASTRUCTURE, PLANNING &', 170, yPos + 12, { align: 'right' });
+        doc.text('SURVEY', 170, yPos + 18, { align: 'right' });
+
+        // Economic Development Services
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.text('ECONOMIC DEVELOPMENT SERVICES', 105, yPos + 30, { align: 'center' });
+
+        // Contact details
+        doc.setFont('helvetica', 'normal');
+        doc.text('Telephone : 0333923982', 10, yPos + 40);
+        doc.text('Facsimile : 0333922819', 10, yPos + 46);
+        doc.text('Private Bag X 205', 170, yPos + 40, { align: 'right' });
+        doc.text('PIETERMARITZBURG, 3200', 170, yPos + 46, { align: 'right' });
+
+        // Save and upload
+        console.log('Converting PDF to blob');
+        const pdfData = doc.output('blob');
+        console.log('Blob created:', pdfData);
+
+        const fileName = `Referral_Letter_${this.ApplicationID}.pdf`;
+        console.log('Creating file:', fileName);
+
+        const file = new File([pdfData], fileName, { type: 'application/pdf' });
+        console.log('File created:', file);
+
+        // Push to temp upload
+        this.sharedService.pushFileForTempFileUpload(file, fileName);
+        console.log('File pushed to temp upload');
+
+        const filesForUpload = this.sharedService.pullFilesForUpload();
+        console.log('Files pulled for upload:', filesForUpload);
+
+        if (!filesForUpload || filesForUpload.length === 0) {
+          throw new Error('No files prepared for upload');
+        }
+
+        filesForUpload.forEach((fileInfo, index) => {
+          const formData = new FormData();
+          const fileExtention = fileInfo.UploadFor.substring(fileInfo.UploadFor.indexOf('.'));
+          const fileUploadName = fileInfo.UploadFor.substring(0, fileInfo.UploadFor.indexOf('.')) + "_appID" + this.ApplicationID;
+
+          console.log('Preparing upload for:', fileUploadName + fileExtention);
+          formData.append('file', fileInfo.formData, fileUploadName + fileExtention);
+
+          this.http.post(this.apiUrl + 'documentUpload/UploadDocument', formData, {
+            reportProgress: true,
+            observe: 'events'
+          }).subscribe({
+            next: (event) => {
+              console.log('Upload event:', event);
+              if (event.type === HttpEventType.UploadProgress && event.total) {
+                const progress = Math.round(100 * event.loaded / event.total);
+                console.log(`Upload progress: ${progress}%`);
+                this.progress = progress;
+              } else if (event.type === HttpEventType.Response) {
+                console.log('Upload complete, response:', event.body);
+                this.uploadFinishedReferralLetter(event.body);
+                resolve();
+              }
+            },
+            error: (err) => {
+              console.error('Upload failed:', err);
+              reject(err);
+            }
+          });
+        });
+
+      } catch (error) {
+        console.error('Error in generateReferralLetter:', error);
+        reject(error);
+      }
+    });
+  }
+
+  uploadFinishedReferralLetter = (event: any) => {
+    console.log('Upload finished event:', event);
+    this.response = event;
+
+    if (!this.response?.dbPath) {
+      console.error('No dbPath in response');
+      return;
+    }
+
+    console.log('Response dbPath:', this.response.dbPath);
+    const documentName = typeof this.response?.dbPath === 'string'
+  ? String(this.response.dbPath).substring(String(this.response.dbPath).indexOf('d') + 2)
+  : '';
+    console.log('Document name:', documentName);
+
+    this.bpDocumentUploadService.addUpdateDocument(
+      0,
+      documentName,
+      this.response.dbPath,
+      this.ApplicationID,
+      this.CurrentUser.appUserId,
+      "System Generated",
+      "Building Plans",
+      this.loggedInUsersSubDepartmentID,
+      this.loggedInUserSubDepartmentName,
+      false,
+      false
+    ).subscribe(
+      (response: any) => {
+        console.log('Save response:', response);
+        if (response.responseCode !== 1) {
+          console.error('Error saving referral letter:', response.responseMessage);
+        } else {
+          console.log('Document saved successfully');
+        }
+      },
+      error => console.error('Error saving document:', error)
+    );
+  }
+
+
   onBPPlansExaminerComment(interact: any) {
 
     //console.log("SubDepartmentNameSubDepartmentNameSubDepartmentNameSubDepartmentNameSubDepartmentNameSubDepartmentNameSubDepartmentName", SubDepartmentName);
@@ -3451,7 +3666,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -3460,9 +3675,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "BCO Recommendation", "BCO Recommendation", 5, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
                 /*            this.CreateNotification(this.CurrentUser.appUserId);
                             this.CreateNotification(this.clientUserID);*/
                 /*  this.moveToFinalApprovalForDepartment();*/
@@ -3485,32 +3700,50 @@ export class BpActionCenterComponent implements OnInit {
         }
 
         case "Reject": {
+          const modalRef = this.modalService.open(CommentsModalComponent);
+          modalRef.componentInstance.ApplicationID = this.ApplicationID;
 
-          this.applicationService.addUpdateBuildingApplication(this.ApplicationID, null, null, null, null,
-            null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null,
-            null, null, null, null, null, null, "Referral", "Plans Examiner",  4, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              if (data.responseCode == 1) {
+          modalRef.result.then(async (selectedComments) => { // Add async here
+            if (selectedComments) {
+              try {
+                // Wait for referral letter generation and upload to complete
+                await new Promise<void>((resolve, reject) => {
+                  this.generateReferralLetter(selectedComments).then(() => {
+                    resolve();
+                  }).catch(error => {
+                    console.error('Error generating referral letter:', error);
+                    reject(error);
+                  });
+                });
 
-                /*            this.CreateNotification(this.CurrentUser.appUserId);
-                            this.CreateNotification(this.clientUserID);*/
-                /*  this.moveToFinalApprovalForDepartment();*/
-                //this.modalService.dismissAll();
-                //this.openSnackBar("Application Actioned");
-                //this.getAllServiceItemsForRelaxation();
-                this.AddComment("LS Relaxation", null);
-                this.AddStageChecklistForApplication("Plans Examiner");
+                // Now proceed with the application update
+                this.applicationService.addUpdateBuildingApplication(
+                  this.ApplicationID, null, null, null, null,
+                  null, null, null, null, null, null, null,
+                  null, null, null, null, null, null, null, null, null,
+                  null, null, null, null, null, null, null,
+                  null, null, null, null, null, null,
+                  "Referral", "Plans Examiner", 4,
+                  null, null, null, null, null, null, null, null, null,
+                  null, null, null, null
+                ).subscribe((data: any) => {
+                  if (data.responseCode == 1) {
+                    this.AddComment("LS Relaxation", selectedComments);
+                    this.AddStageChecklistForApplication("Plans Examiner");
+                  } else {
+                    alert(data.responseMessage)
+                  }
+                }, error => {
+                  console.log("BuildingApplicationError: ", error)
+                });
+              } catch (error) {
+                console.error('Error in rejection process:', error);
+                alert('Error processing rejection');
               }
-              else {
-                alert(data.responseMessage)
-              }
-            }, error => {
-              console.log("BuildingApplicationError: ", error)
-            })
-
-
-
+            }
+          }, (dismissReason) => {
+            console.log('Modal dismissed');
+          });
           break;
         }
 
@@ -3551,15 +3784,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -3601,15 +3834,15 @@ export class BpActionCenterComponent implements OnInit {
                <p >Please login to the <a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a> and provide a response</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -3723,15 +3956,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
                 this.accessGroupsService.GetUserAndZoneBasedOnRoleName("Senior Reviewer", this.loggedInUsersSubDepartmentID).subscribe((data: any) => {
@@ -3772,15 +4005,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}. Kindly login to the Wayleave Management System and provide input.</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
                       this.notificationsService.sendEmail(approver.email, "Request for Perusal", emailContent12, emailContent12);
                     });
@@ -3873,7 +4106,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -3882,9 +4115,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Planning Approval Authority", "Reviewing",100, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
 
                 this.AddComment("Town Planner Approved", null);
                 this.AddStageChecklistForApplication("Reviewing");
@@ -3950,7 +4183,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -3959,9 +4192,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Closed", "Approved", 100, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
 
                 this.AddComment("Town Planner Approved", null);
               }
@@ -4027,7 +4260,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -4036,9 +4269,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Reviewing", "Plan Approval Committee(PAC)", 6, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
                 /*            this.CreateNotification(this.CurrentUser.appUserId);
                             this.CreateNotification(this.clientUserID);*/
                 /*  this.moveToFinalApprovalForDepartment();*/
@@ -4126,15 +4359,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -4176,15 +4409,15 @@ export class BpActionCenterComponent implements OnInit {
                <p >Please login to the <a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a> and provide a response</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -4298,15 +4531,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
                 this.accessGroupsService.GetUserAndZoneBasedOnRoleName("Senior Reviewer", this.loggedInUsersSubDepartmentID).subscribe((data: any) => {
@@ -4347,15 +4580,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}. Kindly login to the Wayleave Management System and provide input.</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
                       this.notificationsService.sendEmail(approver.email, "Request for Perusal", emailContent12, emailContent12);
                     });
@@ -4448,7 +4681,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -4457,9 +4690,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Jacket Upload Plans", "Jacket Upload Plans", 7, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
                 /*            this.CreateNotification(this.CurrentUser.appUserId);
                             this.CreateNotification(this.clientUserID);*/
                 /*  this.moveToFinalApprovalForDepartment();*/
@@ -4540,7 +4773,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -4549,16 +4782,16 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Reviewing", "Building Inspector", 8, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
                 /*            this.CreateNotification(this.CurrentUser.appUserId);
                             this.CreateNotification(this.clientUserID);*/
                 /*  this.moveToFinalApprovalForDepartment();*/
 
                 this.AddComment("LS Approved", null);
                 this.AddStageChecklistForApplication("Building Inspector");
-                this.addAllChecklistItemsToApplication(); 
+                this.addAllChecklistItemsToApplication();
               }
               else {
                 alert(data.responseMessage)
@@ -4621,7 +4854,7 @@ export class BpActionCenterComponent implements OnInit {
       });
     }
     else {
-      
+
       switch (interact) {
 
         case "Approve": {
@@ -4630,9 +4863,9 @@ export class BpActionCenterComponent implements OnInit {
             null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null,
             null, null, null, null, null, null, "Approved", "Closed Plan", 9, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
-              
+
               if (data.responseCode == 1) {
-                
+
                 /*            this.CreateNotification(this.CurrentUser.appUserId);
                             this.CreateNotification(this.clientUserID);*/
                 /*  this.moveToFinalApprovalForDepartment();*/
@@ -4760,15 +4993,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>You have approved application ${this.projectNo}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -4911,15 +5144,15 @@ export class BpActionCenterComponent implements OnInit {
         <p>You have provisionally approved application ${this.projectNo}</p>
            <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                       <p>
-          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
         </p>
          <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
       </div>
 
     </body>
   </html>
- 
-       
+
+
 `;
 
 
@@ -4966,15 +5199,15 @@ export class BpActionCenterComponent implements OnInit {
         <p>Your sign-off is required on ${this.projectNo}. Kindly login to the Wayleave Management System and proceed accordingly.</p>
            <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                       <p>
-          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
         </p>
          <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
       </div>
 
     </body>
   </html>
- 
-       
+
+
 `;
                         this.notificationsService.sendEmail(approver.email, "Request for Sign-of", emailContent12, emailContent12);
                         if (approver.alternativeEmail) { //TODO: checkNotifications Sindiswa 15 february 2024 - double checkthis HOW?????????
@@ -5091,15 +5324,15 @@ export class BpActionCenterComponent implements OnInit {
               <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -5163,15 +5396,15 @@ export class BpActionCenterComponent implements OnInit {
         <p>Your sign-off is required on ${this.projectNo}. Kindly login to the Wayleave Management System and proceed accordingly.</p>
            <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                       <p>
-          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+          <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
         </p>
          <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
       </div>
 
     </body>
   </html>
- 
-       
+
+
 `;
                         this.notificationsService.sendEmail(approver.email, "Request for Sign-of", emailContent12, emailContent12);
                         if (approver.alaternativeEmail) {
@@ -5255,15 +5488,15 @@ export class BpActionCenterComponent implements OnInit {
               <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -5304,15 +5537,15 @@ export class BpActionCenterComponent implements OnInit {
               <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -5714,7 +5947,7 @@ export class BpActionCenterComponent implements OnInit {
   //  }, error => {
   //    console.log("Error: ", error);
   //  })
-  // 
+  //
 
   //}
 
@@ -5858,7 +6091,7 @@ export class BpActionCenterComponent implements OnInit {
           } else if (this.countReject++ >= 1 && this.SubDepartmentListForCheck.length == this.countApprove + this.countReject) {
             //Rejection Pack
             this.viewProjectInfoComponent.getAllComments();
-            
+
             this.countApprove = 0;
             this.countReject = 0;
             this.MoveToClosedStage(false);
@@ -6040,7 +6273,7 @@ export class BpActionCenterComponent implements OnInit {
             <p>Congratulations, your application with reference ${this.projectNo} has been approved. Please login to the Wayleave Management System and download your Wayleave Approval Pack.</p>
                 <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
@@ -6103,13 +6336,13 @@ export class BpActionCenterComponent implements OnInit {
 
     /*    if (isPlanning === false) {
           this.applicationsService.updateApplicationStage(this.ApplicationID, this.StagesList[2].StageName, this.StagesList[2].StageOrderNumber, this.StagesList[this.StagesList.length].StageName, this.StagesList[this.StagesList.length].StageOrderNumber, this.StagesList[this.StagesList.length].StageName, this.StagesList[this.StagesList.length].StageOrderNumber, "Rejected & Closed").subscribe((data: any) => {
-    
+
             if (data.responseCode == 1) {
                 alert("Application Rejected & Moved To Closed");
-    
-    
+
+
               this.router.navigate(["/home"]);
-    
+
             }
             else {
               alert(data.responseMessage);
@@ -6128,10 +6361,10 @@ export class BpActionCenterComponent implements OnInit {
       this.applicationsService.updateApplicationStage(this.ApplicationID, this.StagesList[4].StageName, this.StagesList[4].StageOrderNumber, this.StagesList[5].StageName, this.StagesList[5].StageOrderNumber, this.StagesList[6].StageName, this.StagesList[6].StageOrderNumber, "Monitoring", null).subscribe((data: any) => {
 
         if (data.responseCode == 1) {
-          //Audit Trail Kyle 
+          //Audit Trail Kyle
           this.onSaveToAuditTrail2("Permit to Work Generated");
           this.onSaveToAuditTrail2("Application Moved To Monitoring Stage");
-          //Audit Traik Kyle 
+          //Audit Traik Kyle
           alert("Application Moved To Monitoring");
           this.modalService.dismissAll();
           this.router.navigate(["/home"]);
@@ -6357,7 +6590,7 @@ export class BpActionCenterComponent implements OnInit {
 
 
     /* const filesForUpload = this.sharedService.pullFilesForUpload();
- 
+
        const formData = new FormData();
        let fileExtention = filesForUpload[0].UploadFor.substring(filesForUpload[0].UploadFor.indexOf('.'));
        let fileUploadName = filesForUpload[0].UploadFor.substring(0, filesForUpload[0].UploadFor.indexOf('.')) + "-appID-" + this.ApplicationID;
@@ -6416,10 +6649,10 @@ export class BpActionCenterComponent implements OnInit {
   getCurrentUserSubDepName() {
     this.subDepartment.getSubDepartmentBySubDepartmentID(this.loggedInUsersSubDepartmentID).subscribe((data: any) => {
 
-      
+
       const current = data.dateSet[0];
       if (data.responseCode == 1) {
-        
+
  /*       this.loggedInUserSubDepartmentName = current.DepartmentName*/
       }
       else {
@@ -6499,8 +6732,8 @@ export class BpActionCenterComponent implements OnInit {
   CurrentUserZoneName = '';
 
   getZoneForCurrentUser() {
-    
-  
+
+
 
 
   }
@@ -6705,7 +6938,7 @@ export class BpActionCenterComponent implements OnInit {
           <p>Should you have any queries, please contact <a href="mailto:wayleaves@capetown.gov.za">wayleaves@capetown.gov.za</a></p>
               <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                         <p>
-            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
           </p>
            <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
         </div>
@@ -6744,7 +6977,7 @@ export class BpActionCenterComponent implements OnInit {
   asWhat: string;
 
   actionCentreView(content: any) {
-    
+
     this.subDepartmentForCommentService.getAssignedReviewer(this.ApplicationID, this.loggedInUsersSubDepartmentID, this.CurrentUserProfile[0].zoneID).subscribe(async (data: any) => {
       if (data.responseCode == 1) {
 
@@ -6878,15 +7111,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -6929,15 +7162,15 @@ export class BpActionCenterComponent implements OnInit {
                <p >Please login to the <a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a> and provide a response</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -6976,7 +7209,7 @@ export class BpActionCenterComponent implements OnInit {
                   console.log("Error", error);
                 });
 
-                //commentsService                                                                                                                                                                                                                                        //Comments Kyle 01/02/24 //Clarify Alerts Kyle 
+                //commentsService                                                                                                                                                                                                                                        //Comments Kyle 01/02/24 //Clarify Alerts Kyle
                 this.commentsService.addUpdateComment(0, this.ApplicationID, this.forManuallyAssignSubForCommentID, this.loggedInUsersSubDepartmentID, SubDepartmentName, this.leaveAComment, "Applicant Clarify", this.CurrentUser.appUserId, null, null, this.loggedInUserName, this.CurrentUserZoneName, this.CurrentApplication.UserID).subscribe((data: any) => {
                   //Comments Kyle 01/02/24
                   if (data.responseCode == 1) {
@@ -7051,15 +7284,15 @@ export class BpActionCenterComponent implements OnInit {
             <p>${this.leaveAComment}</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -7101,15 +7334,15 @@ export class BpActionCenterComponent implements OnInit {
                <p >Please login to the <a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a> and provide a response</p>
                <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                           <p>
-              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+              <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
           </div>
 
         </body>
       </html>
-     
-           
+
+
     `;
 
 
@@ -7218,7 +7451,7 @@ export class BpActionCenterComponent implements OnInit {
   }
   //Audit Trail Kyle
   //Service Information Kyle 31/01/24
-  
+
 
   getAllDocumentsForServiceInformation() {
     this.ServiceInfoDocumentsList.splice(0, this.ServiceInfoDocumentsList.length);
@@ -7470,7 +7703,7 @@ export class BpActionCenterComponent implements OnInit {
           <p>Should you have any queries, please contact <a href="mailto:wayleaves@capetown.gov.za">wayleaves@capetown.gov.za</a></p>
               <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                         <p>
-            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
           </p>
            <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
         </div>
@@ -7896,7 +8129,7 @@ export class BpActionCenterComponent implements OnInit {
   }
 
 
- 
+
 
 
   addServiceItemsAndCostDetailsSJ(doc, startY) {
@@ -8066,16 +8299,17 @@ export class BpActionCenterComponent implements OnInit {
   }
 
   /*JJS 13-03-24*/
- 
+
   showCreateBP: boolean = false;
    getApplicationInfo() {
-    
+
      this.bpService.getBuildingApplicationByApplicationID(this.bpApplicationId).subscribe((data: any) => {
       if (data.responseCode == 1) {
 
 
         const tempApplication = {} as CurrentApplicationBeingViewed;
 
+        console.log("Current date set:", data.dateSet[0]);
         const current = data.dateSet[0];
         debugger;
         tempApplication.lsNumber = current.lsNumber;
@@ -8090,14 +8324,25 @@ export class BpActionCenterComponent implements OnInit {
         tempApplication.currentStage = current.stage;
         tempApplication.fullName = current.firstName + " " + current.surname;
         tempApplication.userID = current.userID;
+        tempApplication.architectUserID = current.architectedUserID;
         tempApplication.currentStatus = current.status;
+        tempApplication.physicalAddress = current.physicalAddress;
         tempApplication.BPApplicationType = current.bpApplicationType;
+
+        if (current.activationDate != null) {
+          tempApplication.activationDate = current.activationDate.substring(0, current.activationDate.indexOf("T"));
+        }
+        else {
+          tempApplication.activationDate = current.activationDate;
+        }
+        tempApplication.activationConfirmed = current.activationConfirmed;
+
         this.CurrentApplicationBeingViewed.push(tempApplication);
         debugger;
         if (tempApplication.currentStage == "Closed" && tempApplication.userID == this.CurrentUser.appUserId) {
           this.showCreateBP = true;
         }
-        
+
       }
       else {
         alert(data.responseMessage);
@@ -8110,6 +8355,7 @@ export class BpActionCenterComponent implements OnInit {
   }
 
 
+
   moveToPaidBPApplication() {
     this.applicationService.addUpdateBuildingApplication(this.ApplicationID, null, null, null, null,
       null, null, null, null, null, null, null,
@@ -8117,7 +8363,7 @@ export class BpActionCenterComponent implements OnInit {
       null, null, null, null, null, null, null,
       null, null, null, null, null, null, "Relaxation", "LS Relaxation - Paid", 2, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
           /*            this.CreateNotification(this.CurrentUser.appUserId);
                       this.CreateNotification(this.clientUserID);*/
           /*  this.moveToFinalApprovalForDepartment();*/
@@ -8146,13 +8392,13 @@ export class BpActionCenterComponent implements OnInit {
           tempServiceItem.totalVat = current.totalVat;
           tempServiceItem.vatApplicable = current.vatApplicable;
           tempServiceItem.dateCreated = current.dateCreated.substring(0, current.dateCreated.indexOf("T"));
- 
+
 
           this.ServiceItemListBPRelaxationLS.push(tempServiceItem);
         }
         console.log("ServiceItemListBPRelaxationLSServiceItemListBPRelaxationLSServiceItemListBPRelaxationLSServiceItemListBPRelaxationLS", data);
-        
-        this.generateBPLSRelaxationInvoice() 
+
+        this.generateBPLSRelaxationInvoice()
       }
       else {
         alert(data.responseMessage);
@@ -8213,7 +8459,7 @@ export class BpActionCenterComponent implements OnInit {
     doc.setFont('CustomFontBold', 'bold');
     doc.text('Status Summary:', 10, 110, { maxWidth: 190, lineHeightFactor: 1.5, align: 'justify' });
     doc.setFont('CustomFont', 'normal');
-    
+
     const data = this.ServiceItemListBPRelaxationLS.map(deposit => [deposit.serviceItemCode, deposit.Description, deposit.totalVat]);
     // Render the table in the PDF document
     autoTable(doc, {
@@ -8254,7 +8500,7 @@ export class BpActionCenterComponent implements OnInit {
     formData.append('file', file);
     this.sharedService.pushFileForTempFileUpload(file, "Building Plans Land Survey Relaxation Invoice" + ".pdf");
     this.saveBP();
- 
+
     // window.open(pdfUrl, '_blank')
 
     // this.router.navigate(["/home"]);
@@ -8328,15 +8574,15 @@ export class BpActionCenterComponent implements OnInit {
       console.log("Error: ", error);
     })*/
 
-    
+
   }
 
   AddComment(commentStatus: any, subDepartmentForCommentID: any) {
     debugger;
     this.bpCommentsService.addUpdateComment(0, this.ApplicationID, this.functionalArea, this.leaveAComment, commentStatus, subDepartmentForCommentID, null, null, this.CurrentUser.fullName, this.CurrentApplicationBeingViewed[0].userID, this.CurrentUser.appUserId).subscribe((data: any) => {
-      
+
       if (data.responseCode == 1) {
-        
+
         this.modalService.dismissAll();
         this.openSnackBar("Application Actioned");
         this.router.navigate(["/home"]);
@@ -8423,17 +8669,19 @@ export class BpActionCenterComponent implements OnInit {
       }, error => {
         console.log("getConfigsByConfigNameError: ", error);
       })
-    
+
+
+
   }
 
   MoveApplicationToDistribution() {
-    
+
     this.bpDepartmentsService.getAllDepartmentsForFunctionalArea("Building Plan").subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
 
         for (var i = 0; i < data.dateSet.length; i++) {
-          
+
           this.bpDepartmentForCommentService.addUpdateDepartmentForComment(0, this.ApplicationID, data.dateSet[i].departmentID, data.dateSet[i].departmentName, null, null, this.CurrentUser.appUserId).subscribe((data: any) => {
             if (data.responseCode == 1) {
 
@@ -8464,7 +8712,7 @@ export class BpActionCenterComponent implements OnInit {
             console.log("BuildingApplicationError: ", error)
           })
       }
-      
+
       console.log("reponseAddUpdateDepartmentForComment", data);
     },
       error => {
@@ -8477,13 +8725,13 @@ export class BpActionCenterComponent implements OnInit {
   getAllDepartmentsForCommentForBPApplication() {
     this.BPDepartmentsForCommentList.splice(0, this.BPDepartmentsForCommentList.length);
     this.bpDepartmentForCommentService.getDepartmentForComment(this.ApplicationID).subscribe((data: any) => {
-      
+
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const current = data.dateSet[i];
           const tempDepForComment = {} as BPDepartmentsForCommentList;
-          
+
           tempDepForComment.DepartmendForCommentaID = current.bpDepartmentForCommentID;
           tempDepForComment.ApplicationId = current.applicationID;
           tempDepForComment.DepartmentID = current.departmentID;
@@ -8495,7 +8743,7 @@ export class BpActionCenterComponent implements OnInit {
           debugger;
           if (tempDepForComment.UserAssaignedToComment = current.userAssaignedToComment == this.CurrentUserProfile[0].userID) {
             this.AssignUserForComment = true;
-         
+
           }
           this.BPDepartmentsForCommentList.push(tempDepForComment);
         }
@@ -8559,12 +8807,12 @@ export class BpActionCenterComponent implements OnInit {
 
     this.bpDepartmentsService.getAllDepartmentsForFunctionalArea("Land Survey").subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
 
         for (var i = 0; i < data.dateSet.length; i++) {
           const current = data.dateSet[i];
           const tempDep = {} as DepartmentList;
-          
+
           tempDep.departmentID = current.departmentID;
           tempDep.departmentName = current.departmentName;
           tempDep.functionalArea = current.funcationalArea;
@@ -8586,14 +8834,14 @@ export class BpActionCenterComponent implements OnInit {
   selectedDepartments: number[] = [];
   distributeToLandSurveyDeps() {
     // Loop through each selected department
-    
+
     this.selectedDepartments.forEach(id => {
       const selectedDepartment = this.DepartmentList.find(dep => dep.departmentID === id);
       if (selectedDepartment) {
-        
+
         this.bpDepartmentForCommentService.addUpdateDepartmentForComment(0,this.ApplicationID,selectedDepartment.departmentID,selectedDepartment.departmentName,null,null,this.CurrentUser.appUserId).subscribe((data: any) => {
           if (data.responseCode == 1) {
-            
+
               console.log("Success: Department added/updated", data);
             }
           },
@@ -8644,6 +8892,9 @@ export class BpActionCenterComponent implements OnInit {
       }
       if (roleName == 'TP Admin') {
         this.TPAdminRole = true;
+      }
+      if (roleName == 'Building Inspector') {
+        this.isBuildingInspector = true;
       }
 
     }
@@ -8835,7 +9086,7 @@ export class BpActionCenterComponent implements OnInit {
       this.markers.splice(index, 1);  // Remove the marker from the array
     }
   }
-  
+
   getLocationName(latLng: google.maps.LatLngLiteral): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const geocoder = new google.maps.Geocoder();
@@ -8866,8 +9117,8 @@ export class BpActionCenterComponent implements OnInit {
       this.getCoOrdinatesForAddress();
       this.modalService.dismissAll();
       this.modalService.open(TPRelaxation, { centered: true, size: 'xl' });
-   
-   
+
+
   }
 
   startLat: number = 0;
@@ -8888,8 +9139,8 @@ export class BpActionCenterComponent implements OnInit {
     zoomControl: true,       // Disable zoom control buttons
     scrollwheel: true,       // Disable zooming with mouse scrol
   };
-  
-  
+
+
   initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: -29.6182639, lng: 30.3795833 },
@@ -8900,7 +9151,7 @@ export class BpActionCenterComponent implements OnInit {
   move(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) this.display = event.latLng.toJSON();
   }
-  
+
   getCoOrdinatesForAddress() {
     debugger;
     this.applicationData
@@ -8950,7 +9201,7 @@ export class BpActionCenterComponent implements OnInit {
     });
 
 
-    
+
     this.markers.push(newMarker);
     this.cdRef.detectChanges();
   }
@@ -8958,7 +9209,7 @@ export class BpActionCenterComponent implements OnInit {
   drawingManager: google.maps.drawing.DrawingManager;
   initializeDrawingManager(map: google.maps.Map) {
     this.drawingManager = new google.maps.drawing.DrawingManager({
-     
+
       drawingControl: true,
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_LEFT,
@@ -9033,7 +9284,7 @@ export class BpActionCenterComponent implements OnInit {
       this.saveShapeData(shapeData);
     });
   }
-  drawnShapes: any[] = []; 
+  drawnShapes: any[] = [];
   saveShapeData(shapeData: any) {
     debugger;
     // Example function to save the data, modify according to your needs
@@ -9041,8 +9292,8 @@ export class BpActionCenterComponent implements OnInit {
     console.log('Saving shape data:', shapeData);
     // Implement actual saving logic here
   }
- 
-  
+
+
  async saveAllNeighbourConsent() {
     debugger;
     for (let i = 1; i < this.markers.length; i++) {
@@ -9066,7 +9317,7 @@ export class BpActionCenterComponent implements OnInit {
       }, error => {
         console.log(error);
       })
-      
+
     }
   }
   moveTPToPaid: boolean ;
@@ -9088,9 +9339,9 @@ export class BpActionCenterComponent implements OnInit {
       console.log(error);
     })
 
-    
+
   }
-  
+
   showApprove: boolean = false;
 
   saveAllBuildingControls() {
@@ -9126,7 +9377,7 @@ export class BpActionCenterComponent implements OnInit {
         alert(data.responseMessage);
       }
     })
-    
+
   }
   LsServiceItems: ServiceItemList[] = [];
   selectedServiceItems = [];
@@ -9306,7 +9557,50 @@ export class BpActionCenterComponent implements OnInit {
 
     // this.router.navigate(["/home"]);
 
-  
+
+  }
+
+
+  ActivateBuildingPlan() {
+    if (confirm("Are you sure you want to activate this plan?")) {
+      this.applicationService.UpdatePlanActivationStatus(this.ApplicationID, true).subscribe((data: any) => {
+        if (data.responseCode == 1) {
+          alert(data.responseMessage);
+          this.router.navigate(["/home"])
+        }
+        else {
+          alert(data.responseMessage);
+        }
+      }, error => {
+        console.log("Plan Activation Error", error);
+      })
+    }
+    else {
+      // nothing to be done if yes is not selected
+    }
+
+  }
+
+  confirmPlanActivation() {
+
+    if (confirm("Do you confirm that the current building application was activated from " + this.CurrentApplicationBeingViewed[0].activationDate)) {
+      this.applicationService.confirmPlanActivation(this.ApplicationID, true).subscribe((data: any) => {
+        if (data.responseCode == 1) {
+          alert(data.responseMessage);
+          this.router.navigate(["/home"]);
+        }
+        else {
+          alert(data.responseMessage);
+        }
+      }, error => {
+        console.log("Plan Activation Confirmation Error", error);
+      })
+    }
+
+    else {
+      //nothing to be done if the activation is not confirmed
+    }
+
   }
 
 

@@ -6,12 +6,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '../shared/shared.service';
 import { Router, ActivatedRoute, Route, Routes } from "@angular/router";
 import { PermitService } from '../service/Permit/permit.service';
-
+import { BuildingApplicationsService } from '../service/BuildingApplications/building-applications.service';
 //Clarifications Alerts Kyle
 export interface Clarifications {
   ApplicationID: number;
   ProjectNumber: string;
   Description: string;
+  ApplicationType: string; 
 }
 export interface ApplicationList {
   applicationID: number,
@@ -61,7 +62,7 @@ export interface ApplicationList {
 })
 export class ApplicationAlertsComponent implements OnInit {
 
-  constructor(private commentsService: CommentsService, private applicationService: ApplicationsService, private modalService: NgbModal, private shared: SharedService, private router: Router, private permitService: PermitService) { }
+  constructor(private commentsService: CommentsService, private applicationService: ApplicationsService, private modalService: NgbModal, private shared: SharedService, private router: Router, private permitService: PermitService, private bpApplicationService: BuildingApplicationsService) { }
   ClarificationsList: Clarifications[] = [];
 
   @ViewChild(MatTable) clarificationsTable: MatTable<any> | undefined;
@@ -89,9 +90,10 @@ export class ApplicationAlertsComponent implements OnInit {
 
     this.CurrentUserProfile = JSON.parse(this.stringifiedDataUserProfile);
     this.isEMB = this.shared.EMBLoggedIn;
-    this.getAllClarificationsAlerts();
 
+    /*this.getAllClarificationsAlerts();*/
 
+    this.getAllBPApplicationsForActivationConfirmation();
 
   }
   getAllClarificationsAlerts() {
@@ -147,83 +149,89 @@ export class ApplicationAlertsComponent implements OnInit {
   }
 
   goToApplication(index: any) {
-    const projectNumber = this.ClarificationsList[index].ProjectNumber;
 
-    this.shared.setProjectNumber(projectNumber);
+    if (this.ClarificationsList[index].ApplicationType != "Wayleave") {
+      this.goToBPViewProject(index);
+    }
+    else {
+      const projectNumber = this.ClarificationsList[index].ProjectNumber;
 
-    this.applicationService.getApplicationsByProjectNumber(projectNumber).subscribe((data: any) => {
-      if (data.responseCode == 1) {
-        
-        for (let i = 0; i < data.dateSet.length; i++) {
-          const tempApplicationListShared = {} as ApplicationList;
-          const current = data.dateSet[i];
+      this.shared.setProjectNumber(projectNumber);
 
-          tempApplicationListShared.applicationID = current.applicationID;
-          tempApplicationListShared.clientName = current.fullName;
-          tempApplicationListShared.clientEmail = current.email;
-          tempApplicationListShared.clientAlternativeEmail = current.alternativeEmail; //checkingNotifications Sindiswa 15 February 2024
-          tempApplicationListShared.clientAddress = current.physicalAddress;
-          tempApplicationListShared.clientRefNo = current.referenceNumber;
-          tempApplicationListShared.CompanyRegNo = current.companyRegNo;
-          tempApplicationListShared.TypeOfApplication = current.typeOfApplication;
-          tempApplicationListShared.NotificationNumber = current.notificationNumber;
-          tempApplicationListShared.WBSNumber = current.wbsNumber;
-          tempApplicationListShared.PhysicalAddressOfProject = current.physicalAddressOfProject;
-          tempApplicationListShared.DescriptionOfProject = current.descriptionOfProject;
-          tempApplicationListShared.NatureOfWork = current.natureOfWork;
-          tempApplicationListShared.ExcavationType = current.excavationType;
-          tempApplicationListShared.ExpectedStartDate = current.expectedStartDate;
-          tempApplicationListShared.ExpectedEndDate = current.expectedEndDate;
-          tempApplicationListShared.Location = current.location;
-          tempApplicationListShared.clientCellNo = current.phoneNumber;
-          tempApplicationListShared.CreatedById = current.createdById;
-          tempApplicationListShared.UserID = current.userID;//
-          tempApplicationListShared.ApplicationStatus = current.applicationStatus;
-          tempApplicationListShared.CurrentStageName = current.currentStageName;
-          tempApplicationListShared.CurrentStageNumber = current.currentStageNumber;
+      this.applicationService.getApplicationsByProjectNumber(projectNumber).subscribe((data: any) => {
+        if (data.responseCode == 1) {
 
-          tempApplicationListShared.NextStageName = current.nextStageName;
-          tempApplicationListShared.NextStageNumber = current.nextStageNumber;
-          tempApplicationListShared.PreviousStageName = current.previousStageName;
-          tempApplicationListShared.PreviousStageNumber = current.previousStageNumber;
-          tempApplicationListShared.DatePaid = current.datePaid;
-          tempApplicationListShared.wbsrequired = current.wbsRequired;
-          tempApplicationListShared.ContractorAccountDetails = current.contractorAccountDetails; //zxNumberUpdate Sindiswa 01 March 2024
-          
-          tempApplicationListShared.Coordinates = current.coordinates;
-          if (current.projectNumber != null) {
-            tempApplicationListShared.ProjectNumber = current.projectNumber;
-          } else {
-            tempApplicationListShared.ProjectNumber = (current.applicationID).toString();
+          for (let i = 0; i < data.dateSet.length; i++) {
+            const tempApplicationListShared = {} as ApplicationList;
+            const current = data.dateSet[i];
+
+            tempApplicationListShared.applicationID = current.applicationID;
+            tempApplicationListShared.clientName = current.fullName;
+            tempApplicationListShared.clientEmail = current.email;
+            tempApplicationListShared.clientAlternativeEmail = current.alternativeEmail; //checkingNotifications Sindiswa 15 February 2024
+            tempApplicationListShared.clientAddress = current.physicalAddress;
+            tempApplicationListShared.clientRefNo = current.referenceNumber;
+            tempApplicationListShared.CompanyRegNo = current.companyRegNo;
+            tempApplicationListShared.TypeOfApplication = current.typeOfApplication;
+            tempApplicationListShared.NotificationNumber = current.notificationNumber;
+            tempApplicationListShared.WBSNumber = current.wbsNumber;
+            tempApplicationListShared.PhysicalAddressOfProject = current.physicalAddressOfProject;
+            tempApplicationListShared.DescriptionOfProject = current.descriptionOfProject;
+            tempApplicationListShared.NatureOfWork = current.natureOfWork;
+            tempApplicationListShared.ExcavationType = current.excavationType;
+            tempApplicationListShared.ExpectedStartDate = current.expectedStartDate;
+            tempApplicationListShared.ExpectedEndDate = current.expectedEndDate;
+            tempApplicationListShared.Location = current.location;
+            tempApplicationListShared.clientCellNo = current.phoneNumber;
+            tempApplicationListShared.CreatedById = current.createdById;
+            tempApplicationListShared.UserID = current.userID;//
+            tempApplicationListShared.ApplicationStatus = current.applicationStatus;
+            tempApplicationListShared.CurrentStageName = current.currentStageName;
+            tempApplicationListShared.CurrentStageNumber = current.currentStageNumber;
+
+            tempApplicationListShared.NextStageName = current.nextStageName;
+            tempApplicationListShared.NextStageNumber = current.nextStageNumber;
+            tempApplicationListShared.PreviousStageName = current.previousStageName;
+            tempApplicationListShared.PreviousStageNumber = current.previousStageNumber;
+            tempApplicationListShared.DatePaid = current.datePaid;
+            tempApplicationListShared.wbsrequired = current.wbsRequired;
+            tempApplicationListShared.ContractorAccountDetails = current.contractorAccountDetails; //zxNumberUpdate Sindiswa 01 March 2024
+
+            tempApplicationListShared.Coordinates = current.coordinates;
+            if (current.projectNumber != null) {
+              tempApplicationListShared.ProjectNumber = current.projectNumber;
+            } else {
+              tempApplicationListShared.ProjectNumber = (current.applicationID).toString();
+            }
+            if (current.networkLicenses == true) {
+              tempApplicationListShared.NetworkLicensees = "Fibre Network Licensees have been contacted regarding trench sharing and existing services";
+            }
+            tempApplicationListShared.isPlanning = current.isPlanning;
+            tempApplicationListShared.permitStartDate = current.permitStartDate;
+
+            this.applicationList.push(tempApplicationListShared)
+
           }
-          if (current.networkLicenses == true) {
-            tempApplicationListShared.NetworkLicensees = "Fibre Network Licensees have been contacted regarding trench sharing and existing services";
-          }
-          tempApplicationListShared.isPlanning = current.isPlanning;
-          tempApplicationListShared.permitStartDate = current.permitStartDate;
 
-          this.applicationList.push(tempApplicationListShared)
 
+          this.shared.getShowFormerApps();
+
+          this.shared.setViewApplicationIndex(this.applicationList);
+          const application = this.shared.getViewApplicationIndex();
+          console.log("application", application);
+          this.modalService.dismissAll();
+          this.router.navigate(["/view-project-info"]);
+
+        }
+        else {
+          alert(data.responseMessage);
         }
 
 
-        this.shared.getShowFormerApps();
-
-        this.shared.setViewApplicationIndex(this.applicationList);
-        const application = this.shared.getViewApplicationIndex();
-        console.log("application", application);
-        this.modalService.dismissAll();
-        this.router.navigate(["/view-project-info"]);
-
-      }
-      else {
-        alert(data.responseMessage);
-      }
-
-
-    }, error => {
-      console.log("Error: ", error);
-    })
+      }, error => {
+        console.log("Error: ", error);
+      })
+    }
   }
 
   getAllPendingApprovalPacksForUser() {
@@ -366,6 +374,56 @@ export class ApplicationAlertsComponent implements OnInit {
 
 
     })
+  }
+
+  getAllBPApplicationsForActivationConfirmation() {
+    this.bpApplicationService.getAllApplicationsForActivationConfirmation(this.CurrentUser.appUserId).subscribe((data: any) => {
+      if (data.responseCode == 1) {
+        for (let i = 0; i < data.dateSet.length; i++) {
+
+          const tempAlert = {} as Clarifications;
+          const current = data.dateSet[i];
+
+          tempAlert.ApplicationID = current.applicationID;
+          if (current.bpApplicationID != null) {
+
+            tempAlert.ProjectNumber = current.bpApplicationID;
+          }
+          else {
+            tempAlert.ProjectNumber = current.lsNumber;
+          }
+          tempAlert.ApplicationType = "Building Plan";
+          tempAlert.Description = "The Following Application Requires Your Immediate Attention";
+
+          this.ClarificationsList.push(tempAlert);
+          
+        }
+        this.dataSourceClarifications = this.ClarificationsList;
+        this.clarificationsTable?.renderRows();
+        if (this.ClarificationsList.length > 0) {
+
+          this.openClarificationsAlerts();
+        }
+        console.log("Application Alerts", this.ClarificationsList ,data.dateSet);
+      }
+      else {
+        alert(data.responseMessage); 
+      }
+    }, error => {
+      console.log("Plan Confirmation Alerts Error", error);
+    })
+  }
+
+
+  goToBPViewProject(index: any) {
+
+    const application = this.ClarificationsList[index];
+
+    this.shared.setApplicationID(application.ApplicationID);
+    this.shared.setApplicationViewType(application.ApplicationType);
+
+    this.modalService.dismissAll();
+    this.router.navigate(['bpview-project-info']);
   }
 }
 

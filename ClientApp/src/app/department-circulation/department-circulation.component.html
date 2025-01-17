@@ -27,7 +27,7 @@
         <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element?.isGISReviewing != true "> <!-- projectTracker Sindiswa 15 January 2024 -->
 
         <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity">
-        <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/retweet-solid-purple.svg" class="icon2" *ngIf="element.IsRefered">
+      
         <!---- Service Information Kyle 31/01/24-->
         <img src="assets/fontawesome-free-6.4.2-web/svgs/solid/check-double.svg" class="icon2" *ngIf="element.commentStatus ==='Completed'">
         <p *ngIf="element.commentStatus === 'Completed'">Complete</p>
@@ -41,6 +41,7 @@
         <p class="blueThumbsUpText" *ngIf="element.commentStatus === ApprovedConditional ||element.commentStatus === Approved">Prov. Approved</p>
         <p class="redThumbsDownText" *ngIf="element.commentStatus === Rejected">Prov. Not Approved</p>
         <p class="redThumbsDownText" *ngIf="element.commentStatus === FinalReject">Final Rejected</p>
+        <p class="redThumbsDownText" >{{element.commentStatus}}</p>
 
         <!--<p class="yellowTimerText" *ngIf="element.commentStatus !== FinalApproved && element.commentStatus !== ApprovedConditional && element.commentStatus !== Approved && element.isAwaitingClarity === false && element.IsRefered === false && element.commentStatus !== Rejected || element.commentStatus === Null">Waiting</p>-->
         <p class="yellowTimerText" *ngIf="element?.UserAssaignedToComment === null && element?.isGISReviewing != true ">Waiting</p> <!-- projectTracker Sindiswa 15 January 2024 -->

@@ -1,9 +1,7 @@
 h1 {
   font-family: 'Nunito', sans-serif;
   margin: 0 auto;
-  /* text-align: center; */
   padding-top: 40px;
-  /* padding-bottom: 40px; */
   color: #343a40;
   font-size: 50px;
   margin-top: 0px;
@@ -11,45 +9,25 @@ h1 {
   margin-bottom: 40px;
 }
 
-.mat-blue {
-  margin: 5px;
-  background-color: #4393d7;
-  color: white;
-  margin-top: 21px;
-}
-.mat-form-field{
-    width:100%;
-}
-mat-dialog-container#mat-dialog-0 {
-  background: #ffffffba !important;
-  backdrop-filter: blur(15px) !important;
-}
-:host ::ng-deep .mat-tab-label-active {
-  background-color: #ccdee2;
-  color: #005870;
-  user-select: none;
-}
-/* YHOOO, just press the down arrow, the autocomplete is behind the modal*/
-.form-floating input.ngx-google-places-autocomplete {
-  z-index: 9999 !important; /* Adjust this value based on your modal's z-index */
-  position: relative; /* Add this if necessary */
-}
-
-.google-placess, .pac-container {
-  z-index: 999;
-  position: absolute;
-}
-
-.pac-container {
-  background-color: #FFF;
-  z-index: 9999 !important;
-  position: fixed;
-  display: inline-block !important;
-  float: left;
-}
-
 .glass {
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  max-height: 80vh;
+  overflow: auto;
 }
 
+.mat-success {
+  background-color: #2dd568;
+  color: #fff;
+}
+
+.cont2 {
+  margin-bottom: 10px;
+}
+
+.mat-blue {
+  margin-right: 5px;
+  background-color: #268df7 !important;
+  color: #005870;
+}
