@@ -282,7 +282,7 @@ export interface ApplicationsListBP {
   ActivationDate: any;
   ActivationConfirm: boolean;
   PermitExpired: boolean;
-  
+
 }
 
 export interface ArchitectClients {
@@ -415,7 +415,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   clientCompanyName = '';
   clientCompanyRegNo = '';
   clientCompanyType = '';
-  clientIDNumber = ''; //This was made ready, but was ultimately not pushed into function... 
+  clientIDNumber = ''; //This was made ready, but was ultimately not pushed into function...
   clientPhysicalAddress :any;
   clientBpNumber = '';
 
@@ -482,7 +482,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedDep = 0;
   SelectActingDep = '';
   selectedZone = 0;
-  SelectActingDZone = ''; 
+  SelectActingDZone = '';
   gotDrafts: boolean;
   externalUser: boolean = false;
   ActingAsInternal: boolean = false;
@@ -566,7 +566,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentDate: Date;
   previousMonth: number;
   @ViewChild(MatTable) applicationsTable: MatTable<ApplicationsListBP> | undefined;
- 
+
   //displayedColumns: string[] = ['ProjectNumber', 'FullName', 'Stage', 'Status', 'TypeOfApplication', 'AplicationAge', 'StageAge', 'DateCreated', 'actions'];
   dataSource = this.Applications;
   AllCurrentUserRoles: any;
@@ -767,13 +767,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log("Is this the directorate?", this.CurrentUserProfile[0].directorate);
       // #endregion
 
-   
+
       // #region escalation Sindiswa 30 Janu
       // #endregion
       //Audit Trail Kyle
-      this.sharedService.isViewReport = false; 
+      this.sharedService.isViewReport = false;
       this.sharedService.isReports = false;
-      //Audit Trail Kyle 
+      //Audit Trail Kyle
 
      /* this.getRolesLinkedToUser();*/
       this.UpdateProjectNumberConfig();
@@ -783,7 +783,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.onCheckIfUserHasAccess();
 
-    
+
       this.getAllSubDepartments();
       this.getAllUserLinks();
       this.getConfig();
@@ -793,21 +793,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.Reviews = 'Current';
       //this.ServerType = this.sharedService.getServerType();onFilterButtonClick
       this.isBannerVisible();
- 
+
     /*this.GetAllApplications();*/  //this is the old all applications method use this is other method does not work
 
-   
+
 /*        this.GetAllPreInvoiceScrutinyApplications();
         this.GetAllBuildingPlansApplications();
         this.getAllPreInvoiceScurtinyApplications();*/
-      
+
 /*        this.dataSourceSA = this.AllApplications;
         this.originalDataSourceSA = [...this.AllApplications];*/
 
       this.stringifiedDataRoles = JSON.parse(JSON.stringify(localStorage.getItem('AllCurrentUserRoles')));
       this.AllCurrentUserRoles = JSON.parse(this.stringifiedDataRoles);
 
- 
+
       this.onCheckAllRolesForUser();
       this.getAllClientsForArchitect();
       this.setSelectedVal();
@@ -856,7 +856,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           else if (current.utilitySlot2 == "1") {
             this.disableButtons = true;
           }
-          
+
 
           console.log("Testing alerts", current, this.disableButtons);
 
@@ -917,7 +917,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       if (data.responseCode == 1) {
 
-        // const current = 
+        // const current =
         for (let i = 0; i < data.dateSet.length; i++) {
 
           if (this.AllSubDepartmentList) {
@@ -955,12 +955,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   sendOption() {
     if (this.option == "internal") {
 
-      
+
 
       this.sharedService.clientUserID = this.CurrentUser.appUserId;
-      
+
       this.onCreateBuildingApplication();
-      
+
     }
     else {
       this.getAllExternalUsers()
@@ -977,7 +977,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       keyboard: false // Prevent pressing the ESC key to close the modal
     });
 
-   
+
   }
   openExternal(externalOpt: any) {
     this.modalService.open(externalOpt, {
@@ -1016,7 +1016,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.newInternalList = [];
   }
 
-  //The filter acts up sometimes - 
+  //The filter acts up sometimes -
   openUser(user: any, architectClient: any) {
 
     //if (this.isModalOpen) {
@@ -1298,7 +1298,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       else {
         alert(data.responseMessage);
       }
- 
+
 
 
       console.log("reponse", data);
@@ -1313,7 +1313,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getUserID(index: any) {
     console.log("Turtle Speed is too fast for me");
     /*ClientUserList will get messed up when there is filtering
-    this.userID = this.ClientUserList[index].userId; 
+    this.userID = this.ClientUserList[index].userId;
     this.selectedUserName = this.ClientUserList[index].fullName;*/
 
     if (index >= 0 && index < this.dataSourceLinkUsers.length) {
@@ -1368,8 +1368,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   UpdateProjectNumberConfig() {
 
     /*    if (this.CurrentUserProfile[0].isInternal == false) {
-          
-    
+
+
           this.getAllApplicationsByUserID();
         }*/
 
@@ -1629,7 +1629,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   //                //#endregion
 
   //                //Project size Kyle 27-02-24
-  //                
+  //
   //                if (current.networkLicenses == true) {
   //                  tempApplicationListShared.NetworkLicensees = "Fibre Network Licensees have been contacted regarding trench sharing and existing services";
   //                }
@@ -1690,9 +1690,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   //               this.onFilterApplicationsForEMB();
   //             }
   //             else {
-   
+
   //             }
-   
+
   //           }*/
 
 
@@ -1731,23 +1731,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('mySelect') mySelect: MatSelect;
   getAllApplicationsByUserID() {
     /* this.pastAndCurrentReviews = false;
- 
- 
+
+
      this.Applications.splice(0, this.Applications.length);
- 
+
      if (this.CurrentUserProfile[0].isInternal) {
- 
- 
- 
- 
+
+
+
+
        this.FilterBtn = true;
  *//*      this.onFilterApplicationForMyReviews();*//*
-    
+
         }
         else {
-    
-    
-    
+
+
+
           *//*this.select = "option3";*//*
 
 
@@ -1829,7 +1829,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       tempApplicationListShared.ProjectNumber = (current.applicationID).toString();
     }
-    
+
     tempApplicationListShared.isPlanning = current.isPlanning;
     if (current.networkLicenses == true) {
       tempApplicationListShared.NetworkLicensees = "Fibre Network Licensees have been contacted regarding trench sharing and existing services";
@@ -1978,7 +1978,7 @@ this.subscriptions.push(subscription);
     console.log("THIS IS THE APPLICATION TYPE", applicationType);
    /* this.sharedService.setReapply(applicationType)*/;
 
-    
+
     if (this.option == "client" || this.option == 'proxy') {
 
       this.NewWayleaveComponent.onWayleaveCreate(this.userID, isPlanning, false);
@@ -1994,42 +1994,42 @@ this.subscriptions.push(subscription);
 
 
   /*  countUnpaid() {
-  
+
       for (var i = 0; i < this.applicationDataForView.length; i++) {
         const current = this.applicationDataForView[i];
         if (current.ApplicationStatus == "Unpaid") {
           this.unpaidcount++;
-  
-        }  
+
+        }
       }
     }
     }
-  
+
     countDistributed() {
-  
+
       for (var i = 0; i < this.applicationDataForView.length; i++) {
         const current = this.applicationDataForView[i];
         if (current.ApplicationStatus == "Distributing" || current.ApplicationStatus == "Distributed/Unallocated" ) {
           this.distributioncount++;
-  
+
         }
       }
     }
-  
+
     countApproved() {
-  
+
       for (var i = 0; i < this.applicationDataForView.length; i++) {
         const current = this.applicationDataForView[i];
         if (current.ApplicationStatus == "PTW Pending" || current.ApplicationStatus == "APG" || current.ApplicationStatus == "Monitoring") {
           this.approveCount++;
-  
+
         }
       }
     }
-  
-  
+
+
     countEMBStage() {
-  
+
       for (var i = 0; i < this.applicationDataForView.length; i++) {
         const current = this.applicationDataForView[i];
         if (current.ApplicationStatus == "EMB") {
@@ -2037,9 +2037,9 @@ this.subscriptions.push(subscription);
         }
       }
     }
-  
+
     countRejection() {
-  
+
       for (var i = 0; i < this.applicationDataForView.length; i++) {
         const current = this.applicationDataForView[i];
         if (current.ApplicationStatus == "Rejected") {
@@ -2150,9 +2150,9 @@ this.subscriptions.push(subscription);
         this.dataSource = this.Applications.filter(df => df.DateCreated);
         this.filter = false;
       }
-  
+
     }
-  
+
     filterByDistribution() {
       if (this.filter == false) {
         this.dataSource = this.Applications.filter(df => df.ApplicationStatus == "Distributing" || df.ApplicationStatus == "Distributed/Unallocated");
@@ -2163,7 +2163,7 @@ this.subscriptions.push(subscription);
         this.filter = false;
       }
     }
-  
+
       filterByApproved() {
         if (this.filter == false) {
           this.dataSource = this.Applications.filter(df => df.ApplicationStatus == "Approved" || df.ApplicationStatus == "Final Approval" || df.ApplicationStatus == "PTW Pending");
@@ -2174,7 +2174,7 @@ this.subscriptions.push(subscription);
           this.filter = false;
         }
     }
-  
+
     filterByRejected() {
       if (this.filter == false) {
         this.dataSource = this.Applications.filter(df => df.ApplicationStatus == "Rejected");
@@ -2185,7 +2185,7 @@ this.subscriptions.push(subscription);
         this.filter = false;
       }
     }
-  
+
     filterByWIP() {
       if (this.filter == false) {
         this.dataSource = this.Applications.filter(df => df.ApplicationStatus == "EMB");
@@ -2245,7 +2245,7 @@ this.subscriptions.push(subscription);
     }
     // #endregion
 
-    //if (this.newList.length <= 0) { //checkingNotifications Sindiswa 15 February 2024 - 
+    //if (this.newList.length <= 0) { //checkingNotifications Sindiswa 15 February 2024 -
     else if (this.newList.length <= 0) {
 
       this.sharedService.setProjectNumber(element.ProjectNumber);
@@ -2981,7 +2981,7 @@ this.subscriptions.push(subscription);
             //            console.log("Error", error);
             //          })
             //        }
-            
+
             this.dataSource = this.Applications.filter(df => df.DateCreated);
 
 
@@ -3861,15 +3861,15 @@ this.subscriptions.push(subscription);
   }
 
   onFilterButtonClick() {
-    /*    
+    /*
         const table = document.querySelector('.mat-elevation-z8');
-    
+
         // Remove the fade-out class to trigger fade-in
         table.classList.remove('fade-out');
-    
+
         // Add the fade-in class to start the fade-in animation
         table.classList.add('fade-in');
-    
+
         // After the animation completes, remove the fade-in class
         setTimeout(() => {
           table.classList.remove('fade-in');
@@ -4847,8 +4847,8 @@ this.subscriptions.push(subscription);
     let companyRegNo = this.clientCompanyRegNo;
     let clientCompanyType = this.clientCompanyType;
     let physicalAddress = this.clientPhysicalAddress;
-    
-    
+
+
 
     let clientIDNumber = this.clientIDNumber; //hide
 
@@ -4911,7 +4911,7 @@ this.subscriptions.push(subscription);
           //    console.log("ngathi this BP is not valid.");
           //    this.externalWValidBP = false; // Set this to false in case of an invalid BP Number
           // }
-          
+
         }
       } catch (error) {
         console.error("An error occurred: ", error);
@@ -4922,7 +4922,7 @@ this.subscriptions.push(subscription);
 
     console.log("Email is okay?" + this.validEmail);
     console.log("User has a valid BP Num " + this.externalWValidBP);
-    
+
     //What other validation must be done here? | || clientIDNumber === undefined || clientIDNumber.trim() === ''
     if (
       phoneNumber === undefined || phoneNumber.trim() === '' ||
@@ -4951,10 +4951,10 @@ this.subscriptions.push(subscription);
 
   createNewClient() {
     try {
-      
+
       this.userService.register(this.clientFullName, this.clientEmail, "Password@" + this.clientFullName).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
          this.newProfileComponent.onNewProfileCreate(
             data.dateSet.appUserId,
             this.clientFullName,
@@ -4977,7 +4977,7 @@ this.subscriptions.push(subscription);
           this.sharedService.newUserProfileBp = this.clientBpNumber;
           alert(this.clientFullName + " has been added as an external client.\nYou can now link their professionals and create a wayleave on their behalf.");
           console.log("Who is logged in?" + JSON.stringify(this.CurrentUser));
-         
+
           this.CheckUserID();
           //I NEED TO STAY INSIDE THIS MAT-STEPPER
           //this.router.navigate(["/new-profile"]);
@@ -5010,7 +5010,7 @@ this.subscriptions.push(subscription);
         this.onCreateBuildingApplication();
       }
     }
-   
+
   }
   getUserProfile() {
     let stringifiedData = JSON.parse(
@@ -5506,7 +5506,7 @@ this.subscriptions.push(subscription);
           <p>Should you have any queries, please contact <a href="mailto:wayleaves@capetown.gov.za">wayleaves@capetown.gov.za</a></p>
               <p >Regards,<br><a href="https://wayleave.capetown.gov.za/">Wayleave Management System</a></p>
                         <p>
-            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>              
+            <a href="https://www.capetown.gov.za/">CCT Web</a> | <a href="https://www.capetown.gov.za/General/Contact-us">Contacts</a> | <a href="https://www.capetown.gov.za/Media-and-news">Media</a> | <a href="https://eservices1.capetown.gov.za/coct/wapl/zsreq_app/index.html">Report a fault</a> | <a href="mailto:accounts@capetown.gov.za?subject=Account query">Accounts</a>
           </p>
            <img class="footer-logo" src='https://resource.capetown.gov.za/Style%20Library/Images/coct-logo@2x.png' alt="Wayleave Management System Logo" width="100">
         </div>
@@ -5572,7 +5572,7 @@ this.subscriptions.push(subscription);
   onToggleChange(selectedValue: string): void {
     // Fetch applications based on the selected role
     // Call the appropriate method here based on the selected value
-    
+
     switch (selectedValue) {
       case "Reviewer":
         this.onFilterApplicationForMyReviews();
@@ -5615,16 +5615,16 @@ this.subscriptions.push(subscription);
 
     // Define a variable to keep track of the first toggle button
     let firstToggleSelected = false;
-    
+
     if (this.AllCurrentUserRoles.length < 1) {
       this.pastAndCurrentReviews = false;
       /*this.onFilterApplicationsFprMyApplications()*/;
     }
     else {
       for (let i = 0; i < this.AllCurrentUserRoles.length; i++) {
-        
+
         const roleName = this.AllCurrentUserRoles[i].roleName;
-        
+
         if (roleName == 'Action Centre' || roleName == 'Create Wayleave' || roleName == 'Developer Config' || roleName == 'Configuration' || roleName == 'Audit Trail' || roleName == 'Generate Approval Pack and Rejection Pack' || roleName == 'Verify Payment' || roleName == 'Tracking' || roleName == 'Zone Admin') {
 
         }
@@ -6128,7 +6128,7 @@ this.subscriptions.push(subscription);
     this.applicationDataForView = [];
     this.Applications = [];
     this.isTableLoading = true;
-    
+
     this.Applications.splice(0, this.Applications.length);
     this.applicationService.getApplicationsForFinalReview(this.CurrentUserProfile[0].zoneID, this.CurrentUser.appUserId).subscribe((data: any) => {
 
@@ -7068,7 +7068,7 @@ this.subscriptions.push(subscription);
     this.isArchivePlan = isPlanArchive;
 
     if (this.isArchitect == false || this.isArchitect == null && this.CurrentUserProfile[0].isInternal == true) {
-     
+
       this.openClientOption(this.clientOption);
     }
 
@@ -7143,25 +7143,25 @@ this.subscriptions.push(subscription);
       }
   }
   GetAllPreInvoiceScrutinyApplications() {
-    
+
     this.ApplicationsBP.splice(0, this.ApplicationsBP.length);
     this.bpApplicationService.getAllLSApplications().subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempApplication = {} as ApplicationsListBP;
           const current = data.dateSet[i];
-          
+
           if (current.lsNumber != null) {
             if (current.physicalAddress == undefined) {
               tempApplication.propertyAddress = current.physicalAddress;
             }
             else {
-              
+
               var address = current.physicalAddress.split(',');
               tempApplication.propertyAddress = address[0] + " " + address[1];
             }
-            
+
             tempApplication.applicationID = current.applicationID;
             tempApplication.ProjectNumber = current.lsNumber;
             tempApplication.erfNumber = current.erfNumber;
@@ -7187,7 +7187,7 @@ this.subscriptions.push(subscription);
           }
 
 
-         
+
 
         }
         this.dataSourceBP = this.ApplicationsBP.sort((a, b) => new Date(b.justForFilteringByDate).getTime() - new Date(a.justForFilteringByDate).getTime());;
@@ -7210,24 +7210,24 @@ this.subscriptions.push(subscription);
 
   GetAllBuildingPlansApplications() {
     this.AllBPApplications.splice(0, this.AllBPApplications.length);
-    
+
     this.bpApplicationService.getAllBuildingPlansApplications().subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempApplication = {} as ApplicationsListBP;
           const current = data.dateSet[i];
-          
+
 
             if (current.physicalAddress == undefined) {
               tempApplication.propertyAddress = current.physicalAddress;
             }
             else {
-              
+
               var address = current.physicalAddress.split(',');
               tempApplication.propertyAddress = address[0] + " " + address[1];
             }
-            
+
             tempApplication.applicationID = current.applicationID;
             tempApplication.ProjectNumber = current.lsNumber;
             tempApplication.erfNumber = current.erfNumber;
@@ -7256,7 +7256,7 @@ this.subscriptions.push(subscription);
 
 
 
-        
+
         this.dataSourceBP = this.AllBPApplications.sort((a, b) => new Date(b.justForFilteringByDate).getTime() - new Date(a.justForFilteringByDate).getTime());
 
         this.applicationTypeName = "Build Plan";
@@ -7330,7 +7330,7 @@ this.subscriptions.push(subscription);
         this.applicationTypeName = "Town Planning";
         this.dataSourceSA = this.AllTownPlanningApplications.sort((a, b) => new Date(b.justForFilteringByDate).getTime() - new Date(a.justForFilteringByDate).getTime());
         this.originalDataSourceSA = [...this.AllTownPlanningApplications];
-        
+
       }
       else {
         alert(data.responseMessage);
@@ -7396,8 +7396,8 @@ this.subscriptions.push(subscription);
         this.dataSourceSA = this.AllApplications;
 
         this.isLoading = false;
-        
-       
+
+
       }
       else {
         alert(data.responseMessage);
@@ -7438,7 +7438,7 @@ this.subscriptions.push(subscription);
   }
   saveDisabled: boolean = true;
   SelectArchitect(index: any) {
-    
+
     const UserID = this.ArchitectsList[index].ArchitectUserId;
     this.sharedService.setArchitectID(UserID);
     this.sharedService.architectUserID;
@@ -7446,23 +7446,23 @@ this.subscriptions.push(subscription);
   }
 
   GetAllApplicationsForExternalUser() {
-    
+
     this.bpApplicationService.getApplicationsByExternalUserID(this.CurrentUser.appUserId).subscribe((data: any) => {
       if (data.responseCode == 1) {
         for (let i = 0; i < 30; i++) {
           const tempApplication = {} as ApplicationsListBP;
           const current = data.dateSet[i];
-          
+
           if (current.lsNumber != null) {
             if (current.physicalAddress == undefined) {
               tempApplication.propertyAddress = current.physicalAddress;
             }
             else {
-              
+
               var address = current.physicalAddress.split(',');
               tempApplication.propertyAddress = address[0] + " " + address[1];
             }
-            
+
             tempApplication.applicationID = current.applicationID;
             tempApplication.ProjectNumber = current.lsNumber;
             tempApplication.erfNumber = current.erfNumber;
@@ -7476,7 +7476,7 @@ this.subscriptions.push(subscription);
             const timeDiff = currentDate.getTime() - dateCreated.getTime();
             const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
             tempApplication.planAge = daysDiff;
-            
+
             /*cal stage age*/
             const stageDateCreated = new Date(tempApplication.dateCreated);
             const stageDate = currentDate.getTime() - stageDateCreated.getTime();
@@ -7501,10 +7501,10 @@ this.subscriptions.push(subscription);
   CheckArchitectLink() {
 
     if (this.exisitingArchitect) {
-    
+
       for (let i = 0; i < this.ArchitectsList.length; i++) {
         const current = this.ArchitectsList[i];
-       
+
         if (this.architectFullName == current.ArchitectName && this.architectUserId == current.ArchitectUserId) {
           this.linkedArchitect = true;
           alert("This architect is already listed under your architects");
@@ -7513,10 +7513,10 @@ this.subscriptions.push(subscription);
       }
 
       if (this.linkedArchitect == false) {
-        
+
         this.UserlinkToArchitectService.addUpdateLinkedUser(0, this.architectUserId, this.architectFullName, this.CurrentUser.appUserId, this.CurrentUser.fullName, this.CurrentUser.appUserId, this.CurrentUserProfile[0].physicalAddress).subscribe((data: any) => {
           if (data.reponseCode == 1) {
-            
+
             alert(data.responseMessage);
             this.getAllArchitectsForUser();
             this.modalService.dismissAll();
@@ -7532,16 +7532,16 @@ this.subscriptions.push(subscription);
     }
   }
   CheckForArchitectUser() {
-    
+
     this.userPofileService.getAllArchitects().subscribe((data: any) => {
-      
+
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const current = data.dateSet[i];
-          
+
           if (this.architectFullName == current.fullName && this.architectEmail == current.email) {
-            
+
             this.exisitingArchitect = true;
             this.architectUserId = current.userID;
             this.CheckArchitectLink();
@@ -7564,12 +7564,12 @@ this.subscriptions.push(subscription);
 
     let name = this.architectFullName;
     let email = this.architectEmail;
-    
+
     if (this.architectFullName == undefined || this.architectFullName.trim() == "" || this.architectEmail == undefined || this.architectEmail.trim() == "") {
       alert("Please enter architects and full name ");
     }
     else {
-      
+
       const name = this.architectFullName.substring(0, this.architectFullName.indexOf(" "));
       const surname = this.architectFullName.substring(this.architectFullName.indexOf(" ") + 1);
       if (name.trim() == "" || surname.trim() == "") {
@@ -7586,12 +7586,12 @@ this.subscriptions.push(subscription);
   }
 
   checkingClientLink() {
-    
+
     for (let i = 0; i < this.ArchitectClients.length; i++) {
-      
+
       const tempArchitectClient = this.ArchitectClients[i];
       if (this.clientFullName == tempArchitectClient.ClientFullName && this.CurrentUser.fullName == tempArchitectClient.ArchitectName) {
-        
+
         this.linkedClient = true;
         alert("This User is already listed as one of your clients");
         this.modalService.dismissAll();
@@ -7601,10 +7601,10 @@ this.subscriptions.push(subscription);
     }
 
     if (this.linkedClient == false) {
-      
+
       this.userPofileService.checkForExistingUser(this.clientFullName, this.clientEmail).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
           const current = data.dateSet[0];
           this.UserlinkToArchitectService.addUpdateLinkedUser(0, this.CurrentUser.appUserId, this.CurrentUser.fullName, current.userID, this.clientFullName, this.CurrentUser.appUserId, current.physcialAddress).subscribe((data: any) => {
             if (data.responseCode == 1) {
@@ -7633,7 +7633,7 @@ this.subscriptions.push(subscription);
 
   // #region BPRegister Sindiswa 20 June 2024
   SearchForApplication() {
-    
+
     const query = this.searchInput.toLowerCase();
 
     //const results = this.ApplicationsBP.filter(item => item.ownerName.toLowerCase().startsWith(query));
@@ -7761,7 +7761,7 @@ this.subscriptions.push(subscription);
     }
   }
   GetAllNotificationsForApplication(applicationId: number) {
-    
+
     this.bpNotificationService.getNotificationByApplicationID(applicationId).subscribe((data: any) => {
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
@@ -7826,7 +7826,7 @@ this.subscriptions.push(subscription);
       case 'ls':
         this.modalService.dismissAll();
         this.GoToBuildingApplication(false, 'ls', false);
-      
+
         break;
       case 'demolition':
         this.goToDemolition(false);
@@ -7851,12 +7851,12 @@ this.subscriptions.push(subscription);
       case 'tp':
         this.modalService.dismissAll();
         this.GoToBuildingApplication(false, 'tp', false);
-       
+
         break;
       case 'Wayleave':
         this.modalService.dismissAll();
         this.GoToBuildingApplication(false, null, true);
-        
+
         break;
       case 'cemetery':
 
@@ -7896,7 +7896,7 @@ this.subscriptions.push(subscription);
       else {
         alert(data.responseMessage);
       }
-      
+
     }, error => {
       console.log("Error: ", error);
     })
@@ -7934,7 +7934,7 @@ this.subscriptions.push(subscription);
         for (let i = 0; i < 30; i++) {
           const current = data.dateSet[i];
           const tempApplication = {} as ApplicationsListBP;
-        
+
           tempApplication.applicationID = current.demolitionID;
           tempApplication.erfNumber = current.siteERFNumber;
           tempApplication.stage = current.currentStage;
@@ -7996,7 +7996,7 @@ this.subscriptions.push(subscription);
           tempApplication.dateUpdated = current.dateUpdated.substring(0, current.dateUpdated.indexOf("T"));
 
           this.BannerList.push(tempApplication);
-          
+
         }
       }
       else {
@@ -8029,7 +8029,7 @@ this.subscriptions.push(subscription);
 
     }, error => {
       console.log("Error: ", error);
-     
+
     })
   }
 
@@ -8044,7 +8044,7 @@ this.subscriptions.push(subscription);
           tempFunctionArea.FAName = current.faName;
 
           this.FunctionalAreasList.push(tempFunctionArea);
-          
+
         }
         this.openComplaints(complaint);
       }
@@ -8058,18 +8058,18 @@ this.subscriptions.push(subscription);
   }
 
   onAddressSelect(address: any) {
-    
+
     this.clientPhysicalAddress = address.formatted_address;
-   
+
   }
- 
+
   openArchiveOption() {
     this.modalService.open(this.archiveOption, { centered: true, size: 'xl' });
   }
   //Home Tabs Kyle 27-05 - 24
   onChangeDataSource(event: any) {
     debugger;
-    this.showDrafts = false; 
+    this.showDrafts = false;
     this.selectedTabIndex = event.options[0].value;
     console.log("SelecteedTabIndex",event.options[0].value);
     switch (this.selectedTabIndex) {
@@ -8099,8 +8099,8 @@ this.subscriptions.push(subscription);
       case 7:
         break;
       case 8:
-        
-      
+
+
         this.getAllSystemApplications();
 
         break;
@@ -8111,19 +8111,19 @@ this.subscriptions.push(subscription);
     }
   }
 
-  showDrafts: boolean = false; 
+  showDrafts: boolean = false;
   getAllApplications() {
 
 
 
   }
- 
+
   getAllPreInvoiceScurtinyApplications() {
 
     this.bpApplicationService.getAllPreInvoiceScrutinyApplications().subscribe(async (data: any) => {
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
-          
+
           const current = data.dateSet[i];
           const tempApplication = {} as ApplicationsListBP;
           if (current.stage == "Land Survey" || current.stage == "Town Planning") {
@@ -8140,11 +8140,11 @@ this.subscriptions.push(subscription);
             tempApplication.Latitude = current.latitude;
             tempApplication.Longitude = current.longitude;
 
-        
-           
+
+
             this.scrutinyApplications.push(tempApplication);
           }
-         
+
         }
         console.log("Scrutiny Application", this.scrutinyApplications);
         this.dataSourceSA = this.scrutinyApplications;
@@ -8155,26 +8155,26 @@ this.subscriptions.push(subscription);
       }
     }, error => {
       console.log("Error",error);
-   
+
     })
   }
   //Home Tabs Kyle 27-05 - 24
   openCreateNewApplicationBar() {
     this._bottomSheet.open(CreateNewApplicationComponent);
   }
-  
+
    getAllSystemApplications() {
     debugger;
     this.AllApplications.splice(0, this.AllApplications.length);
     this.applicationService.getAllSystemApplications().subscribe(async(data: any) => {
-      debugger; 
+      debugger;
       if (data.responseCode == 1) {
         console.log("All applications data", data.dateSet);
         for (let i = 0; i < data.dateSet.length; i++) {
           debugger;
           const current = data.dateSet[i];
           const tempApplication = {} as ApplicationsListBP;
-         
+
           tempApplication.applicationID = current.applicationID;
           if (current.bpApplicationID == null || current.bpApplicationID == "") {
             tempApplication.ProjectNumber = current.lsNumber;
@@ -8184,7 +8184,7 @@ this.subscriptions.push(subscription);
             tempApplication.ProjectNumber = current.bpApplicationID;
             tempApplication.LSNumber = current.lsNumber;
           }
-         
+
             tempApplication.erfNumber = current.erfNumber;
             tempApplication.stage = current.stage;
           tempApplication.ownerName = current.firstName + current.surname;
@@ -8194,7 +8194,7 @@ this.subscriptions.push(subscription);
           tempApplication.isActivated = current.isActivated;
           tempApplication.ActivationConfirm = current.activationConfirmed;
           if (current.activationDate != null) {
-            
+
             tempApplication.ActivationDate = current.activationDate.substring(0, current.activationDate.indexOf("T"));
 
             const permitTime = await this.checkPlanExpiration(tempApplication.ActivationDate);
@@ -8203,14 +8203,14 @@ this.subscriptions.push(subscription);
               tempApplication.PermitExpired = true;
             }
           }
-         
-         
-          
+
+
+
           if (current.createdById != null) {
             const originator: string = await this.getOriginatorName(current.createdById);
             tempApplication.Originator = originator;
           }*/
-        
+
 
           const address = current.physicalAddress
             ? (current.physicalAddress.includes(",") ? current.physicalAddress.split(",") : [current.physicalAddress])
@@ -8223,7 +8223,7 @@ this.subscriptions.push(subscription);
           else {
             tempApplication.propertyAddress = current.physicalAddress;
           }
-           
+
             tempApplication.status = current.status;
             tempApplication.dateCreated = current.dateCreated.substring(0, current.dateCreated.indexOf("T"));
           tempApplication.dateUpdated = current.dateUpdated.substring(0, current.dateUpdated.indexOf("T"));
@@ -8243,7 +8243,7 @@ this.subscriptions.push(subscription);
           tempApplication.stageAge = stageDateDiff;
           tempApplication.status = current.status;
           tempApplication.justForFilteringByDate = current.dateCreated;
-          
+
           this.AllApplications.push(tempApplication);
         }
         console.log("All Applications", this.AllApplications);
@@ -8254,25 +8254,25 @@ this.subscriptions.push(subscription);
     })
   }
 
-  async getOriginatorName(userID:string) :Promise<string>{
-    try {
-      debugger;
-      const data: any = await this.userPofileService.getUserProfileById(userID).toPromise();
-      if (data.responseCode == 1) {
-        const current = data.dateSet[0];
-        return current.fullName;
-      }
-      else {
-        throw new Error(data.responseMessage);
-      }
-    }
-    catch (error: any) {
-      console.log("Error:", error);
-      throw error;
-    }
-   
+  // async getOriginatorName(userID:string) :Promise<string>{
+  //   try {
+  //     debugger;
+  //     const data: any = await this.userPofileService.getUserProfileById(userID).toPromise();
+  //     if (data.responseCode == 1) {
+  //       const current = data.dateSet[0];
+  //       return current.fullName;
+  //     }
+  //     else {
+  //       throw new Error(data.responseMessage);
+  //     }
+  //   }
+  //   catch (error: any) {
+  //     console.log("Error:", error);
+  //     throw error;
+  //   }
 
-    }
+
+  //   }
   draftApplications: ApplicationsListBP[] = [];
   getAllDraftApplications() {
     this.bpApplicationService.getAllDraftApplications().subscribe((data: any) => {

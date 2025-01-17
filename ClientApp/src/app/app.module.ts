@@ -225,7 +225,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     DraftsComponent,
       ApprovalPackComponent,
     OldApplicationVersionsComponent, //reapply Sindiswa 25 January 2024
-    ApplicationAlertsComponent,//Clarify Alerts Kyle 
+    ApplicationAlertsComponent,//Clarify Alerts Kyle
     SubdeptWayleaveExpirationComponent, //wayleaveExpiry Sindiswa 08 February 2024
     StatusOfWorksComponent,
     BuildingApplicationComponent,
@@ -244,7 +244,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     BPBannerApplicationComponent,
     BpConfigurationsComponent,
     BPStagesComponent, //BP Stages Kyle
-    BPRolesConfigComponent, 
+    BPRolesConfigComponent,
     BPDepartmentManagerComponent,
     BpActionCenterComponent,
     BPFinancialsComponent,
@@ -378,7 +378,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     BPBuildingControlsChecklistConfigComponent,
     BPConstructionStagesComponent,
     BPConstructionChecklistComponent,
-  
+
   ],
   bootstrap: [AppComponent]
 })
