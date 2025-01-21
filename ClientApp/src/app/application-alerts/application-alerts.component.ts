@@ -444,10 +444,12 @@ export class ApplicationAlertsComponent implements OnInit {
 
         this.dataSourceClarifications = this.ClarificationsList;
         this.clarificationsTable?.renderRows();
-        if (this.ClarificationsList.length > 0) {
+        //if (this.ClarificationsList.length > 0) {
 
-          this.openClarificationsAlerts();
-        }
+        //  this.openClarificationsAlerts();
+        //}
+
+        this.openClarificationsAlerts();
       }
       else {
         alert(data.responseMessage);
