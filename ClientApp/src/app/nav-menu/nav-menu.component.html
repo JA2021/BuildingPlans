@@ -179,11 +179,11 @@
                   <!-- Truncated Comment -->
                   <span *ngIf="!expandedComment || expandedComment !== element.Comment">
                     <span [innerHTML]="sanitizeHTML(getTruncatedComment(element.Comment))"></span>
-                    <span *ngIf="isTruncated(element.Comment)">...</span>
+                    <span *ngIf="isTruncated(element.Comment)"></span>
                   </span>
 
                   <!-- Full Comment -->
-                  <div *ngIf="expandedComment === element.Comment" class="expanded-comment">
+                  <div *ngIf="expandedComment === element.Comment" class="fullComment">
                     <span [innerHTML]="sanitizeHTML(element.Comment)"></span>
                   </div>
                 </div>
