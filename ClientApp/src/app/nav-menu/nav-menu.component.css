@@ -1213,9 +1213,10 @@ body {
   color: #007bff;
   border: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10px;
   text-decoration: underline;
   padding: 0;
+  margin-top: 15px;
 }
 
 .toggle-comment-button:hover {

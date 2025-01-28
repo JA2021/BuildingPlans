@@ -131,13 +131,13 @@ export class NavMenuComponent implements OnInit {
 
  // Get truncated comment text
  getTruncatedComment(comment: string): string {
-  const maxLength = 50;
+  const maxLength = 90;
   return comment.length > maxLength ? comment.substring(0, maxLength) : comment;
 }
 
 // Check if the comment is truncated
 isTruncated(comment: string): boolean {
-  const maxLength = 50;
+  const maxLength = 90;
   return comment.length > maxLength;
 }
 
