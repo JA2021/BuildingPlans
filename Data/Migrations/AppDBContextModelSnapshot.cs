@@ -1857,6 +1857,12 @@ namespace BuildingPlans.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationID"), 1L, 1);
 
+                    b.Property<bool?>("ActivationConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ActivationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("AddressType")
                         .HasColumnType("nvarchar(max)");
 
@@ -2015,6 +2021,9 @@ namespace BuildingPlans.Data.Migrations
 
                     b.Property<string>("ValueOfProperty")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isActivated")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");

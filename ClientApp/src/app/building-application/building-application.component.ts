@@ -1555,14 +1555,7 @@ export class BuildingApplicationComponent implements OnInit {
     this.Classification = this.occupation + " : " + this.occupancy;
   }
 
-  onServitudeCheck() {
-    if (this.servitudeBox = false) {
-      this.servitudeBox = true;
-    }
-    else {
-      this.servitudeBox = false;
-    }
-  }
+
 
   openSnackBar(message: string) {
     this._snackBar.openFromComponent(SnackBarAlertsComponent, {

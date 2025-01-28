@@ -1268,6 +1268,28 @@ table {
   font-weight: 700;
   color: #00000099;
 }
+.card6 {
+  box-shadow: none !important;
+  background-color: #60e1fd45 !important;
+  margin-bottom: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center !important;
+  /* border-radius: 15px; */
+  /* width: 90%; */
+  /* margin-left: 5%; */
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.detailsCardName2 {
+  text-align: center;
+  padding: 10px;
+  margin: 0 !important;
+  font-weight: 700 !important;
+  color: #00000096;
+}
 
 .cardIndent {
   border: solid #5d93a1 2px;

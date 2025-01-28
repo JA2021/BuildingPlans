@@ -965,7 +965,10 @@ export class BPViewProjectInfoComponent implements OnInit {
   dataSourceTasks = this.Taskslist;
 
   @ViewChild(MatTable) BPDepartmentsForCommentListTable: MatTable<BPDepartmentsForCommentList> | undefined;
-  
+
+  BPDepartmentTrackerList: BPDepartmentsForCommentList[] = [];
+  dataSourceDep = this.BPDepartmentTrackerList;
+
   getAllDepartmentsForCommentForBPApplication() {
     this.BpDepartmentForCommentService.getDepartmentForComment(this.applicationId).subscribe((data: any) => {
 
@@ -984,9 +987,16 @@ export class BPViewProjectInfoComponent implements OnInit {
           tempDepForComment.isAwaitingClarity = current.isAwaitingClarity;
           tempDepForComment.UserAssaignedToComment = current.userAssaignedToComment;
 
-          this.BPDepartmentsForCommentList.push(tempDepForComment);
-        }
+          if (current.departmentName != "Land Survey" && current.departmentName != " Town Planning") {
+            this.BPDepartmentsForCommentList.push(tempDepForComment);
+          }
+          else {
+            this.BPDepartmentTrackerList.push(tempDepForComment);
+          }
 
+        }
+        this.dataSource = this.BPDepartmentsForCommentList;
+        this.dataSourceDep = this.BPDepartmentTrackerList;
         console.log("BPDepartmentsForCommentList", this.BPDepartmentsForCommentList);
 
       }
