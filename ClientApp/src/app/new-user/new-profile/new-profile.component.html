@@ -14,7 +14,6 @@
       <img src="assets/engage_dev_logo.png" class="logo">
 
     </div>
-
   </div>
   <div class="cont4">
     <button mat-raised-button color="primary" (click)="refresh();">Back To Login</button>
@@ -36,7 +35,7 @@
 
       <div class="container-fluid ">
 
-        <!--External Applicant-->
+        <--External Applicant-->
 <!--<div class="external" *ngIf="showExternal">
   <h5>Please enter your details as an External Applicant</h5>
   <div class="row">-->
@@ -349,76 +348,92 @@
 <!-- #endregion -->
 
 <ng-template #newUser let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Completing Your New User Profile</h4>
-    <button mat-raised-button color="warn" (click)="modal.dismiss('Cross click')"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/x.svg" class="icon4 white"></button>
-  </div>
-
   <div class="modal-body">
-
+    <div class="newUserPTitle">
+      <p class="cYNUP">Complete Your New User Profile</p>
+      <div alt="me" class="userIMG2" matTooltipPosition="after">
+        <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="profileIcon">
+      <p class="dp">{{dp}}</p>
+    </div>
+</div>
     <div class="container-fluid ">
       <div class="cont50">
         <div class="user">
-          <div alt="me" class="userIMG2">
-            <p class="dp">{{dp}}</p>
-          </div>
         </div>
       </div>
-      <h5 *ngIf="showExternal">Please complete your profile {{extApplicantName}} (External User)</h5>
-      <h5 *ngIf="showInternal">Please complete your profile {{internalApplicantName}} (Internal User)</h5>
+
+      <mat-divider></mat-divider>
+
+      <h5 >** Last step we promise, Just fill out the rest of your profile information and click save to complete your profile. ** {{extApplicantName}} </h5>
+
+
       <!--External Applicant-->
       <div class="external" *ngIf="showExternal">
 
 
         <div class="row">
-
-
-
           <div class="col">
-
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantName" placeholder="Enter First Name" disabled>
-              <label for="name">Name *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Name *</mat-label>
+              <input matInput
+                     placeholder="Name"
+                     [(ngModel)]="extApplicantName"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
+
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantSurname" placeholder="Enter Surname" disabled>
-              <label for="surname">Surname *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Surname *</mat-label>
+              <input matInput
+                     placeholder="Surname"
+                     [(ngModel)]="extApplicantSurname"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="tel" class="form-control" [(ngModel)]="extApplicantTellNo" placeholder="Enter Tell No.">
-              <label for="applicantTellNo">Cell No. *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Cell No. *</mat-label>
+              <input matInput
+                     placeholder=""
+                     [(ngModel)]="extApplicantTellNo"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" >
+            </mat-form-field>
           </div>
+
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="email" class="form-control" [(ngModel)]="extApplicantEmail" placeholder="Enter Email" disabled>
-              <label for="applicantEmail">Email *</label>
-            </div>
+            <mat-form-field appearance="outline">
+            <mat-label>Email *</mat-label>
+              <input matInput
+                     placeholder=""
+                     [(ngModel)]="extApplicantEmail"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
         </div>
 
 
         <div class="row">
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <!--<input type="text" class="form-control" [(ngModel)]="extApplicantPhyscialAddress" placeholder="Enter Address">-->
-              <input ngx-google-places-autocomplete class="form-control" [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" [(ngModel)]="extApplicantPhyscialAddress" />
-              <label for="applicantTellNo">Physical Address *</label>
-            </div>
-          </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Physical Address *</mat-label>
+              <input matInput
+              ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" [(ngModel)]="extApplicantPhyscialAddress"
+                      />
+            </mat-form-field>
         </div>
         <div class="row">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="extApplicantVatNumber" placeholder="Enter Vat Number">
-            <label for="extApplicantIDNumber">Vat Number </label>
-          </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Vat Number </mat-label>
+              <input matInput
+              type="text" [(ngModel)]="extApplicantVatNumber"/>
+            </mat-form-field>
         </div>
 
 
@@ -426,26 +441,21 @@
 
 
         <div class="row">
-          <!--/BPRegister Sindiswa 20062024 removed BP number-->
-          <!--<div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantBpNoApplicant" placeholder="Enter BP Number" disabled>
-              <label for="bpNoApplicant">BP Number</label>
-            </div>
-          </div>-->
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantCompanyName" placeholder="Enter Company Name">
-              <label for="address">Company Name</label>
-            </div>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Company Name </mat-label>
+            <input matInput
+            type="text" [(ngModel)]="extApplicantCompanyName"/>
+          </mat-form-field>
         </div>
+
+
         <div class="row">
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantCompanyRegNo" placeholder="Enter Company Reg No">
-              <label for="address">Company Reg No.</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Company Reg No. </mat-label>
+              <input matInput
+              type="text" [(ngModel)]="extApplicantCompanyRegNo"/>
+            </mat-form-field>
           </div>
           <div class="col">
 
@@ -476,24 +486,69 @@
 
         <!--icasadetails Sindiswa 10 January 2024-->
 
+        <mat-divider></mat-divider>
+        <div class="areYouAnArchitectDiv">
+        <p class="chckBoxText"> Are you an architect?</p>
 
-        <div class="row" *ngIf="showTelecommsPrompt">
-          <mat-checkbox [(ngModel)]="isRepresentingTelecommsCompany"> Check this box ONLY IF your company offers telecommunications services </mat-checkbox>
+            <div class="architectMeaning" >
+              <p class="architectText">*An architect is a person who plans, designs, and oversees the construction of buildings*</p>
+            </div>
+
+            <label class="container" *ngIf="showArchitect">
+              <input type="checkbox" [(ngModel)]="isArchitect" />
+            <div class="checkmark">
+              <p class="No name">I'm not an architect</p>
+              <p class="Yes name">I am an architect</p>
+            </div>
+          </label>
         </div>
-        <div class="row" *ngIf="!showTelecommsPrompt || isRepresentingTelecommsCompany">
-          <!-- icasaDetailsDisplay Sindiswa 16 January 2024 -->
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="extApplicantICASANumber" placeholder="Enter ICASA Number" name="extApplicantICASANumber" #icasaNumberInput="ngModel" [required]="isRepresentingTelecommsCompany" title="This field is mandatory for all electronic communications service providers.">
-              <label for="extApplicantICASANumber">ICASA Number *</label>
+        <mat-divider></mat-divider>
+
+          <div class="areYouAnArchitectDiv">
+            <p class="chckBoxText"> Are you creating a wayleave?</p>
+
+                <div class="architectMeaning" >
+                  <p class="architectText">*Wayleave agreement is a legally binding agreement between the land owner and service*</p>
+                </div>
+
+                <label class="container" *ngIf="showWayleave">
+                  <input type="checkbox" [(ngModel)]="isCreatingWayleave"/>
+                <div class="checkmark">
+                  <p class="No name">I'm not creating a wayleave</p>
+                  <p class="Yes name">I am creating a wayleave</p>
+                </div>
+              </label>
+              <div class="wayleaveMeaning" *ngIf="!showWayleave || isCreatingWayleave">
+                <p class="wayleaveText">You can make engineers & contractors in user settings.</p>
+              </div>
+            </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="areYouAnArchitectDiv" *ngIf="showTelecommsPrompt">
+          <p class="chckBoxText">  Does your company offer telecommunications services?</p>
+
+              <div class="architectMeaning" >
+                <p class="architectText">*Wide range of information transmission technologies*</p>
+              </div>
+
+              <label class="container" *ngIf="showTelecommsPrompt">
+                <input type="checkbox" [(ngModel)]="isRepresentingTelecommsCompany"/>
+              <div class="checkmark">
+                <p class="No name">No it does not</p>
+                <p class="Yes name">Yes it does</p>
+              </div>
+            </label>
+            <div class="icassaContain" *ngIf="!showTelecommsPrompt || isRepresentingTelecommsCompany">
+              <mat-form-field appearance="outline">
+                <mat-label>ICASA Numebr</mat-label>
+                <input matInput
+                type="text" [(ngModel)]="extApplicantICASANumber" name="extApplicantICASANumber" #icasaNumberInput="ngModel" [required]="isRepresentingTelecommsCompany" title="This field is mandatory for all electronic communications service providers."/>
+              </mat-form-field>
             </div>
           </div>
 
-          <!--<div class="col-1 d-flex align-items-center">
-            <mat-icon aria-hidden="false" aria-label="Info icon" fontIcon="info" matTooltip="This field is mandatory for all electronic communications service providers."></mat-icon>
-          </div>-->
-          <!-- endof icasaDetailsDisplay Sindiswa 15 January 2024 -->
-        </div>
+
         <!--<div *ngIf="isRepresentingTelecommsCompany && !extApplicantICASANumber">
           <div class="alert alert-danger">An ICASA License Number is required for telecomms companies /This field is mandatory for all electronic communications service providers.</div>
         </div>-->
@@ -507,123 +562,149 @@
 
       </div>
       <!--END-->
+
       <!--Internal Applicant-->
       <div class="internal" *ngIf="showInternal">
+
         <div class="row">
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="internalApplicantName" placeholder="Enter First Name" disabled>
-              <label for="name">Name *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Name *</mat-label>
+              <input matInput
+                     placeholder="Name"
+                     [(ngModel)]="internalApplicantName"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
+
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="internalApplicantSurname" placeholder="Enter Surname" disabled>
-              <label for="surname">Surname *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Surname *</mat-label>
+              <input matInput
+                     placeholder="Surname"
+                     [(ngModel)]="internalApplicantSurname"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
         </div>
         <!--start of: BPRegister Sindiswa 20062024 added more textboxes-->
+
         <div class="row">
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="email" class="form-control" [(ngModel)]="internalApplicantEmail" placeholder="Enter Email" disabled>
-              <label for="applicantEmail">Email *</label>
-            </div>
+            <mat-form-field appearance="outline">
+            <mat-label>Email *</mat-label>
+              <input matInput
+                     placeholder=""
+                     [(ngModel)]="internalApplicantEmail"
+                     (blur)="checkName()"
+                     [ngClass]="{'valid-input': isValid, 'invalid-input': isInvalid}" readonly>
+            </mat-form-field>
           </div>
+
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-             
-              <input type="email" class="form-control" [(ngModel)]="internalApplicantAlternativeEmail" name="internalApplicantAlternativeEmail" placeholder="Enter Email" #altEmail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-              <label for="applicantEmail">Alternative Email *</label>
+              <mat-form-field appearance="outline">
+              <mat-label>Alt Email *</mat-label>
+                <input matInput
+                type="email"  [(ngModel)]="internalApplicantAlternativeEmail" name="internalApplicantAlternativeEmail" placeholder="Enter Email" #altEmail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+              </mat-form-field>
               <div *ngIf="altEmail.invalid && (altEmail.dirty || altEmail.touched)" class="text-danger">
                 <div *ngIf="altEmail.errors?.pattern">
                   Please enter a valid email address.
                 </div>
               </div>
-            </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNo" placeholder="Enter Tell No." pattern="^\d{10}$" #telNo="ngModel">
-              <label for="applicantTellNo">Tell No *</label>
-              <div *ngIf="telNo.invalid && (telNo.dirty || telNo.touched)" class="text-danger">
-                <div *ngIf="telNo.errors?.pattern">
-                  Tell No must be exactly 10 digits.
-                </div>
+            <mat-form-field appearance="outline">
+            <mat-label>Tell No. *</mat-label>
+              <input matInput
+              type="tel" [(ngModel)]="internalApplicantTellNo" placeholder="Enter Tell No." pattern="^\d{10}$" #telNo="ngModel">
+            </mat-form-field>
+            <div *ngIf="telNo.invalid && (telNo.dirty || telNo.touched)" class="text-danger">
+              <div *ngIf="telNo.errors?.pattern">
+                Tell No. must be exactly 10 digits.
               </div>
             </div>
           </div>
-        </div>
+      </div>
+
+<mat-divider></mat-divider>
+
         <!--end of: BPRegister Sindiswa 20062024 added more textboxes-->
         <div class="row">
           <!--start of: BPRegister Sindiswa 202062024 change zone/subdepartment implementation to a zone and functional area one-->
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedZone" (change)="onSelectToPopulateDepartment($event)">
-                <option selected value="0">Select a functional area *</option>
-                <option *ngFor="let fa of FunctionalAreaDropdown" value="{{fa}}">{{fa}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="internalApplicantDepartment">
-                <option selected value="0">Select a department *</option>
-                <option *ngFor="let department of DepartmentsDropdown" value="{{department.zoneID}}">{{department.zoneName}}</option>
-              </select>
-            </div>
-          </div>
-          <!--end of: BPRegister Sindiswa 202062024 change zone/subdepartment implementation to a zone and functional area one-->
-          <!--<div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="internalApplicantDepartment" (change)="onSelectToPopulateZone($event)">
-                <option selected value="0">Select a subdepartment *</option>
-                <option *ngFor="let subDepartment of SubDepartmentList" value="{{subDepartment.subDepartmentID}}">{{subDepartment.subDepartmentName}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedZone">
-                <option selected value="0">Select a zone *</option>
-                <option *ngFor="let zone of ZoneDropdown" value="{{zone.zoneID}}">{{zone.zoneName}}</option>
-              </select>
-            </div>
-          </div>-->
-        </div>
-        
 
-        
+          <div class="col">
+              <mat-form-field>
+                <mat-label>Select a functional area *</mat-label>
+                <mat-select [(ngModel)]="internalApplicantDirectorate">
+                  <mat-option value="Building Plan">Building Plan</mat-option>
+                  <mat-option value="Signage">Signage</mat-option>
+                  <mat-option value="Banner & Poster">Banner & Poster</mat-option>
+                  <mat-option value="Flags & Poles">Flags & Poles</mat-option>
+                  <mat-option value="Town Planning">Town Planning</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Select a functional area *</mat-label>
+              <mat-select [(ngModel)]="internalApplicantDepartment">
+                <mat-option value="Water & Sanitation">Water & Sanitation</mat-option>
+                <mat-option value="Traffic & Security">Traffic & Security</mat-option>
+                <mat-option value="Roads & Stormwater">Banner & Poster</mat-option>
+                <mat-option value="Land Survey">Land Survey</mat-option>
+                <mat-option value="Electricity">Electricity</mat-option>
+                <mat-option value="Town Planning">Town Planning</mat-option>
+                <mat-option value="Fire">Fire</mat-option>
+                <mat-option value="Enviromental Health">Enviromental Health</mat-option>
+                <mat-option value="Transportation Planning">Transportation Planning</mat-option>
+                <mat-option value="Conservation & Enviromental Management">Conservation & Enviromental Management</mat-option>
+                <mat-option value="Estates & Valuations">Estates & Valuations</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+
         <div class="row">
-          
+
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="internalApplicantBranch" placeholder="Enter Branch">
-              <label for="Branch">Branch *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Branch *</mat-label>
+                <input matInput
+                       [(ngModel)]="internalApplicantBranch">
+              </mat-form-field>
           </div>
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="internalApplicantCostCenterOwner" placeholder="Enter Cost Center Owner">
-              <label for="applicantTellNo">Cost Center Owner *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Cost Center Owner *</mat-label>
+                <input matInput
+                       [(ngModel)]="internalApplicantCostCenterOwner">
+              </mat-form-field>
           </div>
 
           <div class="col">
-            <div class="form-floating mb-3 mt-3">
-              <input type="text" class="form-control" [(ngModel)]="internalApplicantCostCenterNo" placeholder="Enter Cost Center Number">
-              <label for="CostCenterNumber">Cost Center Number *</label>
-            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Cost Center No. *</mat-label>
+                <input matInput
+                       [(ngModel)]="internalApplicantCostCenterNo">
+              </mat-form-field>
           </div>
+
         </div>
+
         <div class="row">
           <div class="col">
             <!--Why is the PhoneNumberHidden?-->
             <!--Why is the PhoneNumberHidden?-->
             <div class="form-floating mb-3 mt-3">
-
-
               <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNo" placeholder="Enter Tell No." hidden>
               <label for="applicantTellNo" hidden>Tell No *</label>
             </div>
@@ -635,7 +716,18 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-outline-success" (click)="onNewProfileCreate()">Save</button>
+    <button type="cancel" class="btnCancelProfile" (click)="canceProfile(areYouSureCancel)">Cancel</button>
+    <button type="submit" class="btnSaveProfile" (click)="onNewProfileCreate()">Save</button>
   </div>
 </ng-template>
 
+<ng-template #areYouSureCancel let-modal>
+  <div class="modal-body">
+  <p class="areYouSureCancelText">Are you sure you want to cancel?</p>
+  <p class="doingSoText">*Doing so will remove all information*</p>
+  </div>
+  <div class="modal-footer">
+    <button type="cancel" class="btnCancelAreYouSure" (click)="closeAreYouSure()">No</button>
+    <button type="submit" class="btnSaveProfile" (click)="refreshPagecloseAreYouSure()">Yes</button>
+  </div>
+</ng-template>

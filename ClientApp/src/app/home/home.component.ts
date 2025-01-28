@@ -7650,10 +7650,17 @@ this.subscriptions.push(subscription);
   }
   // #endregion BPRegister Sindiswa 20 June 2024
   sharedList = [];
-  ViewProject(element: any) {
+  ViewProject(index: any) {
     let applicationId: any;
     debugger;
-
+    let element ; 
+    if(this.selectedTabIndex != 8){
+       element = this.dataSourceSA[index];
+    }
+    else{
+       element = index;
+    }
+ 
     switch (this.selectedTabIndex) {
       case 0:
         applicationId = element.applicationID;
@@ -7677,6 +7684,7 @@ this.subscriptions.push(subscription);
         break;
 
       case 8:
+        debugger;
         if (element.bpApplicationType !== "Wayleave") {
           applicationId = element.applicationID;
           this.sharedService.setCurrentStage(element.stage);
@@ -8189,10 +8197,10 @@ this.subscriptions.push(subscription);
           tempApplication.Latitude = current.latitude;
           tempApplication.Longitude = current.longitude;
 
-          if (current.createdById != null) {
-            const originator: string = await this.getOriginatorName(current.createdById);
-            tempApplication.Originator = originator;
-          }
+          // if (current.createdById != null) {
+          //   const originator: string = await this.getOriginatorName(current.createdById);
+          //   tempApplication.Originator = originator;
+          // }
         
 
           const address = current.physicalAddress
@@ -8237,25 +8245,25 @@ this.subscriptions.push(subscription);
     })
   }
 
-  async getOriginatorName(userID:string) :Promise<string>{
-    try {
-      debugger;
-      const data: any = await this.userPofileService.getUserProfileById(userID).toPromise();
-      if (data.responseCode == 1) {
-        const current = data.dateSet[0];
-        return current.fullName;
-      }
-      else {
-        throw new Error(data.responseMessage);
-      }
-    }
-    catch (error: any) {
-      console.log("Error:", error);
-      throw error;
-    }
+  // async getOriginatorName(userID:string) :Promise<string>{
+  //   try {
+  //     debugger;
+  //     const data: any = await this.userPofileService.getUserProfileById(userID).toPromise();
+  //     if (data.responseCode == 1) {
+  //       const current = data.dateSet[0];
+  //       return current.fullName;
+  //     }
+  //     else {
+  //       throw new Error(data.responseMessage);
+  //     }
+  //   }
+  //   catch (error: any) {
+  //     console.log("Error:", error);
+  //     throw error;
+  //   }
    
 
-    }
+  //   }
   draftApplications: ApplicationsListBP[] = [];
   getAllDraftApplications() {
     this.bpApplicationService.getAllDraftApplications().subscribe((data: any) => {

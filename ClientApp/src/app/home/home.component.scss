@@ -96,7 +96,7 @@
 }
 .mat-warn {
   background-color: #F45050;
-/*  color: #aa0000;*/ 
+/*  color: #aa0000;*/
   margin: 5px;
 }
 
@@ -240,7 +240,7 @@ table {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 12% !important;
+  width: 15% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -327,7 +327,7 @@ table {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 30% !important;
+  width: 27% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -610,7 +610,7 @@ h4 {
 
 .card {
   padding-top: 20px;
- 
+
 }
 
 
@@ -940,7 +940,7 @@ h6 {
       word-wrap: break-word !important;
       white-space: unset !important;
       flex: 0 0 8% !important;
-      width: 1% !important;
+      width: 15% !important;
       overflow-wrap: break-word;
       word-wrap: break-word;
       word-break: break-word;
@@ -1762,11 +1762,11 @@ border:none;
 
 .container99 {
   width: 100%;
-   max-width: 800px; 
-   max-height: 701px; 
+   max-width: 800px;
+   max-height: 701px;
   height: 413px;
   transform-style: preserve-3d;
-   display: flex; 
+   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -1928,18 +1928,18 @@ border:none;
   0% {
     transform: translateX(-100%);
   }
- 
+
   100%{
       transform :translateX(100%);
 
   }
- 
+
 }
 
 .loop-slider {
 
   .inner {
-      
+
     display: flex;
     width: auto;
     overflow:hidden;
@@ -1965,7 +1965,7 @@ tag {
   width: var(--tagLength);
   text-align: right;
 
-  
+
 }
 .tag-list {
   width: 100%;
@@ -2011,7 +2011,7 @@ tag {
   }
 .mat-raised-button{
     white-space:inherit !important;
- 
+
 }
 
 :host ::ng-deep .mat-tab-label-active {

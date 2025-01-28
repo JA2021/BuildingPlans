@@ -4,7 +4,7 @@
     height:70px;
     text-align:center;
     align-items:center;
-    
+
 }
 .noti-length:hover {
   background: #a5cef4;
@@ -32,15 +32,15 @@
 }
 
 h3 {
-  color: hsl(234, 12%, 34%);
-  font-weight: 600;
+  color: hsl(0, 0%, 93%);
+  font-weight: 500;
   margin: 0 auto;
   text-align: center;
   padding-top: 0;
   padding-bottom: 20px;
   margin-right: auto;
   margin-left:auto;
-  font-size: 30px;
+  font-size: 25px;
   width:100%;
 }
 
@@ -69,12 +69,12 @@ h4 {
   -webkit-overflow-scrolling: touch;
 }
 .mat-dialog-actions {
-   padding: 0px; 
+   padding: 0px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   box-sizing: content-box;
-   margin-bottom: 0px; 
+   margin-bottom: 0px;
 
 }
 .timeline {
@@ -245,9 +245,33 @@ h4 {
   }
 }
 .cont2 {
+  font-family: 'Nunito';
+  font-size: 30px;
+  font-weight: 450;
+  background: #005870;
+  padding: 20px 20px;
   display: flex;
-  align-items: baseline;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -18px;
+  margin-right: -18px;
+  margin-top: -18px;
+  padding-bottom: 0px;
+  border-radius: 7px;
 }
 .fa-times{
     font-size:20px;
+}
+
+.notificationCloseBtn{
+  box-sizing: content-box;
+  width: 5px;
+  height: 5px;
+  padding: .25em .25em;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: 1;
+  margin-bottom: 21px;
+  filter: invert();
 }

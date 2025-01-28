@@ -89,20 +89,21 @@ export class ApplicationAlertsComponent implements OnInit {
 
     this.CurrentUserProfile = JSON.parse(this.stringifiedDataUserProfile);
     this.isEMB = this.shared.EMBLoggedIn;
-    this.getAllClarificationsAlerts();
+    // this.getAllClarificationsAlerts();
+    this.addDummyData();
 
 
 
   }
   getAllClarificationsAlerts() {
-    
+
     this.commentsService.getAllCommentsAwaitingClarity(this.CurrentUser.appUserId).subscribe(async (data: any) => {
-      
+
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempClarifyAlert = {} as Clarifications;
           const current = data.dateSet[i];
-          
+
           tempClarifyAlert.ApplicationID = current.applicationID;
           tempClarifyAlert.Description = current.commentStatus;
 
@@ -131,7 +132,7 @@ export class ApplicationAlertsComponent implements OnInit {
       const data: any = await this.applicationService.getApplicationsByApplicationID(applicationID).toPromise();
       if (data.responseCode == 1) {
         const current = data.dateSet[0];
-        
+
         return current.projectNumber;
       } else {
         //alert(data.responseMessage);
@@ -153,7 +154,7 @@ export class ApplicationAlertsComponent implements OnInit {
 
     this.applicationService.getApplicationsByProjectNumber(projectNumber).subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempApplicationListShared = {} as ApplicationList;
           const current = data.dateSet[i];
@@ -189,7 +190,7 @@ export class ApplicationAlertsComponent implements OnInit {
           tempApplicationListShared.DatePaid = current.datePaid;
           tempApplicationListShared.wbsrequired = current.wbsRequired;
           tempApplicationListShared.ContractorAccountDetails = current.contractorAccountDetails; //zxNumberUpdate Sindiswa 01 March 2024
-          
+
           tempApplicationListShared.Coordinates = current.coordinates;
           if (current.projectNumber != null) {
             tempApplicationListShared.ProjectNumber = current.projectNumber;
@@ -227,13 +228,13 @@ export class ApplicationAlertsComponent implements OnInit {
   }
 
   getAllPendingApprovalPacksForUser() {
-    
+
     this.applicationService.getApplicationsList(this.CurrentUser.appUserId, this.CurrentUserProfile[0].isInternal).subscribe(async (data: any) => {
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempApplicationAlert = {} as Clarifications;
           const current = data.dateSet[i];
-          
+
           if (current.createdById == this.CurrentUser.appUserId && current.currentStageName == "Approval Pack Generation") {
             tempApplicationAlert.ApplicationID = current.applicationID;
             tempApplicationAlert.Description = "Approval Pack Generation";
@@ -244,12 +245,12 @@ export class ApplicationAlertsComponent implements OnInit {
           }
 
           if (current.createdById == this.CurrentUser.appUserId && current.currentStageName == "PTW") {
-            
+
             const hasDocs = await this.checkIfHasDocs(current.applicationID);
-            
-            
+
+
             if (hasDocs.length > 0 && (hasDocs.includes(false) == false)) {
-              
+
               tempApplicationAlert.ApplicationID = current.applicationID;
               tempApplicationAlert.Description = "Consolidate Permit To Work";
               tempApplicationAlert.ProjectNumber = current.projectNumber;
@@ -271,7 +272,7 @@ export class ApplicationAlertsComponent implements OnInit {
             this.openClarificationsAlerts();
           }
         }
-       
+
       }
       else {
         alert(data.responseMessage);
@@ -315,9 +316,9 @@ export class ApplicationAlertsComponent implements OnInit {
             this.permitHasDoc.push(false);
             //pushing false into array because permitSubForComment has unpaid supervision fee
           }
-        
-      
-         
+
+
+
 
 
 
@@ -367,6 +368,21 @@ export class ApplicationAlertsComponent implements OnInit {
 
     })
   }
+
+  addDummyData(){
+    let tempList = {} as Clarifications;
+   for(let i =0 ; i <= 10; i++){
+
+
+    tempList.ApplicationID = 8 ;
+    tempList.Description =  " we are testing ";
+    tempList.ProjectNumber = "20F20GHJ";
+
+    this.ClarificationsList.push(tempList);
+   }
+
+   this.openClarificationsAlerts();
+   }
+
+
 }
-
-

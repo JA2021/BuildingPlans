@@ -303,7 +303,7 @@
           <div class="col">
             <div class="input-group form-floating mb-3 mt-3">
               <input type="email" class="form-control" [(ngModel)]="newEmail" placeholder="Enter Email Address">
-              <span class="input-group-text">@capetown.gov.za</span>
+              <!-- <span class="input-group-text">@capetown.gov.za</span> -->
               <label for="newEmail">Email *</label>
             </div>
           </div>
@@ -692,7 +692,7 @@
         </tr>
       </tbody>
     </table>
-    <br /> 
+    <br />
   </div>
 </ng-template>
 
@@ -709,7 +709,7 @@
         <ng-container>
           <mat-tab *ngFor="let zone of ZonesList" label="{{ zone.ZoneName }}">
             <!-- Zone-specific information -->
-    
+
             <div *ngIf="zone.isLinked" (click)="getZoneAccessGroups(zone.ZoneID)">
               <!-- Display zone-specific information here if user is linked to this zone-->
               <div>

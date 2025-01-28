@@ -1,8 +1,8 @@
 <div class="cont2">
-<h3 class="mat-dialog-title">Welcome {{ this.CurrentUser.fullName }} to your Notification Center</h3>
-
-<button mat-button mat-dialog-close (click)="updateCount()">X</button> <!--notifications Sindiswa 12 February 2024-->
-  </div>
+  <h3 class="mat-dialog-title" >Welcome {{ this.CurrentUser.fullName }} to your Notification Center</h3>
+    <button mat-dialog-close type="button" class="notificationCloseBtn" aria-label="Close" (click)="updateCount()"></button>
+    <!-- <button mat-button mat-dialog-close (click)="updateCount()"></button> notifications Sindiswa 12 February 2024 -->
+</div>
 <mat-tab-group class="mat-dialog-content">
 
   <mat-tab label="New Notifications">
@@ -109,7 +109,7 @@
 </mat-tab-group>
 
 <!--<div class="timeline">
- 
+
   <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
     <div class="timeline__event__icon ">
       <i class="lni-cake"></i>
@@ -224,7 +224,7 @@
           <p>Dear   {{this.fullName}},</p>
           <!--<p>{{this.MessageList.Message}}</p>-->
           <p [innerHTML]="this.MessageList.Message"></p>
-          <p>Should you have any queries, please contact us at <a href="mailto:wayleaves@capetown.gov.za">wayleaves@capetown.gov.za</a></p>
+          <!-- <p>Should you have any queries, please contact us at <a href="mailto:wayleaves@capetown.gov.za">wayleaves@capetown.gov.za</a></p> -->
         </div>
       </div>
     </div>

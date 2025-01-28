@@ -1,38 +1,81 @@
 <ng-template #clarifications let-modal>
-  <div class="modal-header">
+
+  <div class="appAlertHeader">
     <h6 class="modal-title" id="modal-basic-title">The Following Applications Need Your Immediate Attention </h6>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="alertHeaderClosebtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
+  <div class="cardB">
+    <div class="bg">
 
-  <div class="modal-body">
-   
-    <table mat-table #clarificationsTable [dataSource]="dataSourceClarifications" class="mat-elevation-z8">
-      <ng-container matColumnDef="projectNumber">
-        <th mat-header-cell *matHeaderCellDef> Project Number </th>
-        <td mat-cell *matCellDef="let element">{{element.ProjectNumber}}  </td>
-      </ng-container>
-
-
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let i = index">
-
-          <button mat-raised-button color="blue" (click)= "goToApplication(i) "matTooltip="Go to application"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/eye-solid.svg" class="icon"></button>
+        <div class="modal-body">
+          <!-- <table mat-table #clarificationsTable [dataSource]="dataSourceClarifications" class="mat-elevation-z8">
+            <ng-container matColumnDef="projectNumber">
+              <th mat-header-cell *matHeaderCellDef> Project Number </th>
+              <td mat-cell *matCellDef="let element">{{element.ProjectNumber}}  </td>
+            </ng-container>
 
 
-        </td>
-        <td mat-cell *matCellDef="let element">  </td>
-      </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let i = index">
+                <div class="moveButton">
+
+                </div> -->
+                <!-- <button mat-raised-button color="blue" (click)= "goToApplication(i) "matTooltip="Go to application"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/eye-solid.svg" class="icon"></button> -->
 
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsClarifications"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsClarifications;"></tr>
-    </table>
+              <!-- </td>
+              <td mat-cell *matCellDef="let element">  </td>
+            </ng-container>
 
-  </div>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsClarifications"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsClarifications;"></tr>
+
+          </table> -->
+
+          <div class="cardAlerts">
+            <p class="pNumText">Project Number: {{this.ClarificationsList[0].ProjectNumber}}</p>
+            <p class="pNumText">Description:</p>
+            <div clas="descriptionDiv">
+            <p class="projectNumber">{{this.ClarificationsList[0].Description}}</p>
+            </div>
+            <div class="alertBtnDiv">
+              <button class="button" >
+                <svg class="svgIcon" viewBox="0 0 384 512">
+                  <path
+                    d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="cardAlerts" >
+            <p class="pNumText">Project Number: {{this.ClarificationsList[0].ProjectNumber}}</p>
+            <p class="pNumText">Description:</p>
+            <p class="projectNumber">{{this.ClarificationsList[0].Description}}</p>
+            <div class="alertBtnDiv">
+              <button class="button" >
+                <svg class="svgIcon" viewBox="0 0 384 512">
+                  <path
+                    d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="blob"></div>
+</div>
+
+
+
 </ng-template>

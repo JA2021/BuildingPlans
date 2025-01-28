@@ -95,6 +95,7 @@ export interface RolesList {
   AccessGroupName: string;
 }
 
+
 export interface NotificationsList {
   NotificationID: number;
   NotificationName: string;
@@ -121,8 +122,27 @@ export interface NotificationsList {
 })
 export class NavMenuComponent implements OnInit {
 
+  expandedComment: string | null = null;
+
+   // Toggle the expanded/collapsed state for a comment
+   toggleComment(comment: string): void {
+    this.expandedComment = this.expandedComment === comment ? null : comment;
+  }
+
+ // Get truncated comment text
+ getTruncatedComment(comment: string): string {
+  const maxLength = 50;
+  return comment.length > maxLength ? comment.substring(0, maxLength) : comment;
+}
+
+// Check if the comment is truncated
+isTruncated(comment: string): boolean {
+  const maxLength = 50;
+  return comment.length > maxLength;
+}
+
   @Input() isTransparent: boolean = true;
- 
+
   isExpanded = false;
   configShow: number | undefined;
   notiBell = true;
@@ -173,7 +193,7 @@ export class NavMenuComponent implements OnInit {
   constructor(private offcanvasService: NgbOffcanvas, private sanitizer: DomSanitizer, private modalService: NgbModal, private accessGroupsService: AccessGroupsService, private http: HttpClient, private documentUploadService: DocumentUploadService, private router: Router, private shared: SharedService, private formBuilder: FormBuilder, private commentService: CommentBuilderService, private userPofileService: UserProfileService, private notificationsService: NotificationsService, private subDepartment: SubDepartmentsService, private applicationsService: ApplicationsService, private faq: FrequentlyAskedQuestionsService, private dialog: MatDialog, private bugsService: BugsService) { }
 
 
- 
+
   bugDescription: string = "";
   bugCategory: string;
   bugComponent: string;
@@ -221,7 +241,7 @@ export class NavMenuComponent implements OnInit {
   hasNotifications: boolean;
   notificationsQuantity: number;
   getNotificationDetails(userId: string) {
-    
+
     this.notificationsService.getNotificationsCount(userId).subscribe((data: any) => {
       if (data.responseCode == 1) {
         this.shared.setNotificationsQuantity(data.dateSet);
@@ -349,7 +369,7 @@ export class NavMenuComponent implements OnInit {
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 50];
   length: any;
- 
+
   lockViewAccordingToRoles() {
 
     for (var i = 0; i < this.RolesList.length; i++) {
@@ -369,7 +389,7 @@ export class NavMenuComponent implements OnInit {
         this.CommentBuilder = true;
         this.selectDepartmentForUpload = true;
       }
-    
+
     }
 
 
@@ -380,7 +400,7 @@ export class NavMenuComponent implements OnInit {
   checkScroll() {
     // Detect the scroll position
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    
+
     // You can adjust this threshold value as needed
     const threshold = 100;
 
@@ -407,11 +427,11 @@ export class NavMenuComponent implements OnInit {
 
   }
   onPassFileName(event: { uploadFor: string; fileName: string }) {
-    
+
     const { uploadFor, fileName } = event;
     const index = parseInt(uploadFor.substring('CoverLetter'.length));
     this.fileAttrsName = "Doc";
-    
+
 
     this.shared.RepFileUploadCat = this.selected;
 
@@ -738,6 +758,8 @@ export class NavMenuComponent implements OnInit {
     this.modalService.open(editComment, { centered: true, size: 'lg' });
   }
 
+
+
   closeModal() {
     if (this.modalReference) {
       this.modalReference.close();
@@ -767,12 +789,12 @@ export class NavMenuComponent implements OnInit {
 
 
   goHome() {
-    
+
     this.deleteWayleaveWhenGoHome();
 
   }
 
-  
+
 
   disableIcons() {
 
@@ -789,7 +811,7 @@ export class NavMenuComponent implements OnInit {
 
   /*For something to to not something*/
   deleteWayleaveWhenGoHome() {
-    
+
     let appID = this.shared.getApplicationID();
     if (appID != 0) {
       //this.applicationsService.deleteApplication(appID).subscribe((data: any) => {
@@ -822,7 +844,7 @@ export class NavMenuComponent implements OnInit {
       //this.applicationsService.deleteApplication(appID).subscribe((data: any) => {
       //  if (data.responseCode == 1) {
 
-        
+
       //    /* this.homeComponent.getAllApplicationsByUserID();*/
       //    this.router.navigate(["/user-settings"]);
       //  }
@@ -841,14 +863,14 @@ export class NavMenuComponent implements OnInit {
   }
 
   deleteWayleaveWhenOnLogout() {
-    
+
     let appID = this.shared.getApplicationID();
     if (appID != 0) {
       this.shared.setApplicationID(0);
       //this.applicationsService.deleteApplication(appID).subscribe((data: any) => {
       //  if (data.responseCode == 1) {
 
-         
+
       //    /* this.homeComponent.getAllApplicationsByUserID();*/
       //    this.router.navigate(["/"]);
       //    localStorage.removeItem('LoggedInUserInfo');
@@ -925,7 +947,7 @@ export class NavMenuComponent implements OnInit {
 
 
   refreshModal(repositoryModal) {
-    
+
 /*    this.cdr.detectChanges();*/
     this.modalService.dismissAll(repositoryModal);
     this.modalService.open(repositoryModal, { centered: true, size: 'xl' });
@@ -936,7 +958,7 @@ export class NavMenuComponent implements OnInit {
 
 /*  *//*Repository Section*//*
   getAllDocsForRepository() {
-    
+
     this.DocumentsList.splice(0, this.DocumentsList.length);
     this.documentUploadService.getAllDocumentsForRepository().subscribe((data: any) => {
 
@@ -956,8 +978,8 @@ export class NavMenuComponent implements OnInit {
           tempDocList.Description = current.description;
           console.log("THIS IS THE REPOSITY THINGSTHIS IS THE REPOSITY THINGSTHIS IS THE REPOSITY THINGSTHIS IS THE REPOSITY THINGSTHIS IS THE REPOSITY THINGSTHIS IS THE REPOSITY THINGS", current);
           this.DocumentsList.push(tempDocList);
-        
-       
+
+
         }
 *//*        this.length = this.DocumentsList.length;
         this.dataSource.data = this.DocumentsList;
@@ -975,9 +997,9 @@ export class NavMenuComponent implements OnInit {
         if (this.DocumentsListTable) {
           this.DocumentsListTable.renderRows();
         }
-        
 
-       
+
+
        // console.log("GOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCSGOTALLDOCS", this.DocumentsList[0]);
       else {
         alert(data.responseMessage);
@@ -988,13 +1010,13 @@ export class NavMenuComponent implements OnInit {
     }, error => {
       console.log("ErrorGetAllDocsForApplication: ", error);
     })
-  
+
   }*/
 
   private readonly apiUrl: string = this.shared.getApiUrl() + '/api/';
 
   viewDocument(element: any) {
-    
+
     // Make an HTTP GET request to fetch the document
     fetch(this.apiUrl + `documentUpload/GetDocument?filename=${element.DocumentName}`)
       .then(response => {
@@ -1052,7 +1074,7 @@ export class NavMenuComponent implements OnInit {
         this.CoverLetterChooseFileText += file.name + ' - ';
         // Create a new FileReader object
         let reader = new FileReader();
-        // Set the onload event handler 
+        // Set the onload event handler
         reader.onload = (e: any) => {
           // Create a Byte[] array from the file contents
           let fileBytes = new Uint8Array(e.target.result);
@@ -1098,7 +1120,7 @@ export class NavMenuComponent implements OnInit {
   message = '';
   save(repositoryModal) {
     this.modalService.dismissAll();
-    
+
 
     //if (this.selectDepartmentForUpload == undefined) {
     //  alert("Please Select a department");
@@ -1139,7 +1161,7 @@ export class NavMenuComponent implements OnInit {
   descriptionForDocRepo = '';
 
   uploadFinished = (event: any, repositoryModal) => {
-    
+
     this.response = event;
     console.log("this.response", this.response);
     console.log(this.descriptionForDocRepo);
@@ -1154,7 +1176,7 @@ export class NavMenuComponent implements OnInit {
       if (data.responseCode == 1) {
 
         this.modalService.dismissAll(repositoryModal);
-      
+
       }
 
 
@@ -1177,7 +1199,7 @@ export class NavMenuComponent implements OnInit {
         if (data.responseCode == 1) {
 
           this.modalService.dismissAll(repositoryModal);
-       
+
         }
       }, error => {
         console.log("Error: ", error);
@@ -1252,7 +1274,7 @@ export class NavMenuComponent implements OnInit {
 
 
   filterDepartment() {
-/*    
+/*
     let string = this.select.toString();
     if (string == "All") {
 
@@ -1370,7 +1392,7 @@ export class NavMenuComponent implements OnInit {
 
   //Audit Trail Kyle
   onCheckAllCurrentUserRoles() {
-    
+
     for (let i = 0; i < this.AllCurrentUserRoles.length; i++) {
       const roleName = this.AllCurrentUserRoles[i].roleName;
       if (roleName === "Audit Trail") {
@@ -1437,7 +1459,7 @@ export class NavMenuComponent implements OnInit {
       console.log("Bug report error", error);
     })
   }
-  
+
 }
 
 

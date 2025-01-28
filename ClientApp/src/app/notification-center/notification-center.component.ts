@@ -141,7 +141,7 @@ export class NotificationCenterComponent implements OnInit {
   }
   getAllReadNotifications() {
 
-   
+
     this.OldNotificationsList.splice(0, this.OldNotificationsList.length);
     // checkingNotifications Sindiswa 12 February 2024
     //this.notificationService.getNotificationByUserID(this.CurrentUser.appUserId).subscribe((data: any) => {
@@ -267,7 +267,7 @@ export class NotificationCenterComponent implements OnInit {
       this.NotificationsList.sort((a, b) => {
         return new Date(b.DateCreated).getTime() - new Date(a.DateCreated).getTime();
       });
-    
+
         this.OldNotificationsList.sort((a, b) => {
       return new Date(b.DateCreated).getTime() - new Date(a.DateCreated).getTime();
     });
@@ -356,7 +356,7 @@ export class NotificationCenterComponent implements OnInit {
       this.NotificationsList.sort((a, b) => {
         return new Date(b.DateCreated).getTime() - new Date(a.DateCreated).getTime();
       });
-    
+
         this.OldNotificationsList.sort((a, b) => {
       return new Date(b.DateCreated).getTime() - new Date(a.DateCreated).getTime();
     });
@@ -388,13 +388,13 @@ export class NotificationCenterComponent implements OnInit {
         this.projectNumber = current.projectNumber;
 
       } else {
-       
+
         alert(data.responseMessage);
       }
-     
+
       console.log("response", data);
     }, error => {
-     
+
       console.log("Error", error);
 
     })
@@ -406,8 +406,8 @@ export class NotificationCenterComponent implements OnInit {
 
     this.NotificationsList.splice(0, this.NotificationsList.length);
     this.notificationService.getNotificationByUserID(this.CurrentUser.appUserId).subscribe((data: any) => {
-      
-      
+
+
       if (data.responseCode == 1) {
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempNotificationsList = {} as NotificationsList;
@@ -487,7 +487,7 @@ export class NotificationCenterComponent implements OnInit {
 
 
   getAllNotifications() {
-    
+
   this.NotificationsList.splice(0, this.NotificationsList.length);
 
     /* checkingNotifications Sindiswa 13 February 2024, now that UserID and CreatedByID aren't made null randomly, can now fetch ONLY notifications FOR human
@@ -540,37 +540,38 @@ export class NotificationCenterComponent implements OnInit {
     this.modalService.dismissAll();
   }
   onRefreshModal() {
-    
-    
+
+
     this.modalService.dismissAll();
 
     this.getAllNotifications();
     this.getAllReadNotifications();
-   
+
   }
   //#region notifications Sindiswa 12 February 2024
   updateCount() {
+    debugger;
     /* window.location.reload(); */// Uhh, there has to be a better way
     this.modalService.dismissAll();
   }
   //#endregion
   getUserInfo() {
-    
+
     this.userProfileService.getUserProfileById(this.CurrentUser.appUserId).subscribe((data: any) => {
       const current = data.dateSet[0];
       if (data.responseCode == 1) {
-        
+
         this.internalUser = current.isInternal;
         this.fullName = current.fullName;
       }
       else {
-        
+
         alert(data.responseMessage);
       }
       console.log("reponse", data);
 
     }, error => {
-      
+
       console.log("Error: ", error);
     })
   }
@@ -618,15 +619,15 @@ export class NotificationCenterComponent implements OnInit {
 
   //#endregion
 
-  // #region routingToProject Sindiswa 
+  // #region routingToProject Sindiswa
   specificApplication: ApplicationList[] = [];
   Applications: ApplicationsList[] = [];
   public canReapply: boolean = false;
   goToApplication(appID: any) {
-    
+
     this.applicationService.getApplicationsByApplicationID(appID).subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
 
         for (let i = 0; i < data.dateSet.length; i++) {
 
@@ -682,7 +683,7 @@ export class NotificationCenterComponent implements OnInit {
           tempApplicationList.EMBActionDate = current.embActionDate;
           //#endregion
 
-         
+
 
           this.specificApplication.push(tempApplicationListShared);
           this.Applications.push(tempApplicationList);
@@ -706,7 +707,7 @@ export class NotificationCenterComponent implements OnInit {
       }
       console.log("reponse", data);
 
-    
+
 
     }, error => {
       console.log("Error: ", error);
@@ -725,7 +726,7 @@ export class NotificationCenterComponent implements OnInit {
   }
   //#endregion
 
-  
+
 }
 
 

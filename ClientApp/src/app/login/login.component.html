@@ -71,8 +71,8 @@
             </div>
             <div class="formbg-inner padding-horizontal--48 " *ngIf="logIN">
               <h2>Login to your account</h2>
-              <form action="#" [formGroup]="loginForm" (ngSubmit)="onLogin()" >
-
+              <!-- <form action="#" [formGroup]="loginForm" (ngSubmit)="onLogin()" > -->
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" >
 
 
                 <mat-form-field appearance="outline">
@@ -83,7 +83,7 @@
                   <mat-label>Password</mat-label>
 
                   <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" autocomplete="off">
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                 </mat-form-field>
@@ -91,7 +91,8 @@
 
               <input class="input" type="password" formControlName="password" placeholder="Password" />-->
                 <a (click)="openForgotPassModal(forgotPasswordModal)" *ngIf="!isLoading" class="oragngeText"><strong>Forgot your password?</strong></a>
-                <button *ngIf="!isLoading" [disabled]="!loginForm.valid" class="button5">Login</button>
+                <!-- <button *ngIf="!isLoading" [disabled]="!loginForm.valid" class="button5">Login</button> -->
+                <button type="submit" *ngIf="!isLoading" [disabled]="!loginForm.valid" class="button5">Login</button>
 
 
                 <div *ngIf="isLoading">
@@ -471,7 +472,7 @@
         <div class="row">
           <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control" [(ngModel)]="extApplicantVatNumber" placeholder="Enter Vat Number">
-            <label for="extApplicantIDNumber">Vat Number </label>
+            <label for="extApplicantIDNumber">Vat Number</label>
           </div>
         </div>
       </div>
@@ -574,26 +575,29 @@
   <div class="modal-body">
 
     <div class="position-relative">
-      
+
       <div [hidden]="otpValid"> <h5>A code has been sent to: <strong>{{email}}</strong> </h5></div>
       <h5 [hidden]="otpValid">Please enter the one time password to verify your account</h5>
       <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2" [hidden]="otpValid">
-        <input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" [(ngModel)]="first" [hidden]="otpValid"/>
-        <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" [(ngModel)]="second" [hidden]="otpValid"/>
-        <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" [(ngModel)]="third" [hidden]="otpValid"/>
-        <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" [(ngModel)]="fourth" [hidden]="otpValid"/>
-        <input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" [(ngModel)]="fifth" [hidden]="otpValid"/>
-        <input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" [(ngModel)]="sixth" [hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" [(ngModel)]="first" (keyup)="moveToNext($event, 'second')" [hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" [(ngModel)]="second" (keyup)="moveToNext($event, 'third')" (keydown)="moveToPrevious($event, 'first')"  [hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" [(ngModel)]="third" (keyup)="moveToNext($event, 'fourth')" (keydown)="moveToPrevious($event, 'second')" [hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" [(ngModel)]="fourth" (keyup)="moveToNext($event, 'fifth')" (keydown)="moveToPrevious($event, 'third')"[hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" [(ngModel)]="fifth" (keyup)="moveToNext($event, 'sixth')" (keydown)="moveToPrevious($event, 'fourth')" [hidden]="otpValid"/>
+        <input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" [(ngModel)]="sixth" (keydown)="moveToPrevious($event, 'fifth')"[hidden]="otpValid"/>
       </div>
       <div class="mt-4">
-        <button id="validateBtn" class="button4" (click)="onVerifyOTPRegister()" [hidden]="otpValid" [disabled]="!(first && second && third && fourth && fifth && sixth)">Validate</button>
-        <p [hidden]="otpValid">{{otp}}</p> 
+        <button id="validateBtn" class="button4" (click)="onVerifyOTPRegister()" [hidden]="otpValid" [disabled]="!(first && second && third && fourth && fifth && sixth)">Validate
 
+
+        </button>
+        <p [hidden]="otpValid">{{otp}}</p>
+        <app-new-profile *ngIf="otpValid"></app-new-profile>
       </div>
-      <div class="alert alert-success animationSlideDown" *ngIf="otpValid">OTP Verified</div>
-      <app-new-profile *ngIf="otpValid"></app-new-profile>
+      <!-- <div class="alert alert-success animationSlideDown" *ngIf="otpValid">OTP Verified</div> -->
+
 
     </div>
-    
+
   </div>
 </ng-template>

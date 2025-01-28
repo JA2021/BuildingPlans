@@ -152,9 +152,9 @@
 
     <!--modal for comment builder-->
     <ng-template #commentBuilder let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{CurrentUser.fullName}}'s Comment Builder</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <div class="commentBuilderHeader">
+        <p class="commentBuilderText" id="modal-basic-title">{{CurrentUser.fullName}}'s Comment Builder</p>
+        <button type="button" class="commentBuilderCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
         <div class="cont3">
@@ -173,7 +173,26 @@
 
             <ng-container matColumnDef="Comment">
               <th mat-header-cell *matHeaderCellDef>Comment</th>
-              <td mat-cell *matCellDef="let element"> {{element.Comment}} </td>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.Comment}} </td> -->
+              <td mat-cell *matCellDef="let element">
+                <div class="comment-container" [@detailExpand]="expandedComment === element.Comment ? 'expanded' : 'collapsed'">
+                  <!-- Truncated Comment -->
+                  <span *ngIf="!expandedComment || expandedComment !== element.Comment">
+                    <span [innerHTML]="sanitizeHTML(getTruncatedComment(element.Comment))"></span>
+                    <span *ngIf="isTruncated(element.Comment)">...</span>
+                  </span>
+
+                  <!-- Full Comment -->
+                  <div *ngIf="expandedComment === element.Comment" class="expanded-comment">
+                    <span [innerHTML]="sanitizeHTML(element.Comment)"></span>
+                  </div>
+                </div>
+
+                <!-- Button to Toggle -->
+                <button class="toggle-comment-button" (click)="toggleComment(element.Comment)">
+                  {{ expandedComment === element.Comment ? 'Show Less' : 'Read More' }}
+                </button>
+              </td>
             </ng-container>
 
 
@@ -182,8 +201,8 @@
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let i = index">
 
-                <button mat-raised-button color="blue" matTooltip="Edit comment" (click)="viewEditComment(editComment,i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/eye-solid.svg" class="icon"></button>
-                <button mat-raised-button color="warn" matTooltip="Delete comment" (click)="onCommentDelete(i,commentBuilder);modal.dismiss('Cross click')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/trash-can-solid.svg" class="icon red"></button>
+                <button mat-raised-button class="editCommentBtn" matTooltip="Edit comment" (click)="viewEditComment(editComment,i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" class="editCommentIcon"></button>
+                <button mat-raised-button class="delteCommentBtn" matTooltip="Delete comment" (click)="onCommentDelete(i,commentBuilder);modal.dismiss('Cross click')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/trash-can-solid.svg" class="deleteCommentIcon"></button>
 
               </td>
               <td mat-cell *matCellDef="let element">  </td>
@@ -200,7 +219,7 @@
     <ng-template #editComment let-modal>
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Edit Comment</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="editComments">

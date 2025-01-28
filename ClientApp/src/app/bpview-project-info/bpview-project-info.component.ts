@@ -245,8 +245,6 @@ export class BPViewProjectInfoComponent implements OnInit {
   address: string;
   idNumber: string;
 
-  
-
   //Architect Detail
   architectName: string;
   architectSurname;

@@ -39,22 +39,78 @@ h2 {
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
-  width: 62%;
+  width: 100%;
   padding: 10px;
   margin: 25px 5px 13px 5px;
   height: 141px;
 }
 .POD{
-
+  max-height: 83vh;
+  overflow: auto;
 }
+
+.static-text {
+  font-size: 12px; /* Make the text smaller */
+  color: rgba(0, 0, 0, 0.6); /* Semi-transparent black text */
+  line-height: 1; /* Reduce spacing */
+}
+
+.podGrouping{
+}
+
+.PODtxt{
+  border: solid whitesmoke 2px;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 10px;
+}
+
 .podInfo {
-  position: absolute;
+  height: 100%;
   width: 100%;
   margin-top: 41px;
+  overflow-y: auto;
 }
-.image{
 
+.line-with-text {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
+.line-with-text::before,
+.line-with-text::after {
+  content: "";
+  width:200px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2); /* transparent line */
+}
+
+.line-with-text:not(:empty)::before {
+  margin-right: 20px; /* Spacing around the text */
+}
+
+.line-with-text:not(:empty)::after {
+  margin-left: 20px; /* Spacing around the text */
+}
+
+.image{
+  position: fixed;
+  top: 370px;
+  left: 337px;
+  scale: 2;
+  opacity: 55%;
+}
+
+.image2{
+  position: fixed;
+  top: 187;
+  left: 330px;
+  scale: 2;
+  opacity: 55%;
+}
+
 .ExpandIcon {
   height: 159px;
   margin: 10px auto;
@@ -62,6 +118,8 @@ h2 {
   text-align: center;
   display: flex;
   opacity: 15%;
+  margin-right: 26px;
+
 }
 
 .tracker {
@@ -122,10 +180,10 @@ h2 {
   height: 228px;
 }
 .applicationDeatails {
-  padding: 18px;
+  padding: 20px;
   overflow: initial !important;
-  max-height: 39vh;
-  max-height: 39vh;
+  /* max-height: 39vh;
+  max-height: 39vh; */
 }
 :host ::ng-deep .mat-tab-label {
   height: 30px !important;
@@ -262,8 +320,8 @@ h2 {
   backdrop-filter: blur(15px);
   width: 100%;
   /* padding: 0px 0px 0px 8px; */
-  height: 234px;
-  overflow: hidden !important;
+  height: 250px;
+  overflow: auto !important;
 }
 .MiddleView {
   display: flex;
@@ -362,6 +420,7 @@ h3 span {
 }
 .card2 {
   box-shadow: none !important;
+  border-radius: 15px;
   /* margin: 20px; */
   /* border-color: #f1f1f1; */
   background-color: #60e1fd45 !important;
@@ -389,11 +448,10 @@ h3 span {
 
 .card p {
   font-size: 17px;
-
   margin-top: 40px;
   z-index: 1000;
   transition: color 0.3s ease-out;
-  
+
 }
 .fade-out {
   opacity: 0;
@@ -685,7 +743,7 @@ table {
 
 .message-textApprove,
 .sub-textApprove {
- 
+
   margin: 0;
   cursor: default;
 }
@@ -696,7 +754,7 @@ table {
 }
 
 .sub-text {
- 
+
   font-size: 14px;
   color: #555;
 }
@@ -930,7 +988,7 @@ table {
 }
 .replyRow {
   display: flex;
- 
+
 }
 
 .mat-clarify2 {
@@ -1027,7 +1085,7 @@ table {
 .bottom-1 {
   position: sticky;
   z-index: 2;
- 
+
   height: 34px;
   display: flex;
   flex-direction: row;
@@ -1209,4 +1267,48 @@ table {
   margin: 10px;
   font-weight: 700;
   color: #00000099;
+}
+
+.cardIndent {
+  border: solid #5d93a1 2px;
+  margin-left: 5px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.dot::before {
+  content: "•";
+  color: #5d93a1;
+  font-size: 1.2em;
+  padding-right: 20px;
+}
+
+.xpandD{
+  border-radius: 15px;
+  background-color: #60e1fd45 !important;
+  margin-bottom: 12px;
+}
+
+.xpandCardDetails{
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+  font-weight: bolder !important;
+  color: #00000096;
+}
+
+.grid-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3 equal-width columns */
+  gap: 20px; /* Space between columns */
+}
+
+.grid-columns div {
+  border: 1px solid lightgray;
+  padding: 10px;
 }

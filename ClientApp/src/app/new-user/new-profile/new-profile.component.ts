@@ -17,6 +17,7 @@ import { SubDepartmentsService } from 'src/app/service/SubDepartments/sub-depart
 import { BusinessPartnerService } from '../../service/BusinessPartner/business-partner.service';
 import { Observable } from 'rxjs';
 import { BpDepartmentsService } from '../../service/BPDepartments/bp-departments.service';
+import { UntypedFormGroup, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 export interface DepartmentList {
   departmentID: number;
@@ -49,9 +50,6 @@ export interface UserZoneList {
   fullName: string;
   zoneLinkID?: any;
 }
-
-
-
 export interface ExternalList {
 
   extApplicantBpNoApplicant:string;
@@ -94,6 +92,8 @@ export interface ContractorList {
 
 }
 
+
+
 @Component({
   selector: 'app-new-profile',
   templateUrl: './new-profile.component.html',
@@ -123,6 +123,7 @@ export class NewProfileComponent implements OnInit {
   public External: boolean = false;
   public Internal: boolean = false;
   public einfoactive: boolean = false;
+  public areYouSureCancel: boolean = false;
 
   closeResult = '';
 
@@ -142,6 +143,10 @@ export class NewProfileComponent implements OnInit {
 
   showTelecommsPrompt = true; //icasadetails Sindiswa 10 January 2023
   isRepresentingTelecommsCompany = false; //icasadetails Sindiswa 10 January 2023
+  isArchitect = false;
+  showArchitect = true;
+  isCreatingWayleave = false;
+  showWayleave = true;
 
 
   /*Internal*/
@@ -160,7 +165,7 @@ export class NewProfileComponent implements OnInit {
   internalApplicantICASANumber = ''; //icasadetails Sindiswa 10 January 2023
 
   CurrentUser: any;
-  stringifiedData: any;  
+  stringifiedData: any;
   ExternalUserProfileData: ExternalList[] = [];
   InternalUserProfileData: InternalList[] = [];
   linkedContractors: ContractorList[] = [];
@@ -194,7 +199,7 @@ export class NewProfileComponent implements OnInit {
   public handleAddressChange(address: Address) {
     // Do some stuff
     this.extApplicantPhyscialAddress = address.formatted_address;
-   
+
   }
 
 
@@ -211,9 +216,12 @@ export class NewProfileComponent implements OnInit {
     }
   }
 
+  toggleArchitectMeaning(): void {
+    this.isArchitect = !this.isArchitect;
+  }
 
   ngOnInit(): void {
-   
+
     this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
     this.CurrentUser = JSON.parse(this.stringifiedData);
     const fullName = this.CurrentUser.fullName;
@@ -250,7 +258,7 @@ export class NewProfileComponent implements OnInit {
     this.checkEmail = this.checke.substring(this.checke.indexOf('@'));
     console.log(this.checkEmail);
     if (this.checkEmail === "@msunduzi.gov.za") { //BPRegister Sindiswa 20062024
-      this.showInternal = true; 
+      this.showInternal = true;
     }
     else {
       this.showExternal = true;
@@ -271,9 +279,9 @@ export class NewProfileComponent implements OnInit {
 
   ngDoCheck() {
 
-    
-   
-   
+
+
+
   }
 
   getUserProfile() {
@@ -298,7 +306,7 @@ export class NewProfileComponent implements OnInit {
     return new Observable(observer => {
       this.businessPartnerService.validateBP(Number(BpNo)).subscribe(
         (response: any) => {
-          
+
           const apiResponse = response.Response;
           if (apiResponse == "X") {
             observer.next(true);
@@ -320,14 +328,14 @@ export class NewProfileComponent implements OnInit {
    onNewProfileCreate(userID?: string | null, fullName?: string | null, email?: string | null, phoneNumber?: string | null, BpNo?: string | null, CompanyName?: string | null, CompanyRegNo?: string | null, PhyscialAddress?: string | null, ApplicantIDUpload?: string | null, ApplicantIDNumber?: string | null, refNumber?:string | null, companyType?: string | null) {
     debugger;
     if (this.showInternal) {
-      ///// 
+      /////
 
       //this.subDepartmentsService.getSubDepartmentBySubDepartmentID(Number(this.internalApplicantDepartment)).subscribe((data: any) => {
       this.bpDepartmentsService.getDepartmentByDepartmentID(Number(this.internalApplicantDepartment)).subscribe((data: any) => { //BPRegister Sindiswa 20062024
         if (data.responseCode == 1) {
 
           const current = data.dateSet[0];
-          
+
           this.subDepartmentID = current.subDepartmentID;
           this.departmentID = current.departmentID;
           this.internalApplicantDirectorate = current.departmentName; //BPRegister Sindiswa 20062024
@@ -355,7 +363,7 @@ export class NewProfileComponent implements OnInit {
                     .subscribe((data: any) => {
 
                       if (data.responseCode == 1) {
-                     
+
                         //alert(data.responseMessage);
                       }
                       else {
@@ -434,18 +442,18 @@ export class NewProfileComponent implements OnInit {
 
     //#region icasadetails Sindiswa 10 January 2024 - so, there's an issue where the if statements don't run as expected so external users weren't being created appropriately, the following code block has been added to hopefully fix that
     else if (this.showExternal) {
-      
+
 
       // icasadetails Sindiswa 10 January 2024
       this.userPofileService.addUpdateUserProfiles(0, this.CurrentUser.appUserId, this.extApplicantName + " " + this.extApplicantSurname, this.CurrentUser.email, this.extApplicantTellNo, this.showInternal,
         this.extApplicantBpNoApplicant, this.extApplicantCompanyName, this.extApplicantCompanyRegNo, this.extApplicantPhyscialAddress, null, null, null, null, null, null,
         this.extApplicantIDUpload, this.CurrentUser.appUserId, this.extApplicantIDNumber, Number(this.selectedZone), this.extApplicantVatNumber, null, this.extApplicantCompanyType, null, null, null, null, null, this.extApplicantName, this.extApplicantSurname, null, null, null, this.extApplicantICASANumber).subscribe((data: any) => {
-          
+
           if (data.responseCode == 1) {
 
             alert(data.responseMessage);
-            
-            
+
+
             const linkedContractors = this.shared.getContactorData();
             const linkedEngineers = this.shared.getEngineerData();
 
@@ -457,7 +465,7 @@ export class NewProfileComponent implements OnInit {
                 .subscribe((data: any) => {
 
                   if (data.responseCode == 1) {
-                 
+
                     //alert(data.responseMessage);
                   }
                   else {
@@ -496,7 +504,7 @@ export class NewProfileComponent implements OnInit {
           }
 
           else {
-            
+
             alert(data.responseMessage);
             localStorage.removeItem('LoggedInUserInfo');
             localStorage.removeItem('userProfile');
@@ -512,43 +520,43 @@ export class NewProfileComponent implements OnInit {
     }
     //#endregion
     else if (userID != null || userID != "") {
-      
-      this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
-      this.CurrentUser = JSON.parse(this.stringifiedData); 
 
-      
+      this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
+      this.CurrentUser = JSON.parse(this.stringifiedData);
+
+
       this.userPofileService.addUpdateUserProfiles(0, userID, fullName, email, phoneNumber, false, BpNo, CompanyName, CompanyRegNo,
         PhyscialAddress, null, null, null, null, null, null, ApplicantIDUpload, this.CurrentUser.appUserId, ApplicantIDNumber, null, null, refNumber, companyType).subscribe((data: any) => {
 
         if (data.responseCode == 1) {
 
           alert(data.responseMessage);
-         
+
         }
         else {
           alert(data.responseMessage);
-       
+
         }
           console.log("reponse - is this where the dashboard is stolen?", data);
-      
+
 
       }, error => {
         console.log("Error: ", error);
       })
     }
     else if (this.showInternal === false) {
-      
+
 
       // icasadetails Sindiswa 10 January 2024
       this.userPofileService.addUpdateUserProfiles(0, this.CurrentUser.appUserId, this.extApplicantName + " " + this.extApplicantSurname, this.CurrentUser.email, this.extApplicantTellNo, this.showInternal,
         this.extApplicantBpNoApplicant, this.extApplicantCompanyName, this.extApplicantCompanyRegNo, this.extApplicantPhyscialAddress, null, null, null, null, null, null,
         this.extApplicantIDUpload, this.CurrentUser.appUserId, this.extApplicantIDNumber, Number(this.selectedZone), this.extApplicantVatNumber, null, this.extApplicantCompanyType, null,null, null, null, null, this.extApplicantName, this.extApplicantSurname, null, null, null, this.extApplicantICASANumber).subscribe((data: any) => {
-        
+
         if (data.responseCode == 1) {
 
           alert(data.responseMessage);
-        
-          
+
+
           const linkedContractors = this.shared.getContactorData();
           const linkedEngineers = this.shared.getEngineerData();
 
@@ -599,7 +607,7 @@ export class NewProfileComponent implements OnInit {
         }
 
         else {
-          
+
           alert(data.responseMessage);
           localStorage.removeItem('LoggedInUserInfo');
           localStorage.removeItem('userProfile');
@@ -640,7 +648,7 @@ export class NewProfileComponent implements OnInit {
       //this.extApplicantIDUpload;
     }
 
-    
+
 
     else {
       alert("Error Saving User Profile Infomation");
@@ -651,7 +659,7 @@ export class NewProfileComponent implements OnInit {
 
   }
   routeChange() {
-  
+
   }
 
   refresh() {
@@ -676,11 +684,11 @@ export class NewProfileComponent implements OnInit {
           tempDepartmentList.departmentName = current.departmentName;
 
           this.DepartmentDropdown.push(tempDepartmentList);
-       
+
         }
         console.log("the derpartment thing works");
-        
-        
+
+
       }
       else {
         alert(data.responseMessage);
@@ -697,15 +705,15 @@ export class NewProfileComponent implements OnInit {
 
     for (var i = 0; i < this.DepartmentDropdown.length; i++) {
       if (this.DepartmentDropdown[i].departmentID == Number(this.internalApplicantDepartment)) {
-    
-        this.internalApplicantDirectorate = this.DepartmentDropdown[i].departmentName; 
+
+        this.internalApplicantDirectorate = this.DepartmentDropdown[i].departmentName;
       }
     }
 
 
- 
-    
-    
+
+
+
   }
 
   /*notification*/
@@ -760,7 +768,7 @@ export class NewProfileComponent implements OnInit {
 
 /*    this.notiName = "A user has requested to join your department";
     this.notiDescription = this.applicationID + " was created ";
-    
+
     this.notificationsService.addUpdateNotification(0, this.notiName, this.notiDescription, false, this.DepartmentAdminList[0].userId, this.CurrentUser.appUserId, null).subscribe((data: any) => {
 
       if (data.responseCode == 1) {
@@ -809,15 +817,15 @@ export class NewProfileComponent implements OnInit {
       })
     }
     else {
-  
-   
+
+
 
     }
 
   }
 
   onSelectToPopulateZone(event: any) {
-    
+
 
     if (event.target.value > 0) {
 
@@ -860,13 +868,13 @@ export class NewProfileComponent implements OnInit {
   // #region //BPRegister Sindiswa 20062024
 
   onSelectToPopulateDepartment(event: any) {
-    
+
     if (event.target.value != 0) {
       this.DepartmentsDropdown.splice(0, this.DepartmentsDropdown.length);
       console.log("This is the selected fuctional area", event.target.value)
       this.bpDepartmentsService.getAllDepartmentsForFunctionalArea(event.target.value).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
           for (let i = 0; i < data.dateSet.length; i++) {
             const tempDeptList = {} as ZoneDropdown;
             const current = data.dateSet[i];
@@ -999,5 +1007,66 @@ export class NewProfileComponent implements OnInit {
   openNewUser(newUser: any) {
     this.modalService.open(newUser, { centered: true, size: 'xl', backdrop: 'static' });
   }
+  isValid: boolean = false;
+  isInvalid: boolean = false;
+  isInvalidEmail: boolean = false;
+  isValidEmail: boolean = false;
+  errorMessage: string;
+  isPasswordValid: boolean = false;
+  passwordsMatch: boolean = false;
+  showPasswordError: boolean = false;
+  validNameSurname: boolean = false;
+  registerForm: FormGroup;
 
+  checkName() {
+
+    this.isValid = false;
+    this.isInvalid = false;
+    let fullName = this.registerForm.controls["fullName"].value;
+
+    const nameParts = fullName.split(' ');
+
+    if (nameParts.length !== 2) {
+/*      alert("Please enter your first name and surname only");*/
+      this.errorMessage="Please enter your first name and surname only";
+      this.validNameSurname = false;
+      this.isValid = false;
+      this.isInvalid = true;
+      this.isInvalid = true;
+    } else {
+      // Check if both parts are non-empty
+      if (nameParts[0].trim() === '' || nameParts[1].trim() === '') {
+        this.isValid = false;
+        this.isInvalid = true;
+        this.errorMessage = "";
+        this.validNameSurname = false;
+      } else {
+        this.isValid = true;
+        this.isInvalid = false;
+        this.errorMessage = "";
+        this.validNameSurname = true;
+      }
+    }
+    console.log("Full Name: " + this.validNameSurname);
+  }
+
+  modalRef: any;
+
+  canceProfile(areYouSureCancel: any){
+    this.modalRef = this.modalService.open(areYouSureCancel, {
+      centered: true,
+      size: 'm',
+      backdrop: 'static', // Prevent clicking outside the modal to close it
+      keyboard: false
+    })
+  }
+  closeAreYouSure(){
+    if(this.modalRef){
+      this.modalRef.close();
+      this.modalRef = null
+    }
+  }
+  refreshPagecloseAreYouSure() {
+    window.location.reload(); // Reload the current page
+  }
 }

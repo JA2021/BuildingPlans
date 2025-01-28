@@ -681,7 +681,7 @@ body {
   padding: 11px;
   margin: 20px;
    max-width: 100%;
-  
+
 }
 
 
@@ -779,17 +779,17 @@ h4 {
 @keyframes fade-in-top-Nav {
   0% {
     opacity: 0;
-   
+
   }
 
   50% {
     opacity: 0;
-  
+
   }
 
   100% {
     opacity: 1;
-    
+
   }
 }
 .animationSlideUpNav {
@@ -864,8 +864,8 @@ h4 {
     border-color:black;
     left:2px;
     right:2px;
-    
-    
+
+
 }
 table {
   width: 100%;
@@ -1142,3 +1142,83 @@ body {
 .btn-green:hover {
     background:green;
 }
+
+.commentBuilderCloseBtn{
+  box-sizing: content-box;
+  width: 5px;
+  height: 5px;
+  padding: .25em .25em;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: 1;
+  margin-bottom: 21px;
+  filter: invert();
+}
+
+.commentBuilderHeader{
+  font-family: 'Nunito';
+  font-size: 30px;
+  font-weight: 450;
+  background: #005870;
+  width: 100%;
+  padding: 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-left: -18px; */
+  /* margin-right: -18px; */
+  /* margin-top: -18px; */
+  padding-bottom: 0px;
+  border-radius: 7px;
+}
+
+.commentBuilderText{
+  color: hsl(0, 0%, 92%);
+  font-weight: 600;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 20px;
+  font-size: 25px;
+}
+
+.delteCommentBtn{
+  background-color: #f45050;
+  width: 70px;
+  height: 42px;
+}
+
+.deleteCommentIcon{
+  width: 40%;
+  /* color: #535353; */
+  filter: brightness(0.2);
+}
+
+.editCommentBtn{
+  background-color: #a2bfc6;
+  width: 70px;
+  height: 42px;
+  margin-right: 5px;
+}
+
+.editCommentIcon{
+  width: 45%;
+  /* color: #535353; */
+  filter: brightness(0);
+}
+
+.toggle-comment-button {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.toggle-comment-button:hover {
+  color: #0056b3;
+}
+
