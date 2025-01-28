@@ -398,12 +398,7 @@ export class ApplicationAlertsComponent implements OnInit {
           this.ClarificationsList.push(tempAlert);
           
         }
-        this.dataSourceClarifications = this.ClarificationsList;
-        this.clarificationsTable?.renderRows();
-        if (this.ClarificationsList.length > 0) {
-
-          this.openClarificationsAlerts();
-        }
+        this.getAllRequestsForRelaxation();
         console.log("Application Alerts", this.ClarificationsList ,data.dateSet);
       }
       else {
@@ -424,6 +419,42 @@ export class ApplicationAlertsComponent implements OnInit {
 
     this.modalService.dismissAll();
     this.router.navigate(['bpview-project-info']);
+  }
+
+  getAllRequestsForRelaxation() {
+    this.bpApplicationService.getAllRelaxationRequestsForUser(this.CurrentUser.appUserId).subscribe((data: any) => {
+      if (data.responseCode == 1) {
+        for (let i = 0; i < data.dateSet.length; i++) {
+          const tempAlert = {} as Clarifications;
+          const current = data.dateSet[i];
+
+          tempAlert.ApplicationID = current.applicationID;
+          if (current.bpApplicationID != null) {
+
+            tempAlert.ProjectNumber = current.bpApplicationID;
+          }
+          else {
+            tempAlert.ProjectNumber = current.lsNumber;
+          }
+          tempAlert.ApplicationType = "Building Plan";
+          tempAlert.Description = "The Following Application Requires You Consent to Apply For a Relaxation";
+
+          this.ClarificationsList.push(tempAlert);
+        }
+
+        this.dataSourceClarifications = this.ClarificationsList;
+        this.clarificationsTable?.renderRows();
+        //if (this.ClarificationsList.length > 0) {
+
+        //  this.openClarificationsAlerts();
+        //}
+
+        this.openClarificationsAlerts();
+      }
+      else {
+        alert(data.responseMessage);
+      }
+    })
   }
 }
 

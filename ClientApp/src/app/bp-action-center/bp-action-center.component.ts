@@ -2323,8 +2323,11 @@ export class BpActionCenterComponent implements OnInit {
                       null, null, null, null, null, null, "Reviewing", "TP Review", 2, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
 
                         if (data.responseCode == 1) {
+                          debugger; 
+                          this.addTownPlanningToDepartmentForComment();
                           this.AddComment("LS Approved", this.currentBPDepartmentforCommentID);
                           this.AddStageChecklistForApplication("TP Review");
+                          
                         }
                         else {
                           alert(data.responseMessage);
@@ -5706,8 +5709,8 @@ selectedComments.forEach((comment, index) => {
   }
 
   openAssignToUser(assignProjectToUser: any) {
-    this.getAllReviewers();
-    this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
+    this.getAllReviewers(assignProjectToUser);
+    
   }
   openAssignToUserGISReviewer(assignProjectToUserGISReviewer: any) {
     this.modalService.open(assignProjectToUserGISReviewer, { backdrop: 'static', size: 'xl' });
@@ -8901,8 +8904,11 @@ selectedComments.forEach((comment, index) => {
   }
 
 
-  getAllReviewers() {
+  getAllReviewers(assignProjectToUser:any) {
     debugger;
+
+    this.ReviewerUserList.splice(0, this.ReviewerUserList.length);
+
     if (this.LSAdminRole == true) {
       this.bpAccessGroupUserLinkService.getPeopleByAccessGroupAndSubDept(11, this.loggedInUsersDepartmentID).subscribe((data: any) => {
         if (data.responseCode == 1) {
@@ -8923,6 +8929,10 @@ selectedComments.forEach((comment, index) => {
                   this.ReviewerUserList.push(tempZoneList);
                   console.log("Got All LS Review Users", this.ReviewerUserList);
                 }
+
+                this.dataSourceViewLSUsersForLink = this.ReviewerUserList;
+                this.LSReviewerListTable?.renderRows();
+                this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
               }
               else {
                 alert(data.responseMessage)
@@ -8931,7 +8941,7 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
-          this.LSReviewerListTable?.renderRows();
+         
         }
         else {
           alert(data.responseMessage)
@@ -8968,7 +8978,9 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
+          this.dataSourceViewLSUsersForLink = this.ReviewerUserList;
           this.LSReviewerListTable?.renderRows();
+          this.modalService.open(assignProjectToUser, { backdrop: 'static', size: 'xl' });
         }
         else {
           alert(data.responseMessage)
@@ -8980,7 +8992,7 @@ selectedComments.forEach((comment, index) => {
     else {
 
     }
-
+    
   }
 
 
@@ -9594,6 +9606,41 @@ selectedComments.forEach((comment, index) => {
 
   }
 
+  addTownPlanningToDepartmentForComment() {
+    
+    
+    this.bpDepartmentsService.getAllDepartmentsForFunctionalArea("Town Planning").subscribe((data: any) => {
+      if (data.responseCode == 1) {
+        debugger; 
+        for (let i = 0; i < data.dateSet.length; i++) {
 
+          const current = data.dateSet[i];
+          const checkDepartment = current.departmentName.trim();
+
+          if (checkDepartment == "Town Planning") {
+
+            const department = current;
+            debugger;
+            this.bpDepartmentForCommentService.addUpdateDepartmentForComment(0, this.ApplicationID, current.departmentID, current.departmentName, null, "awaiting", this.CurrentUser.appUserId).subscribe((data: any) => {
+              if (data.responseCode == 1) {
+
+              }
+              else {
+                alert(data.responseMessage);
+              }
+            }, error => {
+              console.log("Department For Comment Error", error);
+            })
+          }
+
+        }
+      }
+      else {
+        alert(data.responseMessage);
+      }
+    }, error => {
+      console.log("Get All Departments Error", error);
+    })
+  }
 }
 

@@ -8207,8 +8207,8 @@ this.subscriptions.push(subscription);
 
 
           if (current.createdById != null) {
-            const originator: string = await this.getOriginatorName(current.createdById);
-            tempApplication.Originator = originator;
+            //const originator: string = await this.getOriginatorName(current.createdById);
+            //tempApplication.Originator = originator;
           }
 
 
