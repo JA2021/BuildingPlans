@@ -696,7 +696,10 @@ namespace BuildingPlans.Controllers
                                         DateUpdated = bp.DateUpdated,
                                         Latitude = bp.Latitude,
                                         Longitude = bp.Longitude,
-                                        CreatedById = bp.CreatedById
+                                        CreatedById = bp.CreatedById,
+                                        isActivated = bp.isActivated,
+                                        ActivationConfirmed = bp.ActivationConfirmed,
+                                        ActivationDate = bp.ActivationDate
                                         
                                     }).ToListAsync();
 

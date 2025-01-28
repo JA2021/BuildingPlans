@@ -138,6 +138,7 @@ import { BugsConfigComponent } from './bugs-config/bugs-config.component';
 import { BPBuildingControlsChecklistConfigComponent } from './bpbuilding-controls-checklist-config/bpbuilding-controls-checklist-config.component';
 import { BPConstructionStagesComponent } from './bpconstruction-stages/bpconstruction-stages.component';
 import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpconstruction-checklist.component';
+import { BpReusableModalsModule } from './bp-reusable-modals/bp-reusable-modals.module';
 
 //import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -225,7 +226,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     DraftsComponent,
       ApprovalPackComponent,
     OldApplicationVersionsComponent, //reapply Sindiswa 25 January 2024
-    ApplicationAlertsComponent,//Clarify Alerts Kyle 
+    ApplicationAlertsComponent,//Clarify Alerts Kyle
     SubdeptWayleaveExpirationComponent, //wayleaveExpiry Sindiswa 08 February 2024
     StatusOfWorksComponent,
     BuildingApplicationComponent,
@@ -244,7 +245,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     BPBannerApplicationComponent,
     BpConfigurationsComponent,
     BPStagesComponent, //BP Stages Kyle
-    BPRolesConfigComponent, 
+    BPRolesConfigComponent,
     BPDepartmentManagerComponent,
     BpActionCenterComponent,
     BPFinancialsComponent,
@@ -323,7 +324,8 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
       { path: 'bpdemolition-application', component: BPDemolitionApplicationComponent },
       { path: 'bpsignage-application', component: BPSignageApplicationComponent },
       { path: 'bpbanner-application', component: BPBannerApplicationComponent },
-    ])
+    ]),
+    BpReusableModalsModule,
   ],
   providers: [
     //InitializationService,
@@ -378,7 +380,7 @@ import { BPConstructionChecklistComponent } from './bpconstruction-checklist/bpc
     BPBuildingControlsChecklistConfigComponent,
     BPConstructionStagesComponent,
     BPConstructionChecklistComponent,
-  
+
   ],
   bootstrap: [AppComponent]
 })

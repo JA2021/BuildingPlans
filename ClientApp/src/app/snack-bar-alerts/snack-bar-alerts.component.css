@@ -50,7 +50,7 @@
   opacity: 0;
   overflow: hidden;
   background: rgb(0 112 69);
-  color: black;
+  color: white;
   animation: scale-in .3s ease-out forwards, expand .35s .25s ease-out forwards;
 }
 .Notification {

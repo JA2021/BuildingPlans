@@ -101,21 +101,24 @@ namespace BuildingPlans.Controllers
                             Status = model.Status,
                             OmnibusServitude = model.OmnibusServitude,
                             BPApplicationID = model.BPApplicationID,
-                            BPApplicationType= model.BPApplicationType,
-                            ApplicationType= model.ApplicationType,
-                           isCombinedApplication = model.isCombinedApplication,
-                           NameOfCompany = model.NameOfCompany,
-                           NatureOfWorks = model.NatureOfWorks,
-                           TitleDeedNo = model.TitleDeedNo,
-                           ExtentOfProperty = model.ExtentOfProperty,
-                           DescriptionOfProject = model.DescriptionOfProject,
-                           RegNoOfCompany = model.RegNoOfCompany,
-                           RegisteredDescription = model.RegisteredDescription,
-                           SizeOfApplication = model.SizeOfApplication,
-                           TitleRestrictions = model.TitleRestrictions,
-                           TypeOfExcavation = model.TypeOfExcavation,
-                           ValueOfProperty = model.ValueOfProperty,
-                           isDraft = model.isDraft,
+                            BPApplicationType = model.BPApplicationType,
+                            ApplicationType = model.ApplicationType,
+                            isCombinedApplication = model.isCombinedApplication,
+                            NameOfCompany = model.NameOfCompany,
+                            NatureOfWorks = model.NatureOfWorks,
+                            TitleDeedNo = model.TitleDeedNo,
+                            ExtentOfProperty = model.ExtentOfProperty,
+                            DescriptionOfProject = model.DescriptionOfProject,
+                            RegNoOfCompany = model.RegNoOfCompany,
+                            RegisteredDescription = model.RegisteredDescription,
+                            SizeOfApplication = model.SizeOfApplication,
+                            TitleRestrictions = model.TitleRestrictions,
+                            TypeOfExcavation = model.TypeOfExcavation,
+                            ValueOfProperty = model.ValueOfProperty,
+                            isDraft = model.isDraft,
+                            isActivated = model.isActivated,
+                            ActivationDate = model.ActivationDate,
+                            ActivationConfirmed = model.ActivationConfirmed,
 
                         };
                         await _context.BuildingApplications.AddAsync(tempBuildingApplication);
@@ -330,7 +333,7 @@ namespace BuildingPlans.Controllers
                         {
                             tempBuildingApplication.NatureOfWorks = model.NatureOfWorks;
                         }
-                        if(model.isDraft != null)
+                        if (model.isDraft != null)
                         {
                             tempBuildingApplication.isDraft = model.isDraft;
                         }
@@ -411,6 +414,9 @@ namespace BuildingPlans.Controllers
                         NameOfCompany = buildingApplication.NameOfCompany,
                         RegNoOfCompany = buildingApplication.RegNoOfCompany,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
                     }
                     ).ToListAsync();
 
@@ -483,6 +489,9 @@ namespace BuildingPlans.Controllers
                         NameOfCompany = buildingApplication.NameOfCompany,
                         RegNoOfCompany = buildingApplication.RegNoOfCompany,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
 
                     }).ToListAsync();
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got Application By ApplicationID", result));
@@ -540,6 +549,9 @@ namespace BuildingPlans.Controllers
                                         OmnibusServitude = buildingApplication.OmnibusServitude,
                                         BPApplicationID = buildingApplication.BPApplicationID,
                                         isDraft = buildingApplication.isDraft,
+                                        isActivated = buildingApplication.isActivated,
+                                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                                        ActivationDate = buildingApplication.ActivationDate,
 
 
                                     }).ToListAsync();
@@ -599,6 +611,9 @@ namespace BuildingPlans.Controllers
                                         Status = buildingApplication.Status,
                                         BPApplicationID = buildingApplication.BPApplicationID,
                                         isDraft = buildingApplication.isDraft,
+                                        isActivated = buildingApplication.isActivated,
+                                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                                        ActivationDate = buildingApplication.ActivationDate,
 
                                     }).ToListAsync();
 
@@ -714,6 +729,9 @@ namespace BuildingPlans.Controllers
                                         Stage = buildingApplication.Stage,
                                         BPApplicationID = buildingApplication.BPApplicationID,
                                         isDraft = buildingApplication.isDraft,
+                                        isActivated = buildingApplication.isActivated,
+                                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                                        ActivationDate = buildingApplication.ActivationDate,
 
                                     }).ToListAsync();
 
@@ -777,6 +795,9 @@ namespace BuildingPlans.Controllers
                         CreatedById = buildingApplication.CreatedById,
                         BPApplicationID = buildingApplication.BPApplicationID,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
 
                     }).ToListAsync();
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got Application By ApplicationID", result));
@@ -841,6 +862,9 @@ namespace BuildingPlans.Controllers
                         BPApplicationID = buildingApplication.BPApplicationID,
                         BPApplicationType = buildingApplication.BPApplicationType,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
                     }
                     ).ToListAsync();
 
@@ -913,6 +937,9 @@ namespace BuildingPlans.Controllers
                         NameOfCompany = buildingApplication.NameOfCompany,
                         RegNoOfCompany = buildingApplication.RegNoOfCompany,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
                     }
                     ).ToListAsync();
 
@@ -922,8 +949,8 @@ namespace BuildingPlans.Controllers
             {
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
             }
-        }   
-        
+        }
+
         [HttpGet("GetAllBuildingPlansApplications")]
         public async Task<object> GetAllBuildingPlansApplications()
         {
@@ -931,7 +958,7 @@ namespace BuildingPlans.Controllers
             {
                 var result = await (
                     from buildingApplication in _context.BuildingApplications
-                    where buildingApplication.isActive == true && buildingApplication.BPApplicationType == "Building Plans" && buildingApplication.FirstName != null && buildingApplication.isDraft != true 
+                    where buildingApplication.isActive == true && buildingApplication.BPApplicationType == "Building Plans" && buildingApplication.FirstName != null && buildingApplication.isDraft != true
                     select new BuildingApplicationDTO()
                     {
                         ApplicationID = buildingApplication.ApplicationID,
@@ -975,6 +1002,9 @@ namespace BuildingPlans.Controllers
                         CreatedById = buildingApplication.CreatedById,
                         BPApplicationID = buildingApplication.BPApplicationID,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
                     }
                     ).ToListAsync();
 
@@ -1049,6 +1079,10 @@ namespace BuildingPlans.Controllers
                         NameOfCompany = buildingApplication.NameOfCompany,
                         RegNoOfCompany = buildingApplication.RegNoOfCompany,
                         isDraft = buildingApplication.isDraft,
+                        isActivated = buildingApplication.isActivated,
+                        ActivationConfirmed = buildingApplication.ActivationConfirmed,
+                        ActivationDate = buildingApplication.ActivationDate,
+
 
                     }).ToListAsync();
                 return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got Application By ApplicationID", result));
@@ -1135,6 +1169,196 @@ namespace BuildingPlans.Controllers
         }
 
 
-        
+        [HttpPost("UpdatePlanActivationStatus")]
+        public async Task<object> UpdatePlanActivationStatus([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                var result = new object();
+
+                if (model.isActivated == null || model.ApplicationID == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var tempApplication = _context.BuildingApplications.FirstOrDefault(x => x.ApplicationID == model.ApplicationID);
+
+                    if (tempApplication == null)
+                    {
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Could not find entry in database", null));
+                    }
+
+                    else
+                    {
+                        tempApplication.isActivated = model.isActivated;
+                        tempApplication.ActivationDate = DateTime.Now;
+                        tempApplication.DateUpdated = DateTime.Now;
+                        tempApplication.ActivationConfirmed = false;
+                        _context.Update(tempApplication);
+                        await _context.SaveChangesAsync();
+
+                        result = tempApplication;
+
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Plan Activated Successfully", result));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+            }
+        }
+
+        [HttpPost("GetAllApplicationsForActivationConfirmation")]
+        public async Task<object> GetAllApplicationsForActivationConfirmation([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                if (model.CreatedById == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var result = await (from buildingApplication in _context.BuildingApplications
+                                        where( buildingApplication.UserID == model.CreatedById || buildingApplication.ArchitectUserID == model.CreatedById )&& buildingApplication.isActivated == true && buildingApplication.isActive == true  && buildingApplication.ActivationConfirmed != true
+                                        select new BuildingApplicationDTO() 
+                                        {
+                                            ApplicationID = buildingApplication.ApplicationID,
+                                            LSNumber = buildingApplication.LSNumber,
+                                            UserID = buildingApplication.UserID,
+                                            FirstName = buildingApplication.FirstName,
+                                            Surname = buildingApplication.Surname,
+                                            EmailAddress = buildingApplication.EmailAddress,
+                                            CellNumber = buildingApplication.CellNumber,
+                                            AltEmail = buildingApplication.AltEmail,
+                                            AltCellNumber = buildingApplication.AltCellNumber,
+                                            IDNumber = buildingApplication.IDNumber,
+                                            PropertyDescription = buildingApplication.PropertyDescription,
+                                            PremisesName = buildingApplication.PremisesName,
+                                            AddressType = buildingApplication.AddressType,
+                                            ErfNumber = buildingApplication.ErfNumber,
+                                            PortionNumber = buildingApplication.PortionNumber,
+                                            NoOfUnits = buildingApplication.NoOfUnits,
+                                            UnitNumber = buildingApplication.UnitNumber,
+                                            PhysicalAddress = buildingApplication.PhysicalAddress,
+                                            Latitude = buildingApplication.Latitude,
+                                            Longitude = buildingApplication.Longitude,
+                                            ArchitectName = buildingApplication.ArchitectName,
+                                            BuildingPlanFor = buildingApplication.BuildingPlanFor,
+                                            TypeOfDevelopment = buildingApplication.TypeOfDevelopment,
+                                            TotalArea = buildingApplication.TotalArea,
+                                            OccupationClassification = buildingApplication.OccupationClassification,
+                                            PlanFees = buildingApplication.PlanFees,
+                                            PropertyValue = buildingApplication.PropertyValue,
+                                            StreetAddress = buildingApplication.StreetAddress,
+                                            Suburb = buildingApplication.Suburb,
+                                            City = buildingApplication.City,
+                                            PostalCode = buildingApplication.PostalCode,
+                                            SGCode = buildingApplication.SGCode,
+                                            DateCreated = buildingApplication.DateCreated,
+                                            DateUpdated = buildingApplication.DateUpdated,
+                                            OmnibusServitude = buildingApplication.OmnibusServitude,
+                                            Stage = buildingApplication.Stage,
+                                            Status = buildingApplication.Status,
+                                            StageNumber = buildingApplication.StageNumber,
+                                            CreatedById = buildingApplication.CreatedById,
+
+                                            BPApplicationID = buildingApplication.BPApplicationID,
+                                            TitleRestrictions = buildingApplication.TitleRestrictions,
+                                            ExtentOfProperty = buildingApplication.ExtentOfProperty,
+                                            TitleDeedNo = buildingApplication.TitleDeedNo,
+                                            RegisteredDescription = buildingApplication.RegisteredDescription,
+                                            ApplicationType = buildingApplication.ApplicationType,
+                                            BPApplicationType = buildingApplication.BPApplicationType,
+                                            DescriptionOfProject = buildingApplication.DescriptionOfProject,
+                                            isCombinedApplication = buildingApplication.isCombinedApplication,
+                                            NameOfCompany = buildingApplication.NameOfCompany,
+                                            RegNoOfCompany = buildingApplication.RegNoOfCompany,
+                                            isDraft = buildingApplication.isDraft,
+
+                                        }).ToListAsync();
+
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got All Applications For Activation Confirmation", result));
+                }
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+            }
+        }
+
+        [HttpPost("ConfirmPlanActivation")]
+        public async Task<object> ConfirmPlanActivation([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                var result = new object(); 
+
+                if(model.ApplicationID == null || model.ActivationConfirmed == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var tempApplication = _context.BuildingApplications.FirstOrDefault(x => x.ApplicationID == model.ApplicationID);
+
+                    if(tempApplication == null)
+                    {
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Could not find entry in database", null));
+                    }
+
+                    else
+                    {
+                        tempApplication.ActivationConfirmed = model.ActivationConfirmed;
+                        tempApplication.DateUpdated = DateTime.Now;
+
+                        _context.Update(tempApplication);
+                        await _context.SaveChangesAsync();
+
+                        result = tempApplication;
+
+                        return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Activation Confirm Updated SuccessFully", result));
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+            }
+        }
+    
+
+        [HttpPost("GetAllRelaxationRequestsForUser")]
+        public async Task<object> GetAllRelaxationRequestsForUser([FromBody] BuildingApplicationBindingModel model)
+        {
+            try
+            {
+                if(model.UserID == null)
+                {
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, "Parameters are missing", null));
+                }
+                else
+                {
+                    var result = await (from buildingApplication in _context.BuildingApplications
+                                        where (buildingApplication.UserID == model.UserID || buildingApplication.ArchitectUserID == model.UserID) && buildingApplication.Status == "Relaxation Pending" && buildingApplication.isActive == true
+                                        select new BuildingApplicationDTO()
+                                        {
+                                            ApplicationID = buildingApplication.ApplicationID,
+                                            LSNumber = buildingApplication.LSNumber,
+                                            BPApplicationID = buildingApplication.BPApplicationID,
+
+                                        }).ToListAsync();
+
+                    return await Task.FromResult(new ResponseModel(Enums.ResponseCode.OK, "Got all requests for relaxation", result));
+                }
+            }
+            catch(Exception ex)
+            {
+                return await Task.FromResult(new ResponseModel(Enums.ResponseCode.Error, ex.Message, null));
+
+            }
+        }
     }
 }
