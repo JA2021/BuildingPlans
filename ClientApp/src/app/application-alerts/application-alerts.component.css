@@ -1,24 +1,26 @@
 h6 {
-  color: black;
-  font-size: 20px;
+  color: #ffffff;
+  font-size: 25px;
+  text-align: center;
+  margin-left: 20%;
+  margin-bottom: 13px;
+  font-family: 'Nunito';
+  font-weight: bold;
 }
-.table {
+table {
+  width: 100% !important ;
   margin-top: 30px;
   margin-bottom: 18px;
   padding-bottom: 1px;
-}
-.table {
-  /*    width: 750px;
-    margin: 0 auto;*/
-  margin-bottom: 30px;
   overflow-x: scroll;
   overflow-y: hidden
 }
+
 .mat-column-actions {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 1% !important;
+  width: 30% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -35,7 +37,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 45% !important;
+  width: 30% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -46,10 +48,253 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 45% !important;
+  width: 30% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+/* ----------border highlight----------- */
+
+/* From Uiverse.io by dylanharriscameron */
+.cardB {
+  margin: 2px 2px 2px 1px;
+  position: relative;
+  width: 99.8%;
+  height: 517px;
+  border-radius: 8px;
+  z-index: 1111;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg {
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  width: 98.8%;
+  height: 505px;
+  z-index: 2;
+  background: rgba(255, 255, 255, .95);
+  backdrop-filter: blur(24px);
+  border-radius: 10px;
+  overflow: auto;
+  outline: 2px solid white;
+}
+
+.blob {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 515px;
+  border-radius: 50%;
+  background-color: #ac0000;
+  opacity: 50%;
+  filter: blur(19px);
+  animation: blob-bounce 5s infinite linear;
+}
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(-50%, -50%) translate3d(-40%, -40%, 0); /* Starting point (top-left-ish) */
+  }
+  25% {
+    transform: translate(-50%, -50%) translate3d(40%, -40%, 0); /* Smoothly curve to top-right-ish */
+  }
+  50% {
+    transform: translate(-50%, -50%) translate3d(40%, 40%, 0); /* Smoothly curve to bottom-right-ish */
+  }
+  75% {
+    transform: translate(-50%, -50%) translate3d(-40%, 40%, 0); /* Smoothly curve to bottom-left-ish */
+  }
+  100% {
+    transform: translate(-50%, -50%) translate3d(-40%, -40%, 0); /* Complete the loop (back to start) */
+  }
+}
+/*------------------ end of border highlight--------- */
+/* -----------------application alert header--------- */
+
+.appAlertHeader{
+  font-family: 'Nunito';
+  font-size: 30px;
+  font-weight: 450;
+  background: #fd6969;
+  padding: 22px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-radius: 7px 7px 7px 7px;
+}
+
+.alertHeaderClosebtn{
+  box-sizing: content-box;
+  width: 5px;
+  height: 5px;
+  padding: .25em .25em;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: .5;
+  margin-bottom: 13px;
+}
+/* ------------------end of alert header----------------- */
+
+/* ---------go to application btn------------- */
+.button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgb(94, 201, 91);
+  border: none;
+  /* margin-right: 2%; */
+  /* margin-top: 8%; */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+  cursor: pointer;
+  transition-duration: 0.5s;
+  overflow: hidden;
+  position: relative;
+  /* right: 0; */
+  /* transform-origin: right; */
+}
+
+.svgIcon {
+  width: 12px;
+  transition-duration: 0.3s;
+  transform: rotate(90deg);
+}
+
+
+.svgIcon path {
+  fill: white;
+}
+
+.button:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(94, 201, 91);
+  align-items: center;
+}
+
+.button:hover .svgIcon {
+  transition-duration: 0.2s;
+  opacity: 0;
+  transform: translateX(100%) rotate(90deg);
+}
+
+.button::before {
+  position: absolute;
+  bottom: -20%;
+  top: -2px;
+  transform: translateY(50%);
+  content: "Go To Application";
+  color: white;
+  font-size: 0px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.button:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  bottom: unset;
+  transition-duration: 0.3s;
+}
+
+.button:not(:hover)::before {
+  transform: translateY(100%); /* Animate text to the bottom on hover out */
+  opacity: 0; /* Fade out */
+  transition: all 0.3s ease; /* Smooth transition for closing animation */
+}
+/* -----------end of application btn-------------------- */
+/* -----------body for alert message--------------- */
+
+.pNumText{
+  font-size:18px;
+}
+
+.cardAlerts{
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  width: 100%;
+  margin-left: 0;
+  top: -13px;
+  padding: 20px;
+  border-radius: 40px;
+  background-color: #dddddd !important;
+  margin-bottom: 25px;
+  overflow: visible; /* Allow content to expand */
+  text-overflow: ellipsis;
+  white-space: normal; /* Ensure text wraps */
+  box-shadow: inset 0px -2px 6px 1px #fffafa !important;
+  border: none;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.descriptionDiv{
+   word-wrap: break-word; /* Ensure long words break properly */
+  overflow: visible; /* Prevent cutting off content */
+}
+
+.projectNumber{
+  font-size:15px;
+  margin-top: -5px;
+}
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f4f8; /* Light pastel background for the body */
+}
+
+
+/* .card::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 40px;
+  z-index: -1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+} */
+
+.cardAlerts:hover {
+  transform: translateY(-5px) !important; /* Lift effect on hover */
+}
+
+.cardAlerts-title {
+  margin: 0;
+  font-size: 1.5em;
+  color: #d81b60; /* Darker pink for the title */
+}
+
+.cardAlerts-content {
+  color: #555; /* Dark gray for the content text */
+}
+
+.alertBtnDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+/*-----------end of card body--------------- */
