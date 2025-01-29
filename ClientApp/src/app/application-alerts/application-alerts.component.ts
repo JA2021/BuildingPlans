@@ -471,7 +471,7 @@ export class ApplicationAlertsComponent implements OnInit {
     this.ClarificationsList.push(tempList);
    }
 
-   this.openClarificationsAlerts();
+  //  this.openClarificationsAlerts();
    }
 
 

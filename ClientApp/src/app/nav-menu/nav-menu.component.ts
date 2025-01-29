@@ -122,12 +122,13 @@ export interface NotificationsList {
 })
 export class NavMenuComponent implements OnInit {
 
-  expandedComment: string | null = null;
+  expandedComment: any | null = null;
 
    // Toggle the expanded/collapsed state for a comment
-   toggleComment(comment: string): void {
-    this.expandedComment = this.expandedComment === comment ? null : comment;
-  }
+   toggleComment(commentId: any | null) {
+    this.expandedComment = this.expandedComment === commentId ? null : commentId;
+}
+
 
  // Get truncated comment text
  getTruncatedComment(comment: string): string {

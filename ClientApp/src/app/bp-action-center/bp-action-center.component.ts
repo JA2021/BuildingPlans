@@ -737,6 +737,7 @@ export class BpActionCenterComponent implements OnInit {
 
   public isInternalUser: boolean = false;
   public isExternalUser: boolean = false;
+  public calendarView: boolean = false;
 
   saveBtn: boolean = true;
   option = '';
@@ -2323,11 +2324,11 @@ export class BpActionCenterComponent implements OnInit {
                       null, null, null, null, null, null, "Reviewing", "TP Review", 2, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
 
                         if (data.responseCode == 1) {
-                          debugger; 
+                          debugger;
                           this.addTownPlanningToDepartmentForComment();
                           this.AddComment("LS Approved", this.currentBPDepartmentforCommentID);
                           this.AddStageChecklistForApplication("TP Review");
-                          
+
                         }
                         else {
                           alert(data.responseMessage);
@@ -5710,7 +5711,7 @@ selectedComments.forEach((comment, index) => {
 
   openAssignToUser(assignProjectToUser: any) {
     this.getAllReviewers(assignProjectToUser);
-    
+
   }
   openAssignToUserGISReviewer(assignProjectToUserGISReviewer: any) {
     this.modalService.open(assignProjectToUserGISReviewer, { backdrop: 'static', size: 'xl' });
@@ -8941,7 +8942,7 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
-         
+
         }
         else {
           alert(data.responseMessage)
@@ -8992,7 +8993,7 @@ selectedComments.forEach((comment, index) => {
     else {
 
     }
-    
+
   }
 
 
@@ -9607,11 +9608,11 @@ selectedComments.forEach((comment, index) => {
   }
 
   addTownPlanningToDepartmentForComment() {
-    
-    
+
+
     this.bpDepartmentsService.getAllDepartmentsForFunctionalArea("Town Planning").subscribe((data: any) => {
       if (data.responseCode == 1) {
-        debugger; 
+        debugger;
         for (let i = 0; i < data.dateSet.length; i++) {
 
           const current = data.dateSet[i];
@@ -9640,6 +9641,14 @@ selectedComments.forEach((comment, index) => {
       }
     }, error => {
       console.log("Get All Departments Error", error);
+    })
+  }
+  calendarViewModal(calendarView: any){
+    this.modalService.open(calendarView, {
+      centered: true,
+      size: 'xl',
+      backdrop: 'static', // Prevent clicking outside the modal to close it
+      keyboard: false
     })
   }
 }

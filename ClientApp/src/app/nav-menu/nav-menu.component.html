@@ -175,22 +175,22 @@
               <th mat-header-cell *matHeaderCellDef>Comment</th>
               <!-- <td mat-cell *matCellDef="let element"> {{element.Comment}} </td> -->
               <td mat-cell *matCellDef="let element">
-                <div class="comment-container" [@detailExpand]="expandedComment === element.Comment ? 'expanded' : 'collapsed'">
+                <div class="comment-container" [@detailExpand]="expandedComment === element.CommentID ? 'expanded' : 'collapsed'">
                   <!-- Truncated Comment -->
-                  <span *ngIf="!expandedComment || expandedComment !== element.Comment">
+                  <span *ngIf="!expandedComment || expandedComment !== element.CommentID">
                     <span [innerHTML]="sanitizeHTML(getTruncatedComment(element.Comment))"></span>
                     <span *ngIf="isTruncated(element.Comment)"></span>
                   </span>
 
                   <!-- Full Comment -->
-                  <div *ngIf="expandedComment === element.Comment" class="fullComment">
+                  <div *ngIf="expandedComment === element.CommentID" class="fullComment">
                     <span [innerHTML]="sanitizeHTML(element.Comment)"></span>
                   </div>
                 </div>
 
                 <!-- Button to Toggle -->
-                <button class="toggle-comment-button" (click)="toggleComment(element.Comment)">
-                  {{ expandedComment === element.Comment ? 'Show Less' : 'Read More' }}
+                <button class="toggle-comment-button" (click)="toggleComment(element.CommentID)">
+                  {{ expandedComment === element.CommentID ? 'Show Less' : 'Read More' }}
                 </button>
               </td>
             </ng-container>
