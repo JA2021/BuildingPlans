@@ -9651,5 +9651,51 @@ selectedComments.forEach((comment, index) => {
       keyboard: false
     })
   }
+  // const monthYear = document.getElementById("monthYear");
+  // const calendarDays = document.getElementById("calendarDays");
+  // const prevMonthBtn = document.getElementById("prevMonth");
+  // const nextMonthBtn = document.getElementById("nextMonth");
+
+  // let currentDate = new Date();
+
+  // function renderCalendar() {
+  //     const year = currentDate.getFullYear();
+  //     const month = currentDate.getMonth();
+  //     const firstDay = new Date(year, month, 1).getDay();
+  //     const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  //     monthYear.textContent = currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  //     calendarDays.innerHTML = "";
+
+  //     for (let i = 0; i < firstDay; i++) {
+  //         calendarDays.innerHTML += '<div></div>';
+  //     }
+
+  //     for (let day = 1; day <= daysInMonth; day++) {
+  //         const dayElement = document.createElement("div");
+  //         dayElement.textContent = day;
+  //         dayElement.classList.add("day");
+  //         if (
+  //             day === new Date().getDate() &&
+  //             month === new Date().getMonth() &&
+  //             year === new Date().getFullYear()
+  //         ) {
+  //             dayElement.classList.add("today");
+  //         }
+  //         calendarDays.appendChild(dayElement);
+  //     }
+  // }
+
+  // prevMonthBtn.addEventListener("click", () => {
+  //     currentDate.setMonth(currentDate.getMonth() - 1);
+  //     renderCalendar();
+  // });
+
+  // nextMonthBtn.addEventListener("click", () => {
+  //     currentDate.setMonth(currentDate.getMonth() + 1);
+  //     renderCalendar();
+  // });
+
+  // renderCalendar();
 }
 
