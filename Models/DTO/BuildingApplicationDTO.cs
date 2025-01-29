@@ -67,5 +67,7 @@ namespace BuildingPlans.Models.DTO
 
         public bool? isActivated { get; set; }
         public DateTime? ActivationDate { get; set; }
+        public bool? ActivationConfirmed { get; set; }
+
     }
 }

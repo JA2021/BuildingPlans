@@ -1857,6 +1857,9 @@ namespace BuildingPlans.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationID"), 1L, 1);
 
+                    b.Property<bool?>("ActivationConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ActivationDate")
                         .HasColumnType("datetime2");
 
