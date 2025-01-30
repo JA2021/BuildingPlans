@@ -73,27 +73,24 @@ h3 {
   margin-top: 15px !important;
   font-weight: bolder;
   font-size: 25px;
-  margin-left: 10px !important;
+  margin-left: 3px !important;
   width: 28px;
   font-family: 'Nunito';
   color: #3e3e3e;
 }
 .userIMG2 {
-
   -webkit-backdrop-filter: blur(1px);
-
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-
-  margin-bottom: -11px;
+  width: 55px;
+  height: 55px;
+  margin-top: 20px;
+  margin-bottom: 5px;
   background: #4393d78a;
-
   scale: 1.6;
   box-shadow: inset 0px 0px 3px 1px #00000026;
   -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
-  margin: 0 auto;
+  margin-left: 67%;
+  border-radius: 100%;
 }
 .white{
     filter:invert(1);
@@ -110,12 +107,16 @@ h4 {
 }
 
 h5 {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  text-align: center;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  text-align: left;
   font-family: 'Nunito';
-  font-style: normal;
-  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 16px;
+  color: grey;
+  text-align: center;
 }
 
 /* > Process Styles */
@@ -536,15 +537,46 @@ h2 {
 
   .button3:hover:before {
     top: -76px;
-    left: -182px;
+    left: -76px;
   }
 
   .button3:active:before {
-    background: #3a0ca3;
     transition: background 0s;
   }
 
+  .dp {
+    margin-top: -1px !important;
+    font-weight: 900;
+    font-size: 28px;
+    margin-left: 0 !important;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    font-family: 'Nunito' !important;
+    text-align: center;
+  }
 
+  .profileIcon{
+    opacity: 25%;
+    width: 36px;
+    margin-left: 9px;
+    margin-top: 4px;
+  }
+
+  .cYNUP{
+    margin-top: 24px !important;
+    font-weight: 900;
+    font-size: 25px;
+    margin-left: 28%!important;
+    position: absolute;
+    font-family: 'Nunito' !important;
+    color: #3e3e3e;
+  }
+
+  .newUserPTitle{
+    margin-left: 6px !important;
+    margin-bottom: 20px;
+  }
 
 .container {
   display: flex;
@@ -674,3 +706,408 @@ h2 {
     transform: scale(.8);
   }
 }
+
+/* ------------checkbuttons------------ */
+.container {
+  --UnChacked-color: grey;
+  --chacked-color: hsl(216, 100%, 60%);
+  --font-color: white;
+  --chacked-font-color: var(--font-color);
+  --icon-size: 1.5em;
+  --anim-time: 0.2s;
+  --anim-scale: 0.1;
+  --base-radius: 0.8em;
+}
+
+.container {
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    user-select: none;
+    fill: var(--font-color);
+    color: var(--font-color);
+    width: 202px;
+    margin-bottom: 5px;
+}
+
+/* Hide the default checkbox */
+.container input {
+  display: none;
+}
+
+.icassaContain{
+  margin-top: -18px;
+}
+
+/* Base custom checkbox */
+.checkmark {
+  background: var(--UnChacked-color);
+  border-radius: var(--base-radius);
+  display: flex;
+  padding: 5px;
+  margin-left: -40px;
+  margin-top: -37px;
+  border: 2px solid #49484845;
+}
+
+.architectMeaning{
+  background-color: transparent;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.architectText{
+  font-size: 15px;
+  font-family: 'Nunito';
+  padding-top: 11px;
+  color: #808080;
+}
+
+.wayleaveMeaning{
+  background-color: #e7923a;
+  border: 2px solid #bf7b35;
+  border-radius: 10px;
+  width: 37%;
+  text-align: center;
+  padding: 1;
+  margin-bottom: 17px;
+}
+
+.wayleaveText{
+  font-size: 15px;
+  font-family: 'Nunito';
+  padding-top: 11px;
+  color: #fafafa;
+}
+
+.chckBoxText{
+  font-size: 15px;
+  font-family: 'Nunito';
+  padding-top: 10px;
+  margin: 0;
+}
+
+.name {
+  margin: 0 0.25em;
+}
+
+.name.Yes {
+  display: none;
+}
+
+.container:active .checkmark,
+.container:active .name {
+  transform: scale(calc(1 - var(--anim-scale) / 2));
+  border-radius: calc(var(--base-radius) * 2);
+}
+
+
+/* When the checkbox is checked*/
+.container input:checked + .checkmark {
+  --UnChacked-color: var(--chacked-color);
+  fill: var(--chacked-font-color);
+  color: var(--chacked-font-color);
+}
+
+
+.container input:checked ~ .checkmark .name.No {
+  display: none;
+}
+
+
+.container input:checked ~ .checkmark .name.Yes {
+  width: auto;
+  display: unset;
+}
+
+/*Animation*/
+.container,
+.checkmark,
+.checkmark:after,
+.checkmark .name {
+  transition: all var(--anim-time);
+}
+/* ------------end of btns------------ */
+/* -----------wayleave check btn------------ */
+/* From Uiverse.io by milegelu */
+.containerWayleave {
+  --UnChacked-color: grey;
+  --chacked-color: hsl(216, 100%, 60%);
+  --font-color: white;
+  --chacked-font-color: var(--font-color);
+  --icon-size: 1.5em;
+  --anim-time: 0.2s;
+  --anim-scale: 0.1;
+  --base-radius: 0.8em;
+}
+
+.containerWayleave {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 15px;
+  user-select: none;
+  fill: var(--font-color);
+  color: var(--font-color);
+  width: auto;
+}
+
+/* Hide the default checkbox */
+.containerWayleave input {
+  display: none;
+}
+
+/* Base custom checkbox */
+.checkmarkWayleave {
+  background: var(--UnChacked-color);
+  border-radius: var(--base-radius);
+  display: flex;
+  padding: 5px;
+  margin-left: -6px;
+  margin-top: -2px;
+  border: 2px solid #494848;
+  font-size: 15px;
+}
+
+.nameWayleave {
+  margin: 0 0.25em;
+}
+
+.nameWayleave.Yes {
+  display: none;
+}
+
+.containerWayleave:active .checkmarkWayleave,
+.containerWayleave:active .nameWayleave {
+  transform: scale(calc(1 - var(--anim-scale) / 2));
+  border-radius: calc(var(--base-radius) * 2);
+}
+
+/* When the checkbox is checked */
+.containerWayleave input:checked + .checkmarkWayleave {
+  --UnChacked-color: var(--chacked-color);
+  fill: var(--chacked-font-color);
+  color: var(--chacked-font-color);
+}
+
+.containerWayleave input:checked ~ .checkmarkWayleave .nameWayleave.No {
+  display: none;
+}
+
+.containerWayleave input:checked ~ .checkmarkWayleave .nameWayleave.Yes {
+  width: auto;
+  display: unset;
+}
+
+/* Animation */
+.containerWayleave,
+.checkmarkWayleave,
+.checkmarkWayleave:after,
+.checkmarkWayleave .nameWayleave {
+  transition: all var(--anim-time);
+}
+
+.chckBoxTextWayleave{
+  font-size: 15px;
+  font-family: 'Nunito';
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+/* -----------------end of wayleave check btn---------- */
+.external{
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 60vh;
+  padding: 10px;
+}
+
+.internal{
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 60vh;
+  padding: 10px;
+}
+
+/* ---------------btn save profile---------- */
+/* From Uiverse.io by nikk7007 */
+.btnSaveProfile {
+  --color: #00A97F;
+  padding: 0.8em 1.7em;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: var(--color);
+  z-index: 1;
+ }
+
+ .btnSaveProfile::before, .btnSaveProfile::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+ }
+
+ .btnSaveProfile::before {
+  top: -1em;
+  left: -1em;
+ }
+
+ .btnSaveProfile::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+ }
+
+ .btnSaveProfile:hover::before, .btnSaveProfile:hover::after {
+  height: 410px;
+  width: 410px;
+ }
+
+ .btnSaveProfile:hover {
+  color: rgb(221, 221, 221);
+ }
+
+ .btnSaveProfile:active {
+  filter: brightness(.8);
+ }
+/* cancel */
+
+ .btnCancelProfile {
+  --color: #a9000e;
+  padding: 0.8em 1.7em;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: var(--color);
+  margin-right: 81%;
+  z-index: 1;
+ }
+
+ .btnCancelProfile::before, .btnCancelProfile::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+ }
+
+ .btnCancelProfile::before {
+  top: -1em;
+  left: -1em;
+ }
+
+ .btnCancelProfile::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+ }
+
+ .btnCancelProfile:hover::before, .btnCancelProfile:hover::after {
+  height: 410px;
+  width: 410px;
+ }
+
+ .btnCancelProfile:hover {
+  color: rgb(221, 221, 221);
+ }
+
+ .btnCancelProfile:active {
+  filter: brightness(.8);
+ }
+
+ /* ----------------are you sure cancel modal----------- */
+
+ .areYouSureCancelText{
+  font-size: 21px;
+  text-align: center;
+ }
+
+ .doingSoText{
+  text-align: center;
+  color: grey;
+  font-size: 15px;
+  font-style: italic;
+ }
+
+ .btnCancelAreYouSure {
+  --color: #a9000e;
+  padding: 0.8em 1.7em;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: var(--color);
+  margin-right: 65%;
+  z-index: 1;
+ }
+
+ .btnCancelAreYouSure::before, .btnCancelAreYouSure::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+ }
+
+ .btnCancelAreYouSure::before {
+  top: -1em;
+  left: -1em;
+ }
+
+ .btnCancelAreYouSure::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+ }
+
+ .btnCancelAreYouSure:hover::before, .btnCancelAreYouSure:hover::after {
+  height: 410px;
+  width: 410px;
+ }
+
+ .btnCancelAreYouSure:hover {
+  color: rgb(221, 221, 221);
+ }
+
+ .btnCancelAreYouSure:active {
+  filter: brightness(.8);
+ }
+
+ /*------------------- end of modal----------------- */

@@ -23,7 +23,7 @@ export interface DepartmentList {
   styleUrls: ['./user-settings.component.css']
 })
 
- 
+
 
 export class UserSettingsComponent implements OnInit {
 
@@ -46,7 +46,7 @@ export class UserSettingsComponent implements OnInit {
   } as unknown as Options
 
   CurrentUser: any;
-  stringifiedData: any;  
+  stringifiedData: any;
   hide = true;
 
   /*type of applicant*/
@@ -82,7 +82,7 @@ export class UserSettingsComponent implements OnInit {
   internalApplicantEmail = '';
 
   internalApplicantBranch = '';
-  internalApplicantCostCenterNo = ''; 
+  internalApplicantCostCenterNo = '';
   internalApplicantCostCenterOwner = '';
     DepartmentList: any;
 
@@ -127,6 +127,7 @@ export class UserSettingsComponent implements OnInit {
   newPassword = '';
   newReEnterPassword = '';
   stringifiedDataUserProfile: any;
+  dp = "";
 
   //public currentUser = this.formBuilder.group({
   //  userID: ['', Validators.required],
@@ -147,16 +148,38 @@ export class UserSettingsComponent implements OnInit {
 
     this.getUserProfileByUserID();
 
+    // avatar name code
+
+    const fullName = this.CurrentUser.fullName;
+
+    // Find the index of the first space
+    const firstSpaceIndex = fullName.indexOf(' ');
+
+    // Get the first name using substring
+    const firstName = fullName.substring(0, firstSpaceIndex);
+
+    // Find the index of the last space
+    const lastSpaceIndex = fullName.lastIndexOf(' ');
+
+    // Get the last name using substring
+    const lastName = fullName.substring(lastSpaceIndex + 1);
+
+    // Get initials
+    const initials = firstName.charAt(0) + lastName.charAt(0);
+
+    // Store initials in variable dp
+ this.dp = initials.toUpperCase(); // Optionally convert to uppercase
   }
+
   //this.CurrentUser.appUserId
 
   getUserProfileByUserID() {
- 
+
     this.userPofileService.getUserProfileById(this.CurrentUser.appUserId).subscribe((data: any) => {
 
       if (data.responseCode == 1) {
-       
-        
+
+
         console.log("data", data.dateSet);
 
         const currentUserProfile = data.dateSet[0];
@@ -221,7 +244,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   openEditModal(userProfileEditModal: any) {
-    
+
     if (this.isInternal == true) {
       this.internalApplicantNameEdit = this.internalApplicantName;
       this.internalApplicantSurnameEdit = this.internalApplicantSurname;
@@ -267,8 +290,15 @@ export class UserSettingsComponent implements OnInit {
     this.modalService.open(newPasswordModal, { centered: true, size: 'lg' });
   }
 
+  openUserProfileEngineerModal(userProfileEngineerModal:any) {
+    this.modalService.open(userProfileEngineerModal, { centered: true, size: 'lg' });
+  }
+
+  openUserProfileContractorModal(userProfileContractorModal:any) {
+    this.modalService.open(userProfileContractorModal, { centered: true, size: 'lg' });
+ }
   updateUserProfileDetails() {
-    
+
     if (this.isInternal == true) {
         this.userPofileService.addUpdateUserProfiles(Number(this.userProfileID), this.CurrentUser.appUserId, this.internalApplicantNameEdit + " " + this.internalApplicantSurnameEdit, null,
         this.internalApplicantTellNoEdit, true, null, null, null, null, this.internalApplicantDirectorateEdit, null, null, this.internalApplicantBranchEdit, this.internalApplicantCostCenterNoEdit,
@@ -277,7 +307,7 @@ export class UserSettingsComponent implements OnInit {
 
         if (data.responseCode == 1) {
           alert(data.responseMessage);
-          
+
           this.getUserProfileByUserID();
         }
 
@@ -327,14 +357,14 @@ export class UserSettingsComponent implements OnInit {
 
       if (data.responseCode == 1) {
 
-  
+
         this.modalService.dismissAll();
         this.modalService.open(newPasswordModal, { centered: true, size: 'lg' });
       }
 
       else {
         alert(data.responseMessage);
-  
+
       }
       console.log("reponse", data);
 
@@ -351,7 +381,7 @@ export class UserSettingsComponent implements OnInit {
 
 
       this.userService.updatePassword(this.loggedInUsersEmail, this.newPassword).subscribe((data: any) => {
-        
+
         if (data.responseCode === 1) {
 
 

@@ -1,15 +1,15 @@
 <app-nav-menu></app-nav-menu>
 
-<h1>User Profile Settings</h1>
+<div class="barHeader">
+<p class="header">User Profile Settings</p>
+</div>
 
-
-  <mat-tab-group>
+<div class="userPSbox">
     <!-----------------------------------------------------------User Profile-------------------------------------------------------------->
-    <mat-tab label="User Profile">
+
       <div class="container-fluid">
 
         <!--External User information-->
-
         <div class="container-fluid glass" *ngIf="isInternal == false">
           <button mat-raised-button color="blue" (click)="openEditModal(userProfileEditModal)">Edit My Details</button>
           <button mat-raised-button color="blue" (click)="openEditPasswordModal(passwordEditModal)">Edit My Password</button>
@@ -156,10 +156,18 @@
 
 
         <!--Internal user information-->
-        <div class="container-fluid glass" *ngIf="isInternal == true">
-
-          <button mat-raised-button color="blue" (click)="openEditModal(userProfileEditModal)">Edit My Details</button>
-          <button mat-raised-button color="blue" (click)="openEditPasswordModal(passwordEditModal)">Edit My Password</button>
+        <div alt="me" class="userIMG2" matTooltipPosition="after">
+          <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="profileIcon">
+         <p class="dp">{{dp}}</p>
+      </div>
+      <div class="userActions">
+          <button class="button-container" mat-raised-button color="blue" (click)="openEditModal(userProfileEditModal)" matTooltip="Edit My Details">
+            <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/pencil.svg" class="button-icon">
+          </button>
+          <button class="button-container" mat-raised-button color="blue" (click)="openEditPasswordModal(passwordEditModal)" matTooltip="Change my password">
+            <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/lock.svg" class="button-icon" >
+          </button>
+      </div>
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3 mt-3">
@@ -171,13 +179,13 @@
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantName" placeholder="Enter First Name" readonly>
+                <input type="text" class="form-control" [(ngModel)]="internalApplicantName" placeholder="Enter First Name" disabled>
                 <label for="name">Name</label>
               </div>
             </div>
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantSurname" placeholder="Enter Surname" readonly>
+                <input type="text" class="form-control" [(ngModel)]="internalApplicantSurname" placeholder="Enter Surname" disabled>
                 <label for="surname">Surname</label>
               </div>
             </div>
@@ -192,7 +200,7 @@
             </div>
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantBranch" placeholder="Enter Branch" readonly>
+                <input type="text" class="form-control" [(ngModel)]="internalApplicantBranch" placeholder="Enter Branch" disabled>
                 <label for="Branch">Branch</label>
               </div>
             </div>
@@ -220,7 +228,7 @@
             </div>
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNo" placeholder="Contact Details: Telephone" readonly>
+                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNo" placeholder="Contact Details: Telephone" disabled>
                 <label for="applicantTellNo">Tel. Number</label>
               </div>
             </div>
@@ -228,23 +236,53 @@
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="email" class="form-control" [(ngModel)]="internalApplicantEmailAlt" placeholder="Contact Details: Alt. Email" readonly>
+                <input type="email" class="form-control" [(ngModel)]="internalApplicantEmailAlt" placeholder="Contact Details: Alt. Email" disabled>
                 <label for="applicantEmail">Alternative Email</label>
               </div>
             </div>
             <div class="col">
               <div class="form-floating mb-3 mt-3">
-                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNoAlt" placeholder="Contact Details: Alt. Telephone" readonly>
+                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNoAlt" placeholder="Contact Details: Alt. Telephone" disabled>
                 <label for="applicantTellNo">Alternative Tel. Number</label>
               </div>
             </div>
           </div>
+          <!------------------ cards for engineer and contractor------------ -->
+
+<div class="engineer-contractorDiv">
+  <p class="contractor-engineerStyle">---- Engineers linked to profile ----</p>
+  <p class="contractor-engineerStyle">---- Contractors linked to profile ----</p>
+</div>
+<div class="engineer-contractorDiv">
+
+          <div class="card" (click)="openEditModal(userProfileEngineerModal)">
+              <div class="content">
+
+                    <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/user-gear.svg" class="gearLogo">
+
+                  <span class="logo-bottom-text">Engineers</span>
+                </div>
+              </div>
 
 
-        </div>
+              <div class="card" (click)="openEditModal(userProfileContractorModal)">
+                <div class="content">
 
-        </div>
+                      <img _ngcontent-ng-cli-universal-c373="" src="assets/fontawesome-free-6.4.2-web/svgs/solid/user-gear.svg" class="gearLogo">
 
+                    <span class="logo-bottom-text">Contractors</span>
+
+                    <!-- <span class="trail"></span> -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+            <!-- end of engineer card -->
+             <!-- -----------------card for contractor-------------------- -->
 
 
 
@@ -252,15 +290,15 @@
 
 
 
-    </mat-tab>
+
     <!-----------------------------------------------------------Engineers-------------------------------------------------------------->
-    <mat-tab label="Engineers">
+    <!-- <mat-tab label="Engineers">
       <app-edit-engineer></app-edit-engineer>
-    </mat-tab>
+    </mat-tab> -->
     <!-----------------------------------------------------------Contractors-------------------------------------------------------------->
-    <mat-tab label="Contractors">
+    <!-- <mat-tab label="Contractors">
       <app-edit-contractor></app-edit-contractor>
-    </mat-tab>
+    </mat-tab> -->
     <!------------Clients For Architect Users---------->
     <!--<mat-tab label="Clients">
       <app-edit-clients></app-edit-clients>
@@ -269,15 +307,35 @@
     <!--<mat-tab label="Architects">
      <app-edit-architects></app-edit-architects>
     </mat-tab>-->
-  </mat-tab-group>
-
+</div>
 <!-- #endregion -->
+<!-- ----------------modal for engineers----------------- -->
 
+<ng-template #userProfileEngineerModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Engineers linked to profile</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+        <app-edit-engineer></app-edit-engineer>
+  </div>
+</ng-template>
 
+<ng-template #userProfileContractorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Contractors linked to profile</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-edit-contractor></app-edit-contractor>
+  </div>
+</ng-template>
+
+<!-- end of engineer modal -->
 
 <ng-template #userProfileEditModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{CurrentUser.fullName}}'s Profile Details</h4>
+    <h4 class="modal-title" id="modal-basic-title">Edit my profile</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -423,7 +481,7 @@
         </div>
         <div class="col">
           <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantBranchEdit" placeholder="Enter Branch">
+            <input type="text" class="form-control" [(ngModel)]="internalApplicantBranchEdit" placeholder="Enter Branch" >
             <label for="Branch">Branch</label>
           </div>
         </div>

@@ -9,25 +9,324 @@ h1 {
   margin-bottom: 40px;
 }
 
+.mat-blue {
+  background-color: #005870;
+  margin: 0px 10px;
+}
+
+
+.mat-form-field{
+    width:100%;
+}
+mat-dialog-container#mat-dialog-0 {
+  background: #ffffffba !important;
+  backdrop-filter: blur(15px) !important;
+}
+:host ::ng-deep .mat-tab-label-active {
+  background-color: #ccdee2;
+  color: #005870;
+  user-select: none;
+}
+/* YHOOO, just press the down arrow, the autocomplete is behind the modal*/
+.form-floating input.ngx-google-places-autocomplete {
+  z-index: 9999 !important; /* Adjust this value based on your modal's z-index */
+  position: relative; /* Add this if necessary */
+}
+
+.google-placess, .pac-container {
+  z-index: 999;
+  position: absolute;
+}
+
+.pac-container {
+  background-color: #FFF;
+  z-index: 9999 !important;
+  position: fixed;
+  display: inline-block !important;
+  float: left;
+}
+
 .glass {
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
-  max-height: 80vh;
-  overflow: auto;
 }
 
-.mat-success {
-  background-color: #2dd568;
-  color: #fff;
-}
-
-.cont2 {
+.barHeader{
+  color: #343a40;
+  margin-top: 17px;
+  font-family: 'Nunito';
+  font-size: 33px;
+  font-weight: 450;
+  background: #005870;
+  padding: 22px 20px;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 0 10px 1px rgb(0 0 0 / 41%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
   margin-bottom: 10px;
 }
 
-.mat-blue {
-  margin-right: 5px;
-  background-color: #268df7 !important;
-  color: #005870;
+.header{
+  color: #343a40;
+  font-family: 'Nunito';
+  font-size: 33px;
+  font-weight: 450;
+  padding: 5px 5px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.button-icon {
+  width: 16px; /* Adjust the size as needed */
+  height: 16px;
+  vertical-align: middle; /* Aligns the image with the text */
+  filter: invert();
+}
+
+/* --------------hover(edit)--------------- */
+
+/* Container for the button and tooltip */
+.button-container {
+  position: relative; /* Needed for positioning the tooltip */
+  display: inline-block;
+  text-align: center;
+}
+
+/* Button styles */
+.edit-button {
+  width: 50px; /* Adjust size as needed */
+  height: 50px;
+  background-color: #007bff; /* Blue background */
+  border: none;
+  border-radius: 8px; /* Rounded edges */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: absolute;
+  bottom: -30px; /* Position below the button */
+  left: 35%;
+  transform: translateX(-50%);
+  background-color: #444; /* Gray background */
+  color: #fff; /* White text */
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  visibility: hidden; /* Hidden by default */
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Smooth fade-in effect */
+  white-space: nowrap; /* Prevents text wrapping */
+  z-index: 1000;
+}
+
+/* Show tooltip on hover */
+.button-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+/* ---------------------------------- */
+
+.dp {
+  margin-top: 7px !important;
+  font-weight: 900;
+  font-size: 37px;
+  margin-left: 6px !important;
+  width: 28px;
+  position: absolute;
+  top: 25px;
+  left: 19%;
+  font-family: 'Nunito' !important;
+}
+
+.contractor-engineerStyle{
+  color: #8080808a;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.userIMG2 {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  /* margin-left: 42%;
+  margin-bottom: 20px;
+  margin-top: 40px; */
+  margin: 40px auto;
+  background: #0058703b;
+  padding: 0 !important;
+  scale: 1.6;
+  box-shadow: inset 0px 0px 3px 1px #00000026;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+
+.profileIcon{
+  opacity: 25%;
+  width: 50px;
+  margin-left: 2px;
+  margin-top: 7px;
+}
+
+.userPSbox{
+  margin-top: 17px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 22px 20px;
+  border-radius: 20px;
+  max-height: 82vh;
+  overflow:auto;
+  color: #343a40;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.41);
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for better responsiveness */
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+}
+
+/* -------------cards for contractor and engineer-------------- */
+
+/* From Uiverse.io by Smit-Prajapati */
+.card {
+  width: 200px;
+  height: 90px;
+  background: #243137;
+  position: relative;
+  display: grid;
+  place-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.content {
+  transition: all 0.5s ease-in-out;
+}
+
+.gearLogo{
+  height: 30px;
+  width: 30px;
+}
+
+.content .logo {
+  height: 35px;
+  position: relative;
+  width: 33px;
+  overflow: hidden;
+  transition: all 1s ease-in-out;
+}
+
+.content .logo-bottom-text {
+  /* position: absolute; */
+  left: 20%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  margin-top: 50px;
+  color: #000000;
+  font-size: 0;
+  letter-spacing: none;
+  transition: all 0.5s ease-in-out 0.5s;
+  opacity: 0;
+
+  height: 35px;
+}
+
+#logo-main, #logo-second {
+  height: 100%;
+}
+
+#logo-main {
+  fill: #005870;
+}
+
+#logo-second {
+  padding-bottom: 10px;
+  fill: none;
+  stroke: #005870;
+  stroke-width: 1px;
+}
+
+.border {
+  position: absolute;
+  inset: 0px;
+  border: 2px solid #005870;
+  opacity: 0;
+  transform: rotate(10deg);
+  transition: all 0.5s ease-in-out;
+}
+
+
+
+.content .logo .logo1 {
+  height: 20px;
+  position: absolute;
+  left: 0;
+}
+
+
+.content .logo .trail {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+
+
+
+.card:hover {
+  border-radius: 17px;
+  transform: scale(1.1);
+}
+
+.card:hover .logo {
+  width: 134px;
+  animation: opacity 1s ease-in-out;
+}
+
+.card:hover .border {
+  inset: 15px;
+  opacity: 1;
+  transform: rotate(0);
+}
+
+.card:hover .content .logo-bottom-text {
+  opacity: 1;
+  font-size: 13px;
+  letter-spacing: 8px;
+
+}
+
+.card:hover .content .gearLogo {
+  animation: opacity 1s ease-out;
+  margin-right: 5px;
+}
+
+
+.card:hover .trail {
+  animation: trail 1s ease-in-out;
+}
+
+.userActions{
+
+}
+
+.engineer-contractorDiv{
+  display: flex;
+  justify-content: space-around;
+}
+/* ---------------------end of card------------------------ */
