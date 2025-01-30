@@ -231,7 +231,57 @@
 
           <mat-tab-group>
             <mat-tab label="Tracker">
-              <div *ngIf="dataSource.length < 1">
+
+
+              <div class="card6">
+                <p class="detailsCardName2">Main Project Tracker </p>
+              </div>
+              <table mat-table [dataSource]="dataSourceDep" class="mat-elevation-z8" *ngIf="dataSourceDep.length != 0">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="DepartmentName" class="approve">
+                  <th mat-header-cell *matHeaderCellDef>Department</th>
+                  <td mat-cell *matCellDef="let element">{{element.DepartmentName}}</td>
+
+                </ng-container>
+
+                <!-- Indication Column -->
+                <ng-container matColumnDef="indication">
+                  <th mat-header-cell *matHeaderCellDef>Indication</th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="contIndication">
+                      <!--   <i class="fa fa-thumbs-up greenThumbsUp" aria-hidden="true" *ngIf=" element.commentStatus === FinalApproved"></i>-->
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid-blue.svg" class="icon2" *ngIf="element.CommentStatus === 'Approved' || element.CommentStatus === 'LS Reviewer Approved' || element.CommentStatus ==='TP Reviewer Approved'" matTooltip="Approved">
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/solid/check-double.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Admin Approved' || element.CommentStatus ==='TP Admin Approved'" matTooltip="Admin Approved">
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
+                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
+                      <!-- projectTracker Sindiswa 12 January 2024 -->
+                      <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
+
+                      <!-- projectTracker Sindiswa 12 January 2024 -->
+                    </div>
+                  </td>
+                </ng-container>
+
+                <!-- projectTracker Sindiswa 12 January 2024 -->
+                <ng-container matColumnDef="zoneUser" class="approve">
+                  <th mat-header-cell *matHeaderCellDef>User</th>
+                  <td mat-cell *matCellDef="let element">{{element.zoneUser}}</td>
+                </ng-container>
+
+                <!-- end of projectTracker Sindiswa 12 January 2024 -->
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row [ngClass]="{'approve': row.action === 'H'}" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              </table>
+
+              <div class="card6">
+                <p class="detailsCardName2">Department Distribution Tracker </p>
+              </div>
+
+              <div *ngIf="dataSource.length === 0">
                 <h5 class="noDep">No Departments have been linked to review</h5>
               </div>
               <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource.length >=1">

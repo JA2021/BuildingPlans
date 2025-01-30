@@ -26,6 +26,7 @@ table {
   word-break: break-word;
   -webkit-hyphens: auto;
   hyphens: auto;
+
 }
 .mat-blue {
   margin: 5px;
@@ -48,7 +49,7 @@ table {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 30% !important;
+  width: 40% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -297,4 +298,5 @@ body {
   flex-direction: column;
   align-items: flex-end;
 }
+
 /*-----------end of card body--------------- */
