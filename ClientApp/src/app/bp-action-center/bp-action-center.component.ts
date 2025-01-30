@@ -35,6 +35,9 @@ import { NotificationsService } from 'src/app/service/Notifications/notification
 import { ManuallyAssignUsersService } from 'src/app/service/ManuallyAssignUsers/manually-assign-users.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SnackBarAlertsComponent } from '../snack-bar-alerts/snack-bar-alerts.component';
+import { DateTime, Info, Interval } from 'luxon';
+//import { InputSignal, Signal, WritableSignal, computed,  input, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { tap } from 'rxjs/operators';
 import 'tinymce';
@@ -9651,51 +9654,57 @@ selectedComments.forEach((comment, index) => {
       keyboard: false
     })
   }
-  // const monthYear = document.getElementById("monthYear");
-  // const calendarDays = document.getElementById("calendarDays");
-  // const prevMonthBtn = document.getElementById("prevMonth");
-  // const nextMonthBtn = document.getElementById("nextMonth");
 
-  // let currentDate = new Date();
-
-  // function renderCalendar() {
-  //     const year = currentDate.getFullYear();
-  //     const month = currentDate.getMonth();
-  //     const firstDay = new Date(year, month, 1).getDay();
-  //     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  //     monthYear.textContent = currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-  //     calendarDays.innerHTML = "";
-
-  //     for (let i = 0; i < firstDay; i++) {
-  //         calendarDays.innerHTML += '<div></div>';
-  //     }
-
-  //     for (let day = 1; day <= daysInMonth; day++) {
-  //         const dayElement = document.createElement("div");
-  //         dayElement.textContent = day;
-  //         dayElement.classList.add("day");
-  //         if (
-  //             day === new Date().getDate() &&
-  //             month === new Date().getMonth() &&
-  //             year === new Date().getFullYear()
-  //         ) {
-  //             dayElement.classList.add("today");
+  // export class CalendarComponent {
+  //   meetings: InputSignal<Meetings> = input.required();
+  //   today: Signal<DateTime> = signal(DateTime.local());
+  //   firstDayOfActiveMonth: WritableSignal<DateTime> = signal(
+  //     this.today().startOf('month'),
+  //   );
+  //   activeDay: WritableSignal<DateTime | null> = signal(null);
+  //   weekDays: Signal<string[]> = signal(Info.weekdays('short'));
+  //   daysOfMonth: Signal<DateTime[]> = computed(() => {
+  //     return Interval.fromDateTimes(
+  //       this.firstDayOfActiveMonth().startOf('week'),
+  //       this.firstDayOfActiveMonth().endOf('month').endOf('week'),
+  //     )
+  //       .splitBy({ day: 1 })
+  //       .map((d) => {
+  //         if (d.start === null) {
+  //           throw new Error('Wrong dates');
   //         }
-  //         calendarDays.appendChild(dayElement);
+  //         return d.start;
+  //       });
+  //   });
+  //   DATE_MED = DateTime.DATE_MED;
+  //   activeDayMeetings: Signal<string[]> = computed(() => {
+  //     const activeDay = this.activeDay();
+  //     if (activeDay === null) {
+  //       return [];
   //     }
+  //     const activeDayISO = activeDay.toISODate();
+
+  //     if (!activeDayISO) {
+  //       return [];
+  //     }
+
+  //     return this.meetings()[activeDayISO] ?? [];
+  //   });
+
+  //   goToPreviousMonth(): void {
+  //     this.firstDayOfActiveMonth.set(
+  //       this.firstDayOfActiveMonth().minus({ month: 1 }),
+  //     );
+  //   }
+
+  //   goToNextMonth(): void {
+  //     this.firstDayOfActiveMonth.set(
+  //       this.firstDayOfActiveMonth().plus({ month: 1 }),
+  //     );
+  //   }
+
+  //   goToToday(): void {
+  //     this.firstDayOfActiveMonth.set(this.today().startOf('month'));
+  //   }
   // }
-
-  // prevMonthBtn.addEventListener("click", () => {
-  //     currentDate.setMonth(currentDate.getMonth() - 1);
-  //     renderCalendar();
-  // });
-
-  // nextMonthBtn.addEventListener("click", () => {
-  //     currentDate.setMonth(currentDate.getMonth() + 1);
-  //     renderCalendar();
-  // });
-
-  // renderCalendar();
 }
-
