@@ -286,7 +286,6 @@ export class LoginComponent implements OnInit {
     else {
       this.errorMessage = "";
 
-
     }
   }
   async checkNewEmail() {
@@ -1133,7 +1132,6 @@ this.userService.login(email, password).pipe(
       onLoginForm = false;
     }
 
-
    /* this.VerifyBP(BpNo);*/
 
     this.testBp(BpNo).subscribe(isBpValid => {
@@ -1155,7 +1153,6 @@ this.userService.login(email, password).pipe(
         alert("Please enter a valid email address!");
         return;
       }
-
 
       // Count the number of spaces in the full name
       let numberOfSpaces = 0;
