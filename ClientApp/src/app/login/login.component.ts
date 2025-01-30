@@ -157,12 +157,9 @@ export class LoginComponent implements OnInit {
       }
     });
     this.registerForm.reset();
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      this.isDarkMode = savedTheme === 'dark';
-    } else {
+
       this.isDarkMode = window.matchMedia('(prefers-color-scheme: light)').matches;
-    }
+
     this.updateTheme();
   }
 
@@ -288,7 +285,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.errorMessage = "";
-      
+
     }
   }
   async checkNewEmail() {
@@ -421,7 +418,7 @@ export class LoginComponent implements OnInit {
             <p>Should you have any queries, please contact <a href="#">cyberfxo@placeholderemail.com</a></p>
                 <p >Regards,<br><a href="#">Engage Development Services System</a></p>
                           <p>
-              <a href="http://www.msunduzi.gov.za//">Msunduzi Web</a> | <a href="http://www.msunduzi.gov.za/site/contactus/index.html">Contacts</a> | <a href="#">Media</a> | <a href="#">Report a fault</a> | <a href="mailto:accounts@placeholder.gov.za?subject=Account query">Accounts</a>              
+              <a href="http://www.msunduzi.gov.za//">Msunduzi Web</a> | <a href="http://www.msunduzi.gov.za/site/contactus/index.html">Contacts</a> | <a href="#">Media</a> | <a href="#">Report a fault</a> | <a href="mailto:accounts@placeholder.gov.za?subject=Account query">Accounts</a>
             </p>
              <img class="footer-logo" src='src/assets/engage_dev_logo.png'' alt="Engage Development Services Logo" width="100">
           </div>
@@ -510,9 +507,9 @@ export class LoginComponent implements OnInit {
     debugger;
     this.bpAccessGroupUserLinkService.getAllRolesForUserForAllAG(userId).subscribe(
       (data: any) => {
-        
+
         if (data?.responseCode === 1 && data?.dateSet) {
-          
+
           this.setLocalStorage("AllCurrentUserRoles", data.dateSet);
         } else {
           console.error("Invalid data structure received: ", data);
@@ -524,21 +521,21 @@ export class LoginComponent implements OnInit {
 
 
   onLogin(): void {
-    
+
     if (this.loginForm.invalid) {
       console.error("Form is invalid");
       return;
     }
 
     this.isLoading = true;
-    
+
     const email = this.loginForm.controls["email"].value;
     const password = this.loginForm.controls["password"].value;
 
     this.userService.login(email, password).pipe(
 
       switchMap((data: LoginResponse) => {
-        
+
         if (data.responseCode === 1) {
           this.setLocalStorage("LoggedInUserInfo", data.dateSet);
           return this.getUserProfile();
@@ -546,10 +543,10 @@ export class LoginComponent implements OnInit {
         return throwError(data.responseMessage);
       }),
       tap((profileData: LoginResponse) => {
-        
+
         const userId = profileData.dateSet[0].userProfileID;
         this.setLocalStorage("userProfile", profileData.dateSet);
-        
+
         this.getAllRolesForUserForAllAG(userId);
       }),
       catchError(error => {
@@ -634,8 +631,8 @@ this.userService.login(email, password).pipe(
     this.setLocalStorage("userProfile", [mergedProfile]);
   }
 
- 
-  
+
+
 
 
   //old login 10-10-23
@@ -898,7 +895,7 @@ this.userService.login(email, password).pipe(
     console.log("Email is okay?" + this.validEmail);
     console.log("Is User Internal? " + this.internalUserNoBP);
     console.log("User has valid BP Num " + this.externalWValidBP);
-    
+
     if (password.trim() === '' || passwordConfirm.trim() === '') {
       // At least one of the passwords is empty or contains only whitespace.
       alert("Password field has been left empty");
@@ -970,12 +967,12 @@ this.userService.login(email, password).pipe(
     clientFullName = this.registerForm.controls["fullName"].value;
     clientEmail = this.registerForm.controls["registerEmail"].value;
     let otpEntered = this.first + this.second + this.third + this.fourth + this.fifth + this.sixth;
-    
+
 
     if (this.otp != otpEntered) {
       alert("Invalid OTP");
     }
-    else { 
+    else {
     //Not sure what this does TBH
     this.sharedService.errorForRegister = false;
       this.userService.register(clientFullName, clientEmail, clientRegisterPassword).subscribe((data: any) => {
@@ -1002,7 +999,7 @@ this.userService.login(email, password).pipe(
           localStorage.setItem("LoggedInUserInfo", JSON.stringify(data.dateSet));
           this.sharedService.newUserProfileBp = BpNo;
         this.otpValid = true;
-  
+
         } else {
           this.sharedService.errorForRegister = true;
           alert(data.responseMessage);
@@ -1023,7 +1020,7 @@ this.userService.login(email, password).pipe(
     let password = this.registerForm.controls["registerPassword"].value;
     let passwordConfirm = this.registerForm.controls["reenterPassword"].value;
 
-    // Use a regular expression to check if the email is valid 
+    // Use a regular expression to check if the email is valid
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email != null) {
       if (!emailRegex.test(email)) {
@@ -1086,7 +1083,7 @@ this.userService.login(email, password).pipe(
     ApplicantIDUpload?: string | null,
     ApplicantIDNumber?: string | null
   ) {
-    
+
     let onLoginForm = true;
     let clientRegisterPassword = null;
     // If the method is called without parameters, then get the values from the form
@@ -1094,12 +1091,12 @@ this.userService.login(email, password).pipe(
       clientFullName = this.registerForm.controls["fullName"].value;
       clientEmail = this.registerForm.controls["registerEmail"].value;
       clientRegisterPassword = this.registerForm.controls["registerPassword"].value;
-     
+
 
     } else {
       onLoginForm = false;
     }
-    
+
    /* this.VerifyBP(BpNo);*/
 
     this.testBp(BpNo).subscribe(isBpValid => {
@@ -1121,7 +1118,7 @@ this.userService.login(email, password).pipe(
         alert("Please enter a valid email address!");
         return;
       }
-      
+
       // Count the number of spaces in the full name
       let numberOfSpaces = 0;
       if (clientFullName != null) {
@@ -1139,7 +1136,7 @@ this.userService.login(email, password).pipe(
         this.userService.register(clientFullName, clientEmail, clientRegisterPassword).subscribe((data: any) => {
           if (data.responseCode == 1) {
             if (onLoginForm === false) {
-              
+
               this.sharedService.userIDForWalkIn == data.dateSet.appUserId;
               this.newProfileComponent.onNewProfileCreate(
                 data.dateSet.appUserId,
@@ -1155,7 +1152,7 @@ this.userService.login(email, password).pipe(
               );
               this.sharedService.errorForRegister = false;
             }
-            
+
             this.sharedService.clientUserID = data.dateSet.appUserId;
             localStorage.setItem("LoggedInUserInfo", JSON.stringify(data.dateSet));
             this.sharedService.newUserProfileBp = BpNo;
@@ -1169,7 +1166,7 @@ this.userService.login(email, password).pipe(
         });
       }
       else {
-        
+
         // If BP Number is valid, proceed with user registration
         this.userService.register(clientFullName, clientEmail, "Password@" + clientFullName).subscribe((data: any) => {
           if (data.responseCode == 1) {
@@ -1456,7 +1453,7 @@ this.userService.login(email, password).pipe(
   //      this.userService.register(clientFullName, clientEmail, "Password@" + clientFullName).subscribe((data: any) => {
   //        if (data.responseCode == 1) {
   //          console.log("After Register", data.dateSet);
-  //          
+  //
   //          // this.homeComponent.openXl('content');
   //          this.newProfileComponent.onNewProfileCreate(data.dateSet.appUserId, clientFullName, clientEmail, phoneNumber, BpNo, CompanyName, CompanyRegNo, PhyscialAddress, ApplicantIDUpload, ApplicantIDNumber);
 
@@ -1612,7 +1609,7 @@ this.userService.login(email, password).pipe(
   }
 
   sendOTPForPasswordReset() {
-    
+
     this.otpPassword = '';
     const digits = 5; // Specify the number of digits for your OTP
 
@@ -1670,7 +1667,7 @@ this.userService.login(email, password).pipe(
   }
 
   validateOTP(newPasswordModal: any) {
-    
+
     if (this.otpPasswordReset === this.otpPassword) {
       this.modalService.dismissAll();
       this.modalService.open(newPasswordModal, { centered: true, size: 'lg', backdrop: 'static' });
@@ -1687,7 +1684,7 @@ this.userService.login(email, password).pipe(
 
 
       this.userService.updatePassword(this.emailPasswordReset, this.newPassword).subscribe((data: any) => {
-        
+
         if (data.responseCode === 1) {
 
 
@@ -1739,7 +1736,7 @@ this.userService.login(email, password).pipe(
       if (data) {
         this.AllConfig = data.dateSet;
 
-       
+
 
         this.sharedService.setAllConfig(this.AllConfig);
         this.ServerType = this.AllConfig.find((Config) => Config.configName === 'ServerType').utilitySlot1;
@@ -1760,7 +1757,7 @@ this.userService.login(email, password).pipe(
   getConfigForMaintenanceMode() {
     this.configService.getConfigsByConfigName("MaintenanceMode").subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
           const current = data.dateSet[0];
           if (current.isActive == false) {
             this.isMaintenanceMode = false;
@@ -1768,8 +1765,8 @@ this.userService.login(email, password).pipe(
           else {
             this.isMaintenanceMode = true;
           }
-         
-        
+
+
       }
       else {
         //alert("Invalid Email or Password");
@@ -1785,7 +1782,7 @@ this.userService.login(email, password).pipe(
 
   isArchitect: boolean = false;
   onCheckboxClick() {
-    
+
     if (this.isArchitect == false) {
       this.isArchitect = true;
 
