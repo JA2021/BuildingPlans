@@ -286,6 +286,7 @@ export class LoginComponent implements OnInit {
     else {
       this.errorMessage = "";
 
+
     }
   }
   async checkNewEmail() {
@@ -380,7 +381,36 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  openSnackBarOTP(message: string) {
+    this._snackBar.openFromComponent(SnackBarAlertsComponent, {
+      data: { message }, // Pass the message as data to the component
+      duration: 4 * 1000,
+      panelClass: ['green-snackbar'],
+      verticalPosition: 'top',
+    });
+  }
 
+  moveToNext(event: KeyboardEvent, nextFieldId: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length === 1) {
+      const nextInput = document.getElementById(nextFieldId) as HTMLInputElement;
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  }
+
+  moveToPrevious(event: KeyboardEvent, previousFieldId: string): void {
+    if (event.key === 'Backspace') {
+      const input = event.target as HTMLInputElement;
+      if (input.value.length === 0) {
+        const prevInput = document.getElementById(previousFieldId) as HTMLInputElement;
+        if (prevInput) {
+          prevInput.focus();
+        }
+      }
+    }
+ }
 
   handleNewEmail(otp: string, email: string): void {
     this.DoChecksForRegister();
@@ -977,9 +1007,9 @@ this.userService.login(email, password).pipe(
     this.sharedService.errorForRegister = false;
       this.userService.register(clientFullName, clientEmail, clientRegisterPassword).subscribe((data: any) => {
       if (data.responseCode == 1) {
-        if (onLoginForm === false) {
+        if (!onLoginForm) {
 
-          this.sharedService.userIDForWalkIn == data.dateSet.appUserId; //added to add access user ID, when trying to create new wayleave for new client?
+          this.sharedService.userIDForWalkIn = data.dateSet.appUserId; //added to add access user ID, when trying to create new wayleave for new client?
           this.newProfileComponent.onNewProfileCreate(
             data.dateSet.appUserId,
             clientFullName,
@@ -1084,7 +1114,7 @@ this.userService.login(email, password).pipe(
     ApplicantIDNumber?: string | null
   ) {
 
-    let onLoginForm = true;
+    let  onLoginForm: boolean = true;
     let clientRegisterPassword = null;
     // If the method is called without parameters, then get the values from the form
     if (clientFullName === undefined || clientEmail === undefined || BpNo === undefined || clientFullName == null || clientEmail == null || BpNo == null || clientFullName == "" || clientEmail == "" || BpNo == "") {
