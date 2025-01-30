@@ -286,6 +286,7 @@ export class LoginComponent implements OnInit {
     else {
       this.errorMessage = "";
 
+
     }
   }
   async checkNewEmail() {
@@ -1007,9 +1008,9 @@ this.userService.login(email, password).pipe(
     this.sharedService.errorForRegister = false;
       this.userService.register(clientFullName, clientEmail, clientRegisterPassword).subscribe((data: any) => {
       if (data.responseCode == 1) {
-        if (onLoginForm = false) {
+        if (!onLoginForm) {
 
-          this.sharedService.userIDForWalkIn == data.dateSet.appUserId; //added to add access user ID, when trying to create new wayleave for new client?
+          this.sharedService.userIDForWalkIn = data.dateSet.appUserId; //added to add access user ID, when trying to create new wayleave for new client?
           this.newProfileComponent.onNewProfileCreate(
             data.dateSet.appUserId,
             clientFullName,
@@ -1119,7 +1120,7 @@ this.userService.login(email, password).pipe(
     ApplicantIDNumber?: string | null
   ) {
 
-    let onLoginForm = true;
+    let  onLoginForm: boolean = true;
     let clientRegisterPassword = null;
     // If the method is called without parameters, then get the values from the form
     if (clientFullName === undefined || clientEmail === undefined || BpNo === undefined || clientFullName == null || clientEmail == null || BpNo == null || clientFullName == "" || clientEmail == "" || BpNo == "") {

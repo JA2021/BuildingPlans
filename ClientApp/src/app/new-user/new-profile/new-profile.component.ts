@@ -148,7 +148,6 @@ export class NewProfileComponent implements OnInit {
   isCreatingWayleave = false;
   showWayleave = true;
 
-
   /*Internal*/
   internalApplicantName = '';
   internalApplicantSurname = '';
@@ -219,7 +218,6 @@ export class NewProfileComponent implements OnInit {
   toggleArchitectMeaning(): void {
     this.isArchitect = !this.isArchitect;
   }
-
   ngOnInit(): void {
 
     this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));

@@ -168,9 +168,9 @@ export class UserSettingsComponent implements OnInit {
     const initials = firstName.charAt(0) + lastName.charAt(0);
 
     // Store initials in variable dp
-    this.dp = initials.toUpperCase(); // Optionally convert to uppercase
-
+ this.dp = initials.toUpperCase(); // Optionally convert to uppercase
   }
+
   //this.CurrentUser.appUserId
 
   getUserProfileByUserID() {
