@@ -157,12 +157,9 @@ export class LoginComponent implements OnInit {
       }
     });
     this.registerForm.reset();
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      this.isDarkMode = savedTheme === 'dark';
-    } else {
+
       this.isDarkMode = window.matchMedia('(prefers-color-scheme: light)').matches;
-    }
+
     this.updateTheme();
   }
 
@@ -1135,6 +1132,7 @@ this.userService.login(email, password).pipe(
       onLoginForm = false;
     }
 
+
    /* this.VerifyBP(BpNo);*/
 
     this.testBp(BpNo).subscribe(isBpValid => {
@@ -1156,6 +1154,7 @@ this.userService.login(email, password).pipe(
         alert("Please enter a valid email address!");
         return;
       }
+
 
       // Count the number of spaces in the full name
       let numberOfSpaces = 0;

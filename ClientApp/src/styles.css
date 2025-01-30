@@ -317,7 +317,7 @@ tr:hover {
 
 
 html {
-  color-scheme: dark light;
+  color-scheme: light;
 }
 /* OR ??
    @import '~quill/dist/quill.snow.css'; */
@@ -430,10 +430,7 @@ body {
   background: #e2cccc;
   color: #700000;
 }
-/** {
-  background: #323e4e00;
-  color: white !important;
-}*/
+
 .yellow-snackbar {
   text-align: center !important;
   border-radius: 91px !important;
@@ -456,86 +453,6 @@ quill-editor {
   z-index: 10000 !important;
 }
 
-/*.offcanvas-menu {
-  background-color: #323e53 !important;
-}
-
-
-table {
-  border-spacing: 0;
-  background: #425166 !important;
-  color: white !important;
-}
-input {
-  background: #425166 !important;
-  color: white !important;
-  border-color: #1b222b8c !important;
-}
-.mat-input {
-  font: inherit;
-  background: rgb(50 62 78) !important;
-  color: currentColor;
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
-  text-align: inherit;
-  box-sizing: content-box;
-  caret-color: rgb(50 62 78) !important;
-}
-.mat-menu-panel {
-  background: #323e4e !important
-}
-.modal-content {
-  background: #323e4e !important
-}*/
-
-
-/*.offcanvas {
-  background: #323e4e !important
-}
-mat-dialog-container#mat-dialog-0 {
-  background: #323e4e !important
-}
-.button:hover {
-  background: #3e4c5f !important
-}
-tr:hover {
-  background: #3e4c5f !important
-}
-.mat-select-panel {
-  background: #576b86;
-}
-.mat-toolbar {
-  background: #323e4e !important;
-}
-.mat-checkbox-checked {
-  background-color: #323e4e00 !important;
-}
-.mat-paginator-container {
-  background: #323e4e !important;
-}
-.card {
-  box-shadow: 0 4px 8px 0 #262626, 0 6px 20px 0 #71717100;
-  margin: 20px;
-  border-color: #0f8187;
-  background-color: #0f8187;
-  margin-bottom: 50px;
-  margin-top: 50px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.mat-expansion-panel {
-
-  background: #425166;
-}*/
-.mat-form-field-underline {
-  /*display: none !important;*/
-}
 .ProjectHeading{
     font-weight:800;
 }
