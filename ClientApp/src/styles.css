@@ -311,7 +311,6 @@ tr:hover {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
 }
 
 }
@@ -709,8 +708,10 @@ ul {
 }
 .sidebar .nav-item{
     opacity:0;
+    display: none;
 }
 .sidebar.active .nav-item {
+  display: initial;
   opacity: 1;
   transform: translateX();
   animation-delay: 1s;
@@ -722,7 +723,7 @@ ul {
   position: absolute;
   left: 73px;
   top: 15%;
-  transform: translate(-50%,/50%);
+  transform: translate(-50%,50%);
   box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2);
   border-radius: .6rem;
   padding: .4rem 1.2rem;
@@ -804,7 +805,7 @@ li .tooltip{
 @keyframes fade-in-rightToLeft {
   0% {
     opacity: 1;
-    
+
   }
 
   100% {
