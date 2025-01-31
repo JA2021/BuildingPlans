@@ -8278,9 +8278,25 @@ this.subscriptions.push(subscription);
   //     console.log("Error:", error);
   //     throw error;
   //   }
-
-
+  // async getOriginatorName(userID:string) :Promise<string>{
+  //   try {
+  //     debugger;
+  //     const data: any = await this.userPofileService.getUserProfileById(userID).toPromise();
+  //     if (data.responseCode == 1) {
+  //       const current = data.dateSet[0];
+  //       return current.fullName;
+  //     }
+  //     else {
+  //       throw new Error(data.responseMessage);
+  //     }
   //   }
+  //   catch (error: any) {
+  //     console.log("Error:", error);
+  //     throw error;
+  //   }
+
+
+  //  }
   draftApplications: ApplicationsListBP[] = [];
   getAllDraftApplications() {
     this.bpApplicationService.getAllDraftApplications().subscribe((data: any) => {
