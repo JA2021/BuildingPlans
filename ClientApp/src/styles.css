@@ -634,6 +634,7 @@ ul {
   animation-delay: 1s;
   transition-delay: .1s;
   text-wrap: nowrap;
+  display: initial;
 }
 
 .sidebar ul li .tooltip {
