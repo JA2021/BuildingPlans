@@ -311,7 +311,6 @@ tr:hover {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
 }
 
 }
@@ -626,8 +625,10 @@ ul {
 }
 .sidebar .nav-item{
     opacity:0;
+    display: none;
 }
 .sidebar.active .nav-item {
+  display: initial;
   opacity: 1;
   transform: translateX();
   animation-delay: 1s;

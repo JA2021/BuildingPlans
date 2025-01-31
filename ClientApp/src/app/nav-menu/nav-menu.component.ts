@@ -121,6 +121,26 @@ export interface NotificationsList {
 })
 export class NavMenuComponent implements OnInit {
 
+  expandedCommentId: number | null = null; // Track the expanded comment by its ID
+
+// Toggle the expanded state of a comment by its ID
+toggleComment(commentId: number): void {
+  this.expandedCommentId = this.expandedCommentId === commentId ? null : commentId;
+}
+
+ // Get truncated comment text
+ getTruncatedComment(comment: string): string {
+  const maxLength = 90;
+  return comment.length > maxLength ? comment.substring(0, maxLength) : comment;
+}
+
+// Check if the comment is truncated
+isTruncated(comment: string): boolean {
+  const maxLength = 90;
+  return comment.length > maxLength;
+}
+
+
   @Input() isTransparent: boolean = true;
  
   isExpanded = false;
