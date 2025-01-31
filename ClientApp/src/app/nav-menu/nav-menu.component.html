@@ -48,8 +48,8 @@
 
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-circle-o" matTooltip="Dashbaord" (click)="goHome()"
+          <a (click)="goHome()">
+            <i class="fa fa-circle-o" matTooltip="Dashbaord"
                matTooltipPosition="after"></i>
             <span class="nav-item">Dashbaord</span>
           </a>
@@ -58,8 +58,8 @@
 
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-bell" matTooltip="Notifications" (click)="openNotificationsModal()"
+          <a (click)="openNotificationsModal()">
+            <i class="fa fa-bell" matTooltip="Notifications"
                matTooltipPosition="after"></i>
             <span class="nav-item">Notifications</span>
           </a>
@@ -68,8 +68,8 @@
 
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-question-circle" matTooltip="Frequently Asked Questions" (click)="openFAQModal(FAQModal)"
+          <a (click)="openFAQModal(FAQModal)">
+            <i class="fa fa-question-circle" matTooltip="Frequently Asked Questions"
                matTooltipPosition="after"></i>
             <span class="nav-item">FAQ</span>
           </a>
@@ -77,8 +77,8 @@
         </li>
         <mat-divider *ngIf="devConfig"></mat-divider>
         <li *ngIf="devConfig">
-          <a>
-            <i class="fa fa-terminal" matTooltip="Dev Configs" (click)="goToCyberfoxCofig()"
+          <a (click)="goToCyberfoxCofig()">
+            <i class="fa fa-terminal" matTooltip="Dev Configs"
                matTooltipPosition="after"></i>
             <span class="nav-item">Dev Configs</span>
           </a>
@@ -86,8 +86,8 @@
         </li>
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-files-o" matTooltip="Document Repository" (click)="openRepositoryModal(repositoryModal)"
+          <a (click)="openRepositoryModal(repositoryModal)">
+            <i class="fa fa-files-o" matTooltip="Document Repository"
                matTooltipPosition="after"></i>
             <span class="nav-item">Document Repository</span>
           </a>
@@ -95,8 +95,8 @@
         </li>
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-comment-o" matTooltip="Comment Builder" (click)="getAllCommentsByUserID(commentBuilder)"
+          <a (click)="getAllCommentsByUserID(commentBuilder)">
+            <i class="fa fa-comment-o" matTooltip="Comment Builder"
                matTooltipPosition="after"></i>
             <span class="nav-item">Comment Builder</span>
           </a>
@@ -104,8 +104,8 @@
         </li>
         <mat-divider *ngIf="Config || devConfig"></mat-divider>
         <li *ngIf="Config || devConfig ">
-          <a>
-            <i class="fa fa-wrench" matTooltip="Configurations" (click)="goToConfig()"
+          <a (click)="goToConfig()">
+            <i class="fa fa-wrench" matTooltip="Configurations"
                matTooltipPosition="after"></i>
             <span class="nav-item">Configurations</span>
           </a>
@@ -113,8 +113,8 @@
         </li>
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-cog" matTooltip="User Settings" (click)="goToSettings()"
+          <a (click)="goToSettings()">
+            <i class="fa fa-cog" matTooltip="User Settings"
                matTooltipPosition="after"></i>
             <span class="nav-item">User Settings</span>
           </a>
@@ -123,8 +123,8 @@
 
         <mat-divider></mat-divider>
         <li>
-          <a>
-            <i class="fa fa-bug" matTooltip="Report a bug" (click)="openBugReport(bugs)"
+          <a (click)="openBugReport(bugs)">
+            <i class="fa fa-bug" matTooltip="Report a bug"
                matTooltipPosition="after"></i>
             <span class="nav-item">Report a bug</span>
           </a>
@@ -136,8 +136,8 @@
 
         <li class="logout-button bottom">
           <mat-divider></mat-divider>
-          <a>
-            <i class="fa fa-sign-out" matTooltip="Log Out" (click)="LogoutUser()"
+          <a (click)="LogoutUser()">
+            <i class="fa fa-sign-out" matTooltip="Log Out"
                matTooltipPosition="after"></i>
             <span class="nav-item"> Log Out</span>
           </a>

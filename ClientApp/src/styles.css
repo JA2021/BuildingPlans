@@ -709,6 +709,7 @@ ul {
 .sidebar .nav-item{
     opacity:0;
     display: none;
+    display: none;
 }
 .sidebar.active .nav-item {
   display: initial;
@@ -717,6 +718,7 @@ ul {
   animation-delay: 1s;
   transition-delay: .1s;
   text-wrap: nowrap;
+  display: initial;
 }
 
 .sidebar ul li .tooltip {
