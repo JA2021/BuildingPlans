@@ -709,6 +709,7 @@ ul {
 }
 .sidebar .nav-item{
     opacity:0;
+    display: none;
 }
 .sidebar.active .nav-item {
   opacity: 1;
@@ -716,13 +717,14 @@ ul {
   animation-delay: 1s;
   transition-delay: .1s;
   text-wrap: nowrap;
+  display: initial;
 }
 
 .sidebar ul li .tooltip {
   position: absolute;
   left: 73px;
   top: 15%;
-  transform: translate(-50%,/50%);
+
   box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2);
   border-radius: .6rem;
   padding: .4rem 1.2rem;
@@ -804,7 +806,7 @@ li .tooltip{
 @keyframes fade-in-rightToLeft {
   0% {
     opacity: 1;
-    
+
   }
 
   100% {
