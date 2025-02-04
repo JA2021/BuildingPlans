@@ -231,7 +231,7 @@
 
           <mat-tab-group>
             <mat-tab label="Tracker">
-              <div *ngIf="dataSource.length === 0">
+              <div *ngIf="dataSource.length < 1">
                 <h5 class="noDep">No Departments have been linked to review</h5>
               </div>
               <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource.length >=1">
