@@ -26,8 +26,6 @@
 
         <div class="PropertyOwnerDetails animationSlideUp">
           <h3 >Property Owner Details</h3>
-         
-
           <p class="Name">{{firstName}} {{surname}}</p>
           <p class="Email"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/at.svg" class="icon3"> {{email}}</p>
           <p class="CellNo"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{cellNo}}</p>
@@ -35,7 +33,8 @@
             <button mat-raised-button color="expand2" (click)="openExpand('POD',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
           </div>
         </div>
-        <div class="PropertyOwnerDetails animationSlideUp">
+
+        <!-- <div class="PropertyOwnerDetails animationSlideUp">
           <h3 *ngIf="bpApplicationType != 'Town Planning'">Architect Details</h3>
           <h3 *ngIf="bpApplicationType == 'Town Planning'">Town Planner Details</h3>
           <p class="Name">{{architectName}}</p>
@@ -44,8 +43,9 @@
           <div class="bottom-0">
             <button mat-raised-button color="expand2" (click)="openExpand('AD',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
           </div>
+        </div> -->
         </div>
-        </div>
+
         <div class="down">
           <div class="Map animationSlideDown">
             <mat-tab-group>
@@ -63,44 +63,31 @@
                   </map-marker>
                 </google-map>
               </mat-tab>
+
               <mat-tab label="Application Details">
-       
 
                   <div *ngIf="bpApplicationType != 'Signage'">
                     <div class="applicationDeatails">
 
-
                       <div class="card2">
                         <p class="detailsCardName">Application Details</p>
                       </div>
-                      <p>Application Type: {{bpApplicationType}}</p>
-                      <p>LS Number: {{ lsNumber }}</p>
-                      <p *ngIf="BPApplicationProjectNumber">Project Number: {{ BPApplicationProjectNumber }}</p>
-
-                      <div class="card2">
-                        <p class="detailsCardName">Property Details Of Development</p>
+                      <div class="cardIndent">
+                      <p class="dot">Application Type: {{bpApplicationType}}</p>
+                      <p class="dot">LS Number: {{ lsNumber }}</p>
+                      <p *ngIf="BPApplicationProjectNumber"class="dot">Project Number: {{ BPApplicationProjectNumber }}</p>
                       </div>
-                      <p>Property Description - {{ propertyDescription }}</p>
-                      <p>Premises Name - {{ premisesName }}</p>
-                      <p>Type Of Address - {{ typeOfAddress }}</p>
-                      <p>Number Of Units - {{ noOfUnits }}</p>
-                      <p>Unit Number - {{ unitNumber }}</p>
-                      <p *ngIf="bpApplicationType != 'Town Planning'">Erf Number - {{ erfNumber }}</p>
-                      <p>Portion Number - {{ portionNumber }}</p>
-                      <p>Physical Address Of Project - {{ physicalAddress }}</p>
-                      <p>Latitude - {{ latitude }}</p>
-                      <p>Longitude - {{ longitude }}</p>
-                      <p *ngIf="bpApplicationType != 'Town Planning'">SG Code - {{ sGCode }}</p>
 
-                      <div class="card2">
+                      <!-- <div class="card2">
                         <p class="detailsCardName">Plan Details</p>
                       </div>
                       <p>Type Of Development - {{ typeOfDev }}</p>
                       <p>Property Value - {{ propertyValue }}</p>
                       <p *ngIf="bpApplicationType != 'Town Planning'">Occupation Classification - {{ occupationClassification }}</p>
                       <p>Building Plan For - {{ buildingPlanFor }}</p>
-                      <p *ngIf="bpApplicationType != 'Town Planning'">OmnibusServitude - {{ OmnibusServitude }}</p>
-                      <div *ngIf="bpApplicationType == 'Town Planning'">
+                      <p *ngIf="bpApplicationType != 'Town Planning'">OmnibusServitude - {{ OmnibusServitude }}</p> -->
+
+                      <!-- <div *ngIf="bpApplicationType == 'Town Planning'">
                         <p>Title Restrictions - {{ TitleRestrictions }}</p>
                         <p>Extent Of Property - {{ ExtentOfProperty }}</p>
                         <p>TitleDeedNo - {{ TitleDeedNo }}</p>
@@ -110,8 +97,7 @@
                         <p>isCombined - {{ isCombinedApplication }}</p>
                         <p>Description Of Project - {{ DescriptionOfProject }}</p>
                         <p>Application Type - {{ bpApplicationType }}</p>
-                      </div>
-                
+                      </div> -->
                   </div>
 
                   <div *ngIf="bpApplicationType == 'Signage'">
@@ -130,20 +116,6 @@
                     <p>Applicant Telephone: {{ SignageApplicantTelephone }}</p>
                     <p>Applicant Fax: {{ SignageApplicantFax }}</p>
                     <p>Applicant Email: {{ SignageApplicantEmail }}</p>
-
-                    <!-- Property Details Section -->
-                    <div class="card2">
-                      <p class="detailsCardName">Property Details of Development</p>
-                    </div>
-                    <p>Address Type - {{ SignageAddressType }}</p>
-                    <p>Address - {{ SignageAddress }}</p>
-                    <p>Nature of Advertisement - {{ SignageNatureOfAdvertisement }}</p>
-                    <p>Areas of Control - {{ SignageAreasOfControl }}</p>
-                    <p>Height - {{ SignageHeight }}</p>
-                    <p>Width - {{ SignageWidth }}</p>
-                    <p>Number of Faces - {{ SignageNoOfFaces }}</p>
-                    <p>Start Date - {{ SignageStartDate | date }}</p>
-                    <p>End Date - {{ SignageEndDate | date }}</p>
 
                     <!-- Financial and Technical Details -->
                     <div class="card2">
@@ -167,13 +139,74 @@
                     <p>Date Updated - {{ SignageDateUpdated | date }}</p>
                     <p>Created By ID - {{ SignageCreatedById }}</p>
                   </div>
-                   
+
                 </div>
               </mat-tab>
+
+              <mat-tab label="Property Details Of Development">
+                <div class="applicationDeatails">
+                    <div class="card2">
+                      <p class="detailsCardName">Property Details Of Development</p>
+                    </div>
+                    <div class="cardIndent">
+                       <!-- Property Details Section -->
+                    <p class="dot">Property Description - {{ propertyDescription }}</p>
+                    <p class="dot">Premises Name - {{ premisesName }}</p>
+                    <p class="dot">Type Of Address - {{ typeOfAddress }}</p>
+                    <p  class="dot">Number Of Units - {{ noOfUnits }}</p>
+                    <p  class="dot">Unit Number - {{ unitNumber }}</p>
+                    <p *ngIf="bpApplicationType != 'Town Planning'" class="dot">Erf Number - {{ erfNumber }}</p>
+                    <p class="dot">Portion Number - {{ portionNumber }}</p>
+                    <p class="dot">Physical Address Of Project - {{ physicalAddress }}</p>
+                    <p class="dot">Latitude - {{ latitude }}</p>
+                    <p class="dot">Longitude - {{ longitude }}</p>
+                    <p *ngIf="bpApplicationType != 'Town Planning'" class="dot">SG Code - {{ sGCode }}</p>
+                    <p class="dot">Address Type - {{ SignageAddressType }}</p>
+                    <p class="dot">Address - {{ SignageAddress }}</p>
+                    <p class="dot">Nature of Advertisement - {{ SignageNatureOfAdvertisement }}</p>
+                    <p class="dot">Areas of Control - {{ SignageAreasOfControl }}</p>
+                    <p class="dot">Height - {{ SignageHeight }}</p>
+                    <p class="dot">Width - {{ SignageWidth }}</p>
+                    <p class="dot">Number of Faces - {{ SignageNoOfFaces }}</p>
+                    <p class="dot">Start Date - {{ SignageStartDate | date }}</p>
+                    <p class="dot">End Date - {{ SignageEndDate | date }}</p>
+                    </div>
+                </div>
+
+
+
+              </mat-tab>
+
+              <mat-tab label="Plan Details">
+                <div class="applicationDeatails">
+                  <div class="card2">
+                    <p class="detailsCardName">Plan Details</p>
+                  </div>
+                  <div class="cardIndent">
+                      <p class="dot">Type Of Development - {{ typeOfDev }}</p>
+                      <p class="dot">Property Value - {{ propertyValue }}</p>
+                      <p  class="dot" *ngIf="bpApplicationType != 'Town Planning'">Occupation Classification - {{ occupationClassification }}</p>
+                      <p class="dot">Building Plan For - {{ buildingPlanFor }}</p>
+                      <p class="dot"*ngIf="bpApplicationType != 'Town Planning'">OmnibusServitude - {{ OmnibusServitude }}</p>
+                      <div *ngIf="bpApplicationType == 'Town Planning'">
+                        <p class="dot">Title Restrictions - {{ TitleRestrictions }}</p>
+                        <p class="dot">Extent Of Property - {{ ExtentOfProperty }}</p>
+                        <p class="dot">TitleDeedNo - {{ TitleDeedNo }}</p>
+                        <p class="dot">Registered Description - {{ RegisteredDescription }}</p>
+                        <p class="dot">Company Name - {{ NameOfCompany }}</p>
+                        <p class="dot">Reg Number Of Company - {{ RegNoOfCompany }}</p>
+                        <p class="dot">isCombined - {{ isCombinedApplication }}</p>
+                        <p class="dot">Description Of Project - {{ DescriptionOfProject }}</p>
+                        <p class="dot">Application Type - {{ bpApplicationType }}</p>
+                      </div>
+                  </div>
+                </div>
+              </mat-tab>
+
               <mat-tab label="Public Facing" *ngIf="this.CurrentUserProfile[0].isInternal == false">
                 <mat-tab-group>
 
-                 
+
                   <div *ngIf="InternalCommentsList.length === 0">
 
                   </div>
@@ -186,7 +219,7 @@
 </mat-tab-group>
             </mat-tab>
 
-            
+
 
 
             </mat-tab-group>
@@ -198,60 +231,10 @@
 
           <mat-tab-group>
             <mat-tab label="Tracker">
-
-
-              <div class="card6">
-                <p class="detailsCardName2">Main Project Tracker </p>
-              </div>
-              <table mat-table [dataSource]="dataSourceDep" class="mat-elevation-z8" *ngIf="dataSourceDep.length != 0">
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="DepartmentName" class="approve">
-                  <th mat-header-cell *matHeaderCellDef>Department</th>
-                  <td mat-cell *matCellDef="let element">{{element.DepartmentName}}</td>
-
-                </ng-container>
-
-                <!-- Indication Column -->
-                <ng-container matColumnDef="indication">
-                  <th mat-header-cell *matHeaderCellDef>Indication</th>
-                  <td mat-cell *matCellDef="let element">
-                    <div class="contIndication">
-                      <!--   <i class="fa fa-thumbs-up greenThumbsUp" aria-hidden="true" *ngIf=" element.commentStatus === FinalApproved"></i>-->
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid-blue.svg" class="icon2" *ngIf="element.CommentStatus === 'Approved' || element.CommentStatus === 'LS Reviewer Approved' || element.CommentStatus ==='TP Reviewer Approved'" matTooltip="Approved">
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/solid/check-double.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Admin Approved' || element.CommentStatus ==='TP Admin Approved'" matTooltip="Admin Approved">
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
-                      <!-- projectTracker Sindiswa 12 January 2024 -->
-                      <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
-
-                      <!-- projectTracker Sindiswa 12 January 2024 -->
-                    </div>
-                  </td>
-                </ng-container>
-
-                <!-- projectTracker Sindiswa 12 January 2024 -->
-                <ng-container matColumnDef="zoneUser" class="approve">
-                  <th mat-header-cell *matHeaderCellDef>User</th>
-                  <td mat-cell *matCellDef="let element">{{element.zoneUser}}</td>
-                </ng-container>
-
-                <!-- end of projectTracker Sindiswa 12 January 2024 -->
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row [ngClass]="{'approve': row.action === 'H'}" *matRowDef="let row; columns: displayedColumns;"></tr>
-
-              </table>
-
-              <div class="card6">
-                <p class="detailsCardName2">Department Distribution Tracker </p>
-              </div>
-
-              <div *ngIf="dataSource.length === 0">
+              <div *ngIf="dataSource.length < 1">
                 <h5 class="noDep">No Departments have been linked to review</h5>
               </div>
-              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource.length != 0">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource.length >=1">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="DepartmentName" class="approve">
@@ -271,7 +254,6 @@
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
                       <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
-                      <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/retweet-solid-purple.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Reviewer Requested Relaxation' || element.CommentStatus === 'TP Reviewer Requested Relaxation'" matTooltip="Requested Relaxation">
                       <!-- projectTracker Sindiswa 12 January 2024 -->
                       <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
 
@@ -321,7 +303,7 @@
               <app-bptasks></app-bptasks>
             </mat-tab>
 
-            <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist" >
+            <mat-tab label="Contruction Stage Checklist" >
               <app-bpconstruction-stages></app-bpconstruction-stages>
             </mat-tab>
           </mat-tab-group>
@@ -332,7 +314,7 @@
             <button mat-raised-button color="expand" (click)="openExpand('Tracker',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
           </div>
         </div>
-          
+
       </div>
     </div>
       <div class="rightSide ">
@@ -358,13 +340,13 @@
                           <p class="date">{{comment.DateCreated}}</p>
                         </div>
                         <div class="messageFoot">
-                       
+
                           <p class="sub-text">{{comment.Comment}}</p>
                           <button mat-button matTooltip="Reply" (click)="openEditReply(i,replyModal)" *ngIf="comment.isApplicantReply == null"><img class="icon5" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/reply.svg"></button>
                         </div>
                         <div *ngIf="comment.isApplicantReply != null">
                           <p class="applicantsReply">Applicants Reply: {{comment.isApplicantReply}}</p>
-                       
+
                         </div>
                       </div>
                     </div>
@@ -410,7 +392,7 @@
                 <div *ngIf="comment.CommentStatus =='Note'">
                   <div [class.cardNote]=" comment.CommentStatus == 'Note'">
 
- 
+
 
                     <div class="message-text-container">
 
@@ -443,7 +425,7 @@
             <mat-tab label="Financial Documents">
               <app-bpfinancials></app-bpfinancials>
             </mat-tab>
-           
+
           </mat-tab-group>
           <div class="bottom-0">
             <button mat-raised-button color="expand" (click)="openExpand('Documents',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
@@ -720,7 +702,7 @@
       </div>
     </div>
     <h4>Loading.</h4>
-  
+
 
 </div>
 
@@ -729,24 +711,64 @@
   <!-- #region POD -->
 
   <div *ngIf="ExpandPropertyOwnerDetails">
+
     <div class="modal-header">
-      <h4>Property Owner Details</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
 
 
-    <div class="POD">
-      <div class="podInfo">
-        <p class="Name">{{firstName}} {{surname}}</p>
-        <p class="Email"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/at.svg" class="icon3"> {{email}}</p>
-        <p class="CellNo"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{cellNo}}</p>
-      </div>
-      <div class="image">
-        <img src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="ExpandIcon">
-      </div>
-    </div>
-  </div>
 
+      <div class="POD">
+        <div class="image">
+          <img src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="ExpandIcon">
+        </div>
+        <div class="card2">
+          <p class="detailsCardName">Property Owner Details</p>
+          </div>
+        <div class="line-with-text">Personal Details</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="icon3"> {{firstName}} {{surname}} </p>
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/id-card.svg" class="icon3"> {{idNumber}}</p>
+        </div>
+        <div class="line-with-text">Contact</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{cellNo}}</p>
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{altCellNo}}</p>
+        </div>
+        <div class="line-with-text">Email</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/envelope.svg" class="icon3"> {{email}}</p>
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/envelope.svg" class="icon3"> {{altEmail}}</p>
+        </div>
+        <div class="line-with-text">Address</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/house.svg" class="icon3"> {{address}}</p>
+        </div>
+
+        <!-- This is the Architect details on the POD Modal JA-->
+        <div class="card2">
+        <p class="detailsCardName">Architect Details</p>
+        </div>
+        <div class="line-with-text">Personal Details</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/user.svg" class="icon3" > {{architectName}} {{architectSurname}} </p>
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/id-card.svg" class="icon3"> {{architectId}}</p>
+        </div>
+        <div class="line-with-text">Contact</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{architectCell}}</p>
+        </div>
+        <div class="line-with-text">Email</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/envelope.svg" class="icon3"> {{architectEmail}}</p>
+        </div>
+        <div class="line-with-text">Registration Number</div>
+        <div class="grid-columns">
+          <p class="PODtxt"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/briefcase.svg" class="icon3"> {{architectReg}}</p>
+        </div>
+
+  </div>
+</div>
   <!-- #endregion -->
   <!--ArchitectDetails-->
   <!-- #region AOD -->
@@ -783,103 +805,57 @@
     </div>
 
     <mat-tab-group>
+
       <mat-tab label="Tracker">
+        <div class="generalcomments">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+            <!-- Position Column -->
+            <ng-container matColumnDef="DepartmentName" class="approve">
+              <th mat-header-cell *matHeaderCellDef>Department</th>
+              <td mat-cell *matCellDef="let element">{{element.DepartmentName}}</td>
 
-        <div class="card6">
-          <p class="detailsCardName2">Main Project Tracker </p>
+            </ng-container>
+
+            <!-- Indication Column -->
+            <ng-container matColumnDef="indication">
+              <th mat-header-cell *matHeaderCellDef>Indication</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="contIndication">
+                  <!--   <i class="fa fa-thumbs-up greenThumbsUp" aria-hidden="true" *ngIf=" element.commentStatus === FinalApproved"></i>-->
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid-blue.svg" class="icon2" *ngIf="element.CommentStatus === 'Approved' || element.CommentStatus === 'LS Admin Approved' || element.CommentStatus === 'LS Reviewer Approved'">
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'">
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null"> <!-- projectTracker Sindiswa 15 January 2024 -->
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity ">
+
+                  <p class="yellowTimerText" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null">Waiting</p> <!-- projectTracker Sindiswa 15 January 2024 -->
+
+                  <p class="orangeSpeechText" *ngIf="element.isAwaitingClarity && element.isAwaitingClarity">Awaiting Clarity</p>
+
+                  <!-- projectTracker Sindiswa 12 January 2024 -->
+                  <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" />
+                  <p class="" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'">Under Review</p>
+                  <!-- projectTracker Sindiswa 12 January 2024 -->
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- projectTracker Sindiswa 12 January 2024 -->
+            <ng-container matColumnDef="zoneUser" class="approve">
+              <th mat-header-cell *matHeaderCellDef>User</th>
+              <td mat-cell *matCellDef="let element">{{element.zoneUser}}</td>
+            </ng-container>
+
+            <!-- end of projectTracker Sindiswa 12 January 2024 -->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row [ngClass]="{'approve': row.action === 'H'}" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
         </div>
-        <table mat-table [dataSource]="dataSourceDep" class="mat-elevation-z8" *ngIf="dataSourceDep.length != 0">
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="DepartmentName" class="approve">
-            <th mat-header-cell *matHeaderCellDef>Department</th>
-            <td mat-cell *matCellDef="let element">{{element.DepartmentName}}</td>
-
-          </ng-container>
-
-          <!-- Indication Column -->
-          <ng-container matColumnDef="indication">
-            <th mat-header-cell *matHeaderCellDef>Indication</th>
-            <td mat-cell *matCellDef="let element">
-              <div class="contIndication">
-                <!--   <i class="fa fa-thumbs-up greenThumbsUp" aria-hidden="true" *ngIf=" element.commentStatus === FinalApproved"></i>-->
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid-blue.svg" class="icon2" *ngIf="element.CommentStatus === 'Approved' || element.CommentStatus === 'LS Reviewer Approved' || element.CommentStatus ==='TP Reviewer Approved'" matTooltip="Approved">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/solid/check-double.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Admin Approved' || element.CommentStatus ==='TP Admin Approved'" matTooltip="Admin Approved">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
-                <!-- projectTracker Sindiswa 12 January 2024 -->
-                <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
-
-                <!-- projectTracker Sindiswa 12 January 2024 -->
-              </div>
-            </td>
-          </ng-container>
-
-          <!-- projectTracker Sindiswa 12 January 2024 -->
-          <ng-container matColumnDef="zoneUser" class="approve">
-            <th mat-header-cell *matHeaderCellDef>User</th>
-            <td mat-cell *matCellDef="let element">{{element.zoneUser}}</td>
-          </ng-container>
-
-          <!-- end of projectTracker Sindiswa 12 January 2024 -->
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row [ngClass]="{'approve': row.action === 'H'}" *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-
-        <div class="card6">
-          <p class="detailsCardName2">Department Distrubution Tracker </p>
-        </div>
-
-        <div *ngIf="dataSource.length === 0">
-          <h5 class="noDep">No Departments have been linked to review</h5>
-        </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource.length != 0">
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="DepartmentName" class="approve">
-            <th mat-header-cell *matHeaderCellDef>Department</th>
-            <td mat-cell *matCellDef="let element">{{element.DepartmentName}}</td>
-
-          </ng-container>
-
-          <!-- Indication Column -->
-          <ng-container matColumnDef="indication">
-            <th mat-header-cell *matHeaderCellDef>Indication</th>
-            <td mat-cell *matCellDef="let element">
-              <div class="contIndication">
-                <!--   <i class="fa fa-thumbs-up greenThumbsUp" aria-hidden="true" *ngIf=" element.commentStatus === FinalApproved"></i>-->
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid-blue.svg" class="icon2" *ngIf="element.CommentStatus === 'Approved' || element.CommentStatus === 'LS Reviewer Approved' || element.CommentStatus ==='TP Reviewer Approved'" matTooltip="Approved">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/solid/check-double.svg" class="icon2" *ngIf="element.CommentStatus === 'LS Admin Approved' || element.CommentStatus ==='TP Admin Approved'" matTooltip="Admin Approved">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid-red.svg" class="icon2" *ngIf="element.CommentStatus === 'Rejected'" matTooltip="Rejected">
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/clock-regular.svg" class="icon2" *ngIf="element?.UserAssaignedToComment === null && element.CommentStatus == '' || element.CommentStatus == null" matTooltip="Waiting"> <!-- projectTracker Sindiswa 15 January 2024 -->
-                <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid-orange.svg" class="icon2" *ngIf="element.isAwaitingClarity " matTooltip="Awaiting Clarity">
-                <!-- projectTracker Sindiswa 12 January 2024 -->
-                <img class="icon2" src="assets/fontawesome-free-6.4.2-web/svgs/regular/pen-to-square.svg" *ngIf="element?.UserAssaignedToComment !== null && element.CommentStatus == 'Assigned To Reviewer'" matTooltip="Under Review" />
-
-                <!-- projectTracker Sindiswa 12 January 2024 -->
-              </div>
-            </td>
-          </ng-container>
-
-          <!-- projectTracker Sindiswa 12 January 2024 -->
-          <ng-container matColumnDef="zoneUser" class="approve">
-            <th mat-header-cell *matHeaderCellDef>User</th>
-            <td mat-cell *matCellDef="let element">{{element.zoneUser}}</td>
-          </ng-container>
-
-          <!-- end of projectTracker Sindiswa 12 January 2024 -->
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row [ngClass]="{'approve': row.action === 'H'}" *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
       </mat-tab>
       <mat-tab label="Flow">
-
         <div class="container">
           <div class="progress">
             <div class="percent" [style.width]="(currentStageNumber / totalStages) * 100 + '%'"></div>
@@ -894,19 +870,40 @@
           </div>
         </div>
 
-        <p class="currentStageText">This {{bpApplicationType}} application is Currently at a {{currentStage}} stage.</p>
-      </mat-tab>
-      <mat-tab label="Stage Checklist" *ngIf="this.CurrentUserProfile[0].isInternal == true && showChecklist && currentStage == 'Building Inspector'">
-        <app-bpapplication-checklist [ApplicationID]="applicationId"
-                                     [StageName]="currentStage"
-                                     [FunctionalArea]="bpApplicationType"></app-bpapplication-checklist>
-      </mat-tab>
+        <p class="projectTimeLine">Project TimeLine</p>
+        <div class="generalcomments" *ngIf="this.CurrentUserProfile[0].isInternal == true">
 
-      <mat-tab label="Tasks" *ngIf="currentStage == 'Building Inspector'">
+          <div *ngFor="let comment of CommentsList ; let i = index">
+            <div>
+              <div *ngIf="CommentsList.length === 0">
+                <h5>Nothing new happened here</h5>
+              </div>
+              <div class="cardNote">
+
+                <div class="message-text-container">
+
+                  <div class="noteHead">
+                    <h1 class="message-textApprove">{{comment.CommentStatus}} by {{comment.UserName}}</h1>
+                    <p class="date">{{comment.DateCreated}}</p>
+                  </div>
+                  <div class="messageFoot" *ngIf="comment.Comment != null || comment.Comment !=''">
+                    <p class="sub-text" *ngIf="comment.Comment.length >1 ">{{comment.Comment}}</p>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </mat-tab>
+      <mat-tab label="Tasks" *ngIf="this.CurrentUserProfile[0].isInternal == true && currentStage == 'Building Inspector'">
         <app-bptasks></app-bptasks>
       </mat-tab>
 
-      <mat-tab *ngIf="currentStage == 'Building Inspector'" label="Contruction Stage Checklist">
+      <mat-tab label="Contruction Stage Checklist">
         <app-bpconstruction-stages></app-bpconstruction-stages>
       </mat-tab>
     </mat-tab-group>
@@ -1076,7 +1073,7 @@
       <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
 
-    <google-map height="250px"
+    <google-map height="300px"
                 width="100%"
                 [center]="center"
                 [options]="mapOptionsView">
@@ -1094,46 +1091,59 @@
         <div class="applicationDeatails">
 
 
-          <div class="card2">
-            <p class="detailsCardName">Application Details</p>
+          <div class="xpandD">
+            <p class="xpandCardDetails">Application Details</p>
           </div>
-          <p>Application Type: {{bpApplicationType}}</p>
-          <p>LS Number: {{ lsNumber }}</p>
-          <p *ngIf="BPApplicationProjectNumber">Project Number: {{ BPApplicationProjectNumber }}</p>
+            <div class="cardIndent">
+              <div class="grid-columns">
+            <p class="dot">Application Type: {{bpApplicationType}}</p>
+            <p class="dot">LS Number: {{ lsNumber }}</p>
+            <p *ngIf="BPApplicationProjectNumber" class="dot">Project Number: {{ BPApplicationProjectNumber }}</p>
+              </div>
+            </div>
 
-          <div class="card2">
-            <p class="detailsCardName">Property Details Of Development</p>
+          <div class="xpandD">
+            <p class="xpandCardDetails">Property Details Of Development</p>
           </div>
-          <p>Property Description - {{ propertyDescription }}</p>
-          <p>Premises Name - {{ premisesName }}</p>
-          <p>Type Of Address - {{ typeOfAddress }}</p>
-          <p>Number Of Units - {{ noOfUnits }}</p>
-          <p>Unit Number - {{ unitNumber }}</p>
-          <p *ngIf="bpApplicationType != 'Town Planning'">Erf Number - {{ erfNumber }}</p>
-          <p>Portion Number - {{ portionNumber }}</p>
-          <p>Physical Address Of Project - {{ physicalAddress }}</p>
-          <p>Latitude - {{ latitude }}</p>
-          <p>Longitude - {{ longitude }}</p>
-          <p *ngIf="bpApplicationType != 'Town Planning'">SG Code - {{ sGCode }}</p>
+          <div class="cardIndent">
+            <div class="grid-columns">
+            <p class="dot"> Property Description : {{ propertyDescription }}</p>
+            <p class="dot"> Premises Name : {{ premisesName }}</p>
+            <p class="dot"> Type Of Address : {{ typeOfAddress }}</p>
+            <p class="dot"> Number Of Units : {{ noOfUnits }}</p>
+            <p class="dot"> Unit Number : {{ unitNumber }}</p>
+            <p *ngIf="bpApplicationType != 'Town Planning'"class="dot"> Erf Number : {{ erfNumber }}</p>
+            <p class="dot"> Portion Number : {{ portionNumber }}</p>
+            <p class="dot"> Physical Address Of Project : {{ physicalAddress }}</p>
+            <p class="dot"> Latitude : {{ latitude }}</p>
+            <p class="dot"> Longitude : {{ longitude }}</p>
+            <p *ngIf="bpApplicationType != 'Town Planning'" class="dot"> SG Code : {{ sGCode }}</p>
+            </div>
+          </div>
 
-          <div class="card2">
-            <p class="detailsCardName">Plan Details</p>
+
+          <div class="xpandD">
+            <p class="xpandCardDetails">Plan Details</p>
           </div>
-          <p>Type Of Development - {{ typeOfDev }}</p>
-          <p>Property Value - {{ propertyValue }}</p>
-          <p *ngIf="bpApplicationType != 'Town Planning'">Occupation Classification - {{ occupationClassification }}</p>
-          <p>Building Plan For - {{ buildingPlanFor }}</p>
-          <p *ngIf="bpApplicationType != 'Town Planning'">OmnibusServitude - {{ OmnibusServitude }}</p>
-          <div *ngIf="bpApplicationType == 'Town Planning'">
-            <p>Title Restrictions - {{ TitleRestrictions }}</p>
-            <p>Extent Of Property - {{ ExtentOfProperty }}</p>
-            <p>TitleDeedNo - {{ TitleDeedNo }}</p>
-            <p>Registered Description - {{ RegisteredDescription }}</p>
-            <p>Company Name - {{ NameOfCompany }}</p>
-            <p>Reg Number Of Company - {{ RegNoOfCompany }}</p>
-            <p>isCombined - {{ isCombinedApplication }}</p>
-            <p>Description Of Project - {{ DescriptionOfProject }}</p>
-            <p>Application Type - {{ bpApplicationType }}</p>
+            <div class="cardIndent">
+              <div class="grid-columns">
+                <p class="dot">Type Of Development - {{ typeOfDev }}</p>
+                <p class="dot">Property Value - {{ propertyValue }}</p>
+                <p *ngIf="bpApplicationType != 'Town Planning'" class="dot">Occupation Classification - {{ occupationClassification }}</p>
+                <p class="dot">Building Plan For - {{ buildingPlanFor }}</p>
+                <p *ngIf="bpApplicationType != 'Town Planning'" class="dot">OmnibusServitude - {{ OmnibusServitude }}</p>
+                <div *ngIf="bpApplicationType == 'Town Planning'">
+                <p class="dot">Title Restrictions - {{ TitleRestrictions }}</p>
+                <p class="dot">Extent Of Property - {{ ExtentOfProperty }}</p>
+                <p class="dot">TitleDeedNo - {{ TitleDeedNo }}</p>
+                <p class="dot">Registered Description - {{ RegisteredDescription }}</p>
+                <p class="dot">Company Name - {{ NameOfCompany }}</p>
+                <p class="dot">Reg Number Of Company - {{ RegNoOfCompany }}</p>
+                <p class="dot">isCombined - {{ isCombinedApplication }}</p>
+                <p class="dot">Description Of Project - {{ DescriptionOfProject }}</p>
+                <p class="dot">Application Type - {{ bpApplicationType }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </mat-tab>
@@ -1166,7 +1176,7 @@
 <!--</mat-menu>-->
 <!-- #region old code for view prokect -->
 <!--OLD VIEW PROJECT TAB-->
-<!--  <!--<mat-tab-group>
+<!-- <mat-tab-group>
 
     <mat-tab label="Application Details">
       <div class="cont2">
