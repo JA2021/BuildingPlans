@@ -87,23 +87,57 @@
       <!--       #region Land Survey Review Actions -->
 
       <div class="cont2" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'LS Review' && AssignUserForComment ||this.CurrentApplicationBeingViewed[0].currentStage == 'LS Relaxation'">
-        <p>LS Reviewer</p>
+ <p class="ActionCenterHeading">Reviewer Action Center</p>
 
-        <mat-form-field class="example-full-width">
+        <!-- <mat-form-field class="example-full-width">
           <mat-label>Type new Comment/Special Condition. Please also make reference to the Services Conditions tab, if documents have been uploaded.</mat-label>
           <textarea matInput [(ngModel)]="leaveAComment" placeholder="Eg. This is good" id="myTextarea" maxlength="250" (input)="updateCharacterCount()"></textarea>
           <div>{{ leaveAComment.length }}/250</div>
-        </mat-form-field>
-        <div class="containerLS">
+        </mat-form-field> -->
 
+<p class="ActionCenterInformation">* Please select an action to take on this application *</p>
           <div class="containerLS">
-            <button mat-raised-button color="approveBTN" (click)="onComment('ApproveLSReviewer')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid.svg" class="icon">  Approve</button>
+            <!-- <button mat-raised-button color="approveBTN" (click)="onComment('ApproveLSReviewer')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid.svg" class="icon">  Approve</button>
             <button mat-raised-button color="relaxationBTN" (click)="onComment('LSRelaxationRequest')" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus != 'Distribution'"><i class="fa fa-file" aria-hidden="true" style="color:white"></i>   Request For Relaxation</button>
-            <button mat-raised-button color="rejectBTN" (click)="onComment('Reject')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid.svg" class="icon">    Reject</button>
+            <button mat-raised-button color="rejectBTN" (click)="onComment('Reject')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid.svg" class="icon">    Reject</button> -->
 <!--            <button mat-raised-button color="clarifyBTN" (click)="onComment('Clarify')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid.svg" class="icon">    Clarify</button>
-            <button mat-raised-button color="clarifyBTN" (click)="openSnackBar('Application Actioned')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid.svg" class="icon">    snack</button>-->
+            <button mat-raised-button color="clarifyBTN" (click)="openSnackBar('Application Actioned')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/comment-solid.svg" class="icon">    snack</button> -->
+
+
+
+              <label class="radio-card">
+                <input type="radio" name="radio-card"  />
+                <div class="card-content-wrapper">
+                  <span class="check-icon"></span>
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up.svg" class="icon4"  />
+                </div>
+              </label>
+
+
+              <label class="radio-card">
+                <input type="radio" name="radio-card"  />
+                <div class="card-content-wrapper">
+                  <span class="check-icon"></span>
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/sun.svg" class="icon4"  />
+                </div>
+              </label>
+
+
+              <label class="radio-card">
+                <input type="radio" name="radio-card"  />
+                <div class="card-content-wrapper">
+                  <span class="check-icon"></span>
+                  <img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down.svg" class="icon4" />
+                </div>
+              </label>
+
+
+              <p class="ActionCenterInformation">* Please select an action to take on this application *</p>
+
+
+
           </div>
-        </div>
+
         <!-- <mat-checkbox class="example-margin" [(ngModel)]="DepositCheck" (click)="getAllServiceItmesForDropdown(deposit)" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus != 'Distribution'">Add Relaxation Tarrif</mat-checkbox>-->
       </div>
 
