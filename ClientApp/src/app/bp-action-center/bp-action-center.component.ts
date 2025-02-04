@@ -35,6 +35,8 @@ import { NotificationsService } from 'src/app/service/Notifications/notification
 import { ManuallyAssignUsersService } from 'src/app/service/ManuallyAssignUsers/manually-assign-users.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SnackBarAlertsComponent } from '../snack-bar-alerts/snack-bar-alerts.component';
+import { DateTime, Info, Interval } from 'luxon';
+import { CommonModule } from '@angular/common';
 
 import { tap } from 'rxjs/operators';
 import 'tinymce';
@@ -71,6 +73,10 @@ import { BPDocumentsUploadsService } from 'src/app/service/BPDocumentsUploads/bp
 //Audit Trail Kyle
 declare var tinymce: any;
 
+
+export class CalendarComponent {
+
+}
 /*JJS 07-03-24 GIS Reviewer*/
 
 export interface MandatoryDocumentsLinkedStagesList {
@@ -340,6 +346,7 @@ export class BpActionCenterComponent implements OnInit {
   applicationData: ApplicationList;
   MandatoryDocumentUploadList: MandatoryDocumentUploadList[] = [];
   MandatoryDocumentsLinkedStagesList = new BehaviorSubject<MandatoryDocumentsLinkedStagesList[]>([]);
+
 
 
   currentDate = new Date();
@@ -737,6 +744,7 @@ export class BpActionCenterComponent implements OnInit {
 
   public isInternalUser: boolean = false;
   public isExternalUser: boolean = false;
+  public calendarView: boolean = false;
 
   saveBtn: boolean = true;
   option = '';
@@ -2323,11 +2331,11 @@ export class BpActionCenterComponent implements OnInit {
                       null, null, null, null, null, null, "Reviewing", "TP Review", 2, null, null, null, null, null, null, null, null, null, null, null, null, null).subscribe((data: any) => {
 
                         if (data.responseCode == 1) {
-                          debugger; 
+                          debugger;
                           this.addTownPlanningToDepartmentForComment();
                           this.AddComment("LS Approved", this.currentBPDepartmentforCommentID);
                           this.AddStageChecklistForApplication("TP Review");
-                          
+
                         }
                         else {
                           alert(data.responseMessage);
@@ -5710,7 +5718,7 @@ selectedComments.forEach((comment, index) => {
 
   openAssignToUser(assignProjectToUser: any) {
     this.getAllReviewers(assignProjectToUser);
-    
+
   }
   openAssignToUserGISReviewer(assignProjectToUserGISReviewer: any) {
     this.modalService.open(assignProjectToUserGISReviewer, { backdrop: 'static', size: 'xl' });
@@ -8941,7 +8949,7 @@ selectedComments.forEach((comment, index) => {
               console.log("Got All Users from land survey for land survey admin", error)
             })
           }
-         
+
         }
         else {
           alert(data.responseMessage)
@@ -8992,7 +9000,7 @@ selectedComments.forEach((comment, index) => {
     else {
 
     }
-    
+
   }
 
 
@@ -9607,11 +9615,11 @@ selectedComments.forEach((comment, index) => {
   }
 
   addTownPlanningToDepartmentForComment() {
-    
-    
+
+
     this.bpDepartmentsService.getAllDepartmentsForFunctionalArea("Town Planning").subscribe((data: any) => {
       if (data.responseCode == 1) {
-        debugger; 
+        debugger;
         for (let i = 0; i < data.dateSet.length; i++) {
 
           const current = data.dateSet[i];
@@ -9641,6 +9649,67 @@ selectedComments.forEach((comment, index) => {
     }, error => {
       console.log("Get All Departments Error", error);
     })
+  }
+  calendarViewModal(calendarView: any){
+    this.modalService.open(calendarView, {
+      centered: true,
+      size: 'xl',
+      backdrop: 'static', // Prevent clicking outside the modal to close it
+      keyboard: false
+    })
+  }
+   //meetings: Meetings = {}; // No need for InputSignal, just a regular object
+   firstDayOfActiveMonth = new BehaviorSubject<DateTime>(DateTime.local().startOf('month'));
+   selectedDay = new BehaviorSubject<DateTime>(DateTime.local()); // Default to today
+  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  get daysOfMonth(): DateTime[][] {
+    const start = this.firstDayOfActiveMonth.value.startOf('month').startOf('week');
+    const end = this.firstDayOfActiveMonth.value.endOf('month').endOf('week');
+
+    const days = Interval.fromDateTimes(start, end)
+      .splitBy({ days: 1 })
+      .map(d => d.start!)
+      .filter(d => d !== null);
+
+    const weeks: DateTime[][] = [];
+    for (let i = 0; i < days.length; i += 7) {
+      weeks.push(days.slice(i, i + 7));
+    }
+    return weeks;
+  }
+
+  // Select a month when clicked
+  selectMonth(monthIndex: number): void {
+    this.firstDayOfActiveMonth.next(
+      this.firstDayOfActiveMonth.value.set({ month: monthIndex + 1 })
+    );
+  }
+
+  // Select a day when clicked
+  selectDay(day: DateTime): void {
+    this.selectedDay.next(day);
+  }
+
+  // Change the year when clicked
+  changeYear(Isincrement: boolean,event:Event){
+    debugger;
+    if(Isincrement == true){
+      debugger;
+      this.firstDayOfActiveMonth.next(
+        this.firstDayOfActiveMonth.value.plus({ year: 1})
+      );
+      debugger;
+
+    }
+    else if(Isincrement == false){
+      debugger;
+      this.firstDayOfActiveMonth.next(
+        this.firstDayOfActiveMonth.value.plus({ year: -1})
+      );
+      debugger;
+    }
+
   }
 }
 

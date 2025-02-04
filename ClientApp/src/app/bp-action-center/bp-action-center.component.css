@@ -785,3 +785,283 @@ label.radio-card {
   text-align: center;
   margin: 10px;
 }
+/* ---------------calendar view ------------------- */
+
+.calendarView-base {
+  width: 100%;
+  height: 600px;
+  border-radius: 20px;
+  background-color: white;
+  position: relative;
+  z-index: -1;
+  color: black;
+}
+
+.calendarView-year {
+  color: #E8E8E8;
+  font-size: 30px;
+  float: right;
+  position: absolute;
+  right: 35px;
+  top: 31px;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.calendarView-triangle-left {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 10px solid #E8E8E8;
+  border-bottom: 5px solid transparent;
+  float: right;
+  position: relative;
+  right: 90px;
+  top: 36px;
+}
+
+.calendarView-triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-left: 10px solid #E8E8E8;
+  border-bottom: 5px solid transparent;
+  float: right;
+  position: relative;
+  left: 20px;
+  top: 36px;
+}
+
+.calendarView-triangle-left:hover {
+  border-right: 10px solid #2ECC71;
+}
+
+.calendarView-triangle-right:hover {
+  border-left: 10px solid #2ECC71;
+}
+
+.calendarView-month-color {
+  color: #005870;
+}
+
+.calendarView-month-hover:hover {
+  color: #93affd !important;
+}
+
+.calendarView-months {
+  color: #AAAAAA;
+  position: relative;
+  word-spacing: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.calendarView-month-line {
+  border-color: #adadad;
+  position: relative;
+  top: 96px;
+  width: 55%;
+  left: 390px;
+}
+
+.calendarView-days {
+  color: #AAAAAA;
+  position: relative;
+  font-size: 18px;
+  left: 406px;
+  top: 107px;
+  word-spacing: 48px;
+  font-weight: 600;
+}
+
+.calendarView-num-dates {
+  position: absolute;
+  top: 195px;
+  z-index: 1;
+  font-size: 20px;
+  word-spacing: 70px;
+  cursor: pointer;
+}
+
+.calendarView-num-dates :hover{
+  /* box-shadow: 0 20px 30px -13px rgba(23, 82, 255, 0.45); */
+  /* transform: translateY(-3px); */
+}
+
+.calendarView-active-day {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #2ECC71;
+  position: relative;
+  top: 295px;
+  left: 661px;
+}
+
+.calendarView-white {
+  color: white;
+}
+
+.calendarView-event-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #2980B9;
+  position: relative;
+  top: 304px;
+  left: 695px;
+}
+
+.calendarView-grey {
+  color: #AAAAB1;
+}
+
+.calendarView-calendar-left {
+  width: 30%;
+  height: 600px;
+  border-radius: 20px 0px 0px 20px;
+  background-color: #005870;
+  position: relative;
+  z-index: -1;
+  bottom: 209px;
+  color: white;
+}
+
+.sideCalendarView-num-date {
+  font-size: 150px;
+  margin: 120px;
+  padding-top: 90px;
+  margin-left: 75px;
+}
+
+.calendarView-day {
+  width: 50%;
+  margin: 0px auto;
+  font-size: 30px;
+  position: relative;
+  bottom: 60px;
+}
+
+.calendarView-current-events {
+  font-size: 15px;
+  position: relative;
+  margin-left: 25px;
+  bottom: 30px;
+}
+
+.calendarView-posts {
+  text-decoration: underline dotted;
+}
+
+.calendarView-posts:hover {
+  color: #27e879 !important;
+}
+
+.calendarView-create-event {
+  font-size: 18px;
+  position: relative;
+  margin-top: 30px;
+  margin-left: 25px;
+}
+
+.calendarView-event-line {
+  width: 90%;
+}
+
+.calendarView-add-event {
+  width: 20px;
+  height: 20px;
+  padding: 0px;
+  border-radius: 50%;
+  border: solid white 2px;
+  position: relative;
+  bottom: 42px;
+  left: 260px;
+}
+
+.calendarView-add {
+  font-size: 25px;
+  position: relative;
+  left: 4px;
+  bottom: 10px;
+}
+
+.calendarView-add:hover, .calendarView-create-event:hover, .calendarView-add-event:hover {
+  color: #27e879 !important;
+  border-color: #27e879 !important;
+}
+
+.calendarView-first-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarView-second-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarView-third-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarView-fourth-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarView-fifth-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarView-sixth-week {
+  margin-bottom: 25px;
+  word-spacing: 58px;
+}
+
+.calendarHeader {
+      color: #454545;
+      padding: 4px;
+      text-align: center;
+      font-size: 35px;
+      margin-top: 2px;
+      margin-bottom: 0px;
+}
+
+.calendarYearDiv{
+  display: flex;
+  width: 30%;
+}
+
+.calendarMonthsDiv{
+  display: flex;
+  width: 50%;
+  margin-top: -547px;
+  margin-left: 41%;
+}
+
+.calendarDaysDiv{
+  display: flex;
+  width: 60%;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-left: 30%;
+}
+
+.calendarView-container{
+  margin-top: -19px;
+}
+.buttonYears{
+  background: transparent;
+  color: #cccccc;
+  border: none;
+  padding: 5px 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+/*---------------- calendar view ending------------- */
+
