@@ -1003,6 +1003,7 @@ this.userService.login(email, password).pipe(
       alert("Invalid OTP");
     }
     else {
+    else {
     //Not sure what this does TBH
     this.sharedService.errorForRegister = false;
       this.userService.register(clientFullName, clientEmail, clientRegisterPassword).subscribe((data: any) => {
@@ -1028,7 +1029,10 @@ this.userService.login(email, password).pipe(
           this.sharedService.clientUserID = data.dateSet.appUserId;
           localStorage.setItem("LoggedInUserInfo", JSON.stringify(data.dateSet));
           this.sharedService.newUserProfileBp = BpNo;
-        this.otpValid = true;
+
+       if(this.openSnackBar){
+            this.otpValid = true;
+         }
 
         } else {
           this.sharedService.errorForRegister = true;
@@ -1121,6 +1125,7 @@ this.userService.login(email, password).pipe(
       clientFullName = this.registerForm.controls["fullName"].value;
       clientEmail = this.registerForm.controls["registerEmail"].value;
       clientRegisterPassword = this.registerForm.controls["registerPassword"].value;
+
 
 
     } else {

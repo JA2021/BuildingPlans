@@ -629,6 +629,7 @@ ul {
 }
 .sidebar.active .nav-item {
   display: initial;
+  display: initial;
   opacity: 1;
   transform: translateX();
   animation-delay: 1s;
