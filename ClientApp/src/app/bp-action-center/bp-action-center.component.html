@@ -1,11 +1,20 @@
 <div class="cont5">
-  <button mat-raised-button color="infoBTN"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/bolt.svg" class="icon"></button>
+  <button mat-raised-button color="infoBTN"  [matMenuTriggerFor]="menu2"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/bolt.svg" class="icon"></button>
+  <mat-menu #menu2="matMenu" xPosition="after">
+    <!--THIS IS ACTUALLY LAND SURVEY-->
+    <button mat-menu-item (click)="calendarViewModal(calendarView)">Calendar View</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item >Cancel Application</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item >Help</button>
+  </mat-menu>
+
   <button mat-raised-button color="createWayleave" (click)="actionCentreView(content)" *ngIf="ActionCenter == true">Show My Actions</button>
   <button mat-raised-button color="createWayleave" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'LS Review' && this.CurrentApplicationBeingViewed[0].currentStatus == 'Waiting'" (click)=" getAllServiceItemsForLS(invoiceModal)"> Generate Invoice</button>
   <!-----------------------------Used when activating a build plan application at the building inspector stage ------------------------------>
   <br/>
   <button mat-raised-button color="createWayleave" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'Building Inspector' && this.CurrentApplicationBeingViewed[0].activationDate == null && this.isBuildingInspector == true" (click)="ActivateBuildingPlan()">Activate Plan </button>
-  
+
   <button mat-raised-button color="createWayleave" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'Building Inspector' && this.CurrentApplicationBeingViewed[0].activationDate != null &&  this.CurrentApplicationBeingViewed[0].activationConfirmed != true && (this.CurrentApplicationBeingViewed[0].userID == CurrentUser.appUserId || this.CurrentApplicationBeingViewed[0].architectUserID == CurrentUser.appUserId)" (click)="confirmPlanActivation()">Confirm Plan Activation</button>
 
   <div class="applicantActions" *ngIf="ActionCenter == false">
@@ -37,7 +46,7 @@
       <div class="containerLS" *ngIf="this.CurrentApplicationBeingViewed[0].currentStatus == 'Approved(Pending)'">
         <button mat-raised-button color="approveBTN" (click)="onComment('ApproveLSAdmin')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-up-solid.svg" class="icon">  Approve</button>
         <button mat-raised-button color="rejectBTN" (click)="onComment('RejectLSAdmin')"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/thumbs-down-solid.svg" class="icon">    Reject</button>
-       
+
       </div>
 
 
@@ -763,4 +772,83 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-success" (click)="onGenerateInvoiceClick()" [disabled]="showTotal == null || total == 0 " >Generate Invoice</button>
   </div>
+</ng-template>
+
+<!------------------- calendarView --------------------->
+
+<ng-template #calendarView let-modal>
+  <div class="modal-header">
+    <h1 class="calendarHeader">Calendar View</h1>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body" style="max-height: 67vh; overflow: hidden;">
+
+    <div class="calendarView-container">
+      <div class="calendarView-base">
+        <hr class="calendarView-month-line" />
+        <!-- Days of the Week -->
+        <div class="calendarView-days">MON TUE WED THU FRI SAT SUN</div>
+        <!-- Calendar Dates (Dynamically Generated) -->
+        </div>
+
+        <div class="calendarYearDiv">
+        <div class="calendarView-year">
+          <button class="buttonYears" (click)="changeYear(false,$event)"><<</button>
+          <span>{{ firstDayOfActiveMonth.value.year }}</span>
+          <button class="buttonYears" (click)="changeYear(true,$event)">>></button>
+        </div>
+      </div>
+
+      <div class="calendarMonthsDiv">
+        <div class="calendarView-months">
+          <span *ngFor="let month of monthNames; let i = index"
+          class="calendarView-month-hover"
+          [ngClass]="{ 'calendarView-month-color': firstDayOfActiveMonth.value.month === (i + 1) }"
+          (click)="selectMonth(i)">
+          {{ month }}
+          </span>
+        </div>
+      </div>
+
+      <div class="calendarDaysDiv">
+      <div class="calendarView-num-dates">
+        <div *ngFor="let week of daysOfMonth">
+          <span *ngFor="let day of week"
+                [ngClass]="{
+                  'calendarView-grey': day.month !== firstDayOfActiveMonth.value.month,
+                  'calendarView-selected': selectedDay.value?.toISODate() === day.toISODate()
+                }"
+                (click)="selectDay(day)">
+            {{ day.day }}
+          </span>
+        </div>
+      </div>
+
+      </div>
+
+      <!-- calendarView-base -->
+      <div class="calendarView-calendar-left">
+        <div class="sideCalendarView-num-date" *ngIf="selectedDay | async as activeDay">{{activeDay.toFormat('dd')}}
+        </div>
+        <!--num-date -->
+        <div class="calendarView-day">DAY</div>
+        <!--day -->
+        <div class="calendarView-current-events">Current Events
+          <br/>
+          <ul>
+            <li>Day 09 Daily CSS Image</li>
+          </ul>
+          <span class="calendarView-posts">See post events</span></div>
+        <!--current-events -->
+
+        <div class="calendarView-create-event">Create an Event</div>
+        <!-- create-event -->
+        <hr class="calendarView-event-line" />
+        <div class="calendarView-add-event"><span class="calendarView-add">+</span></div>
+        <!-- add-event -->
+      </div>
+      <!-- calendarView-calendar-left -->
+    </div>
+  </div>
+    <!-- calendarView-container -->
 </ng-template>
