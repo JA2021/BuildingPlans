@@ -1,6 +1,6 @@
 <app-nav-menu></app-nav-menu>
 
-<div class="content-body">
+
   <h2 *ngIf="applicationBeingCreatedType == 'Town Planning' || applicationBeingCreatedType == 'Building Plans'">Creating New Application - {{applicationBeingCreatedType}} </h2>
   <h2 *ngIf="applicationBeingCreatedType == 'Land Survey'">Creating New Building Plan Application - Land Survey <button mat-raised-button color="draft" *ngIf=""class="floating-button2">Save project as a draft</button></h2>
   <h2 *ngIf="isArchivePlan">Create New Plan Archive Application</h2>
@@ -956,7 +956,7 @@
   </mat-horizontal-stepper>
 
   <!-- #endregion -->
-</div>
+
 
 <ng-template #selectClassification let-modal>
   <div class="modal-header">
