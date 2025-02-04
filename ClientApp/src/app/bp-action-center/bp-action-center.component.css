@@ -756,9 +756,12 @@ body {
 .calendarView-months {
   color: #AAAAAA;
   position: relative;
-  left: 350px;
-  top: 90px;
   word-spacing: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: -74px;
+  margin-left: -350px;
 }
 
 .calendarView-month-line {
@@ -773,9 +776,9 @@ body {
   color: #AAAAAA;
   position: relative;
   font-size: 18px;
-  left: 355px;
-  top: 80px;
-  word-spacing: 35px;
+  left: 426px;
+  top: 107px;
+  word-spacing: 48px;
   font-weight: 600;
 }
 
@@ -783,8 +786,9 @@ body {
   float: right;
   position: relative;
   top: 110px;
-  right: 50px;
+  right: 80px;
   z-index: 1;
+  line-height: 3;
 }
 
 .calendarView-active-day {
@@ -1268,7 +1272,7 @@ label.radio-card {
   display: flex;
   width: 50%;
   margin-top: -547px;
-  margin-left: 41%;
+  margin-left: 71%;
 }
 
 .calendarDaysDiv{
