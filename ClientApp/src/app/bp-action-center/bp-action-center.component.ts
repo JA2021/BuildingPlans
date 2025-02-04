@@ -36,7 +36,6 @@ import { ManuallyAssignUsersService } from 'src/app/service/ManuallyAssignUsers/
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SnackBarAlertsComponent } from '../snack-bar-alerts/snack-bar-alerts.component';
 import { DateTime, Info, Interval } from 'luxon';
-//import { InputSignal, Signal, WritableSignal, computed,  input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { tap } from 'rxjs/operators';
@@ -74,6 +73,10 @@ import { BPDocumentsUploadsService } from 'src/app/service/BPDocumentsUploads/bp
 //Audit Trail Kyle
 declare var tinymce: any;
 
+
+export class CalendarComponent {
+
+}
 /*JJS 07-03-24 GIS Reviewer*/
 
 export interface MandatoryDocumentsLinkedStagesList {
@@ -343,6 +346,7 @@ export class BpActionCenterComponent implements OnInit {
   applicationData: ApplicationList;
   MandatoryDocumentUploadList: MandatoryDocumentUploadList[] = [];
   MandatoryDocumentsLinkedStagesList = new BehaviorSubject<MandatoryDocumentsLinkedStagesList[]>([]);
+
 
 
   currentDate = new Date();
@@ -9654,57 +9658,58 @@ selectedComments.forEach((comment, index) => {
       keyboard: false
     })
   }
+   //meetings: Meetings = {}; // No need for InputSignal, just a regular object
+   firstDayOfActiveMonth = new BehaviorSubject<DateTime>(DateTime.local().startOf('month'));
+   selectedDay = new BehaviorSubject<DateTime>(DateTime.local()); // Default to today
+  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  // export class CalendarComponent {
-  //   meetings: InputSignal<Meetings> = input.required();
-  //   today: Signal<DateTime> = signal(DateTime.local());
-  //   firstDayOfActiveMonth: WritableSignal<DateTime> = signal(
-  //     this.today().startOf('month'),
-  //   );
-  //   activeDay: WritableSignal<DateTime | null> = signal(null);
-  //   weekDays: Signal<string[]> = signal(Info.weekdays('short'));
-  //   daysOfMonth: Signal<DateTime[]> = computed(() => {
-  //     return Interval.fromDateTimes(
-  //       this.firstDayOfActiveMonth().startOf('week'),
-  //       this.firstDayOfActiveMonth().endOf('month').endOf('week'),
-  //     )
-  //       .splitBy({ day: 1 })
-  //       .map((d) => {
-  //         if (d.start === null) {
-  //           throw new Error('Wrong dates');
-  //         }
-  //         return d.start;
-  //       });
-  //   });
-  //   DATE_MED = DateTime.DATE_MED;
-  //   activeDayMeetings: Signal<string[]> = computed(() => {
-  //     const activeDay = this.activeDay();
-  //     if (activeDay === null) {
-  //       return [];
-  //     }
-  //     const activeDayISO = activeDay.toISODate();
+  get daysOfMonth(): DateTime[][] {
+    const start = this.firstDayOfActiveMonth.value.startOf('month').startOf('week');
+    const end = this.firstDayOfActiveMonth.value.endOf('month').endOf('week');
 
-  //     if (!activeDayISO) {
-  //       return [];
-  //     }
+    const days = Interval.fromDateTimes(start, end)
+      .splitBy({ days: 1 })
+      .map(d => d.start!)
+      .filter(d => d !== null);
 
-  //     return this.meetings()[activeDayISO] ?? [];
-  //   });
+    const weeks: DateTime[][] = [];
+    for (let i = 0; i < days.length; i += 7) {
+      weeks.push(days.slice(i, i + 7));
+    }
+    return weeks;
+  }
 
-  //   goToPreviousMonth(): void {
-  //     this.firstDayOfActiveMonth.set(
-  //       this.firstDayOfActiveMonth().minus({ month: 1 }),
-  //     );
-  //   }
+  // Select a month when clicked
+  selectMonth(monthIndex: number): void {
+    this.firstDayOfActiveMonth.next(
+      this.firstDayOfActiveMonth.value.set({ month: monthIndex + 1 })
+    );
+  }
 
-  //   goToNextMonth(): void {
-  //     this.firstDayOfActiveMonth.set(
-  //       this.firstDayOfActiveMonth().plus({ month: 1 }),
-  //     );
-  //   }
+  // Select a day when clicked
+  selectDay(day: DateTime): void {
+    this.selectedDay.next(day);
+  }
 
-  //   goToToday(): void {
-  //     this.firstDayOfActiveMonth.set(this.today().startOf('month'));
-  //   }
-  // }
+  // Change the year when clicked
+  changeYear(Isincrement: boolean,event:Event){
+    debugger;
+    if(Isincrement == true){
+      debugger;
+      this.firstDayOfActiveMonth.next(
+        this.firstDayOfActiveMonth.value.plus({ year: 1})
+      );
+      debugger;
+
+    }
+    else if(Isincrement == false){
+      debugger;
+      this.firstDayOfActiveMonth.next(
+        this.firstDayOfActiveMonth.value.plus({ year: -1})
+      );
+      debugger;
+    }
+
+  }
 }
+

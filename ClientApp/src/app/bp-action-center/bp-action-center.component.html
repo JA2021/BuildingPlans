@@ -807,86 +807,64 @@
   </div>
 </ng-template>
 
-<!------------------------------ Calendar View ---------------------------------->
+<!------------------- calendarView --------------------->
 
 <ng-template #calendarView let-modal>
   <div class="modal-header">
-    <h1 class="modal-title">Calendar View</h1>
+    <h1 class="calendarHeader">Calendar View</h1>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" style="max-height: 67vh; overflow: hidden;">
+
     <div class="calendarView-container">
-
       <div class="calendarView-base">
-
-        <div class="calendarView-year">2017</div>
-        <!-- year -->
-
-        <div class="calendarView-triangle-left"></div>
-        <!--triangle -->
-        <div class="calendarView-triangle-right"></div>
-        <!--  triangle -->
-
-        <div class="calendarView-months">
-          <span class="calendarView-month-hover">Jan</span>
-          <span class="calendarView-month-hover">Feb</span>
-          <span class="calendarView-month-hover">Mar</span>
-          <strong class="calendarView-month-color">Apr</strong>
-          <span class="calendarView-month-hover">May</span>
-          <span class="calendarView-month-hover">Jun</span>
-          <span class="calendarView-month-hover">July</span>
-          <span class="calendarView-month-hover">Aug</span>
-          <span class="calendarView-month-hover">Sep</span>
-          <span class="calendarView-month-hover">Oct</span>
-          <span class="calendarView-month-hover">Nov</span>
-          <span class="calendarView-month-hover">Dec</span>
-        </div><!-- months -->
         <hr class="calendarView-month-line" />
-
-        <div class="calendarView-days">SUN MON TUE WED THU FRI SAT</div>
-        <!-- days -->
-
-        <div class="calendarView-num-dates">
-
-          <div class="calendarView-first-week"><span class="calendarView-grey">26 27 28 29 30 31</span> 01</div>
-          <!-- first week -->
-          <div class="calendarView-second-week">02 03 04 05 06 07 08</div>
-          <!-- week -->
-          <div class="calendarView-third-week"> 09 10 11 12 13 14 15</div>
-          <!-- week -->
-          <div class="calendarView-fourth-week"> 16 17 18 19 20 21 22</div>
-          <!-- week -->
-          <div class="calendarView-fifth-week"> 23 24 25 26 <strong class="calendarView-white">27</strong> 28 29</div>
-          <!-- week -->
-          <div class="calendarView-sixth-week"> 30 <span class="calendarView-grey">01 02 03 04 05 06</span></div>
-          <!-- week -->
+        <!-- Days of the Week -->
+        <div class="calendarView-days">MON TUE WED THU FRI SAT SUN</div>
+        <!-- Calendar Dates (Dynamically Generated) -->
         </div>
-        <!-- num-dates -->
-        <div class="calendarView-event-indicator"></div>
-        <!-- event-indicator -->
-        <div class="calendarView-active-day"></div>
-        <!-- active-day -->
-        <div class="calendarView-event-indicator calendarView-two"></div>
-        <!-- event-indicator -->
+
+        <div class="calendarYearDiv">
+        <div class="calendarView-year">
+          <button class="buttonYears" (click)="changeYear(false,$event)"><<</button>
+          <span>{{ firstDayOfActiveMonth.value.year }}</span>
+          <button class="buttonYears" (click)="changeYear(true,$event)">>></button>
+        </div>
+      </div>
+
+      <div class="calendarMonthsDiv">
+        <div class="calendarView-months">
+          <span *ngFor="let month of monthNames; let i = index"
+          class="calendarView-month-hover"
+          [ngClass]="{ 'calendarView-month-color': firstDayOfActiveMonth.value.month === (i + 1) }"
+          (click)="selectMonth(i)">
+          {{ month }}
+          </span>
+        </div>
+      </div>
+
+      <div class="calendarDaysDiv">
+      <div class="calendarView-num-dates">
+        <div *ngFor="let week of daysOfMonth">
+          <span *ngFor="let day of week"
+                [ngClass]="{
+                  'calendarView-grey': day.month !== firstDayOfActiveMonth.value.month,
+                  'calendarView-selected': selectedDay.value?.toISODate() === day.toISODate()
+                }"
+                (click)="selectDay(day)">
+            {{ day.day }}
+          </span>
+        </div>
+      </div>
 
       </div>
+
       <!-- calendarView-base -->
       <div class="calendarView-calendar-left">
-
-        <div class="calendarView-hamburger">
-          <div class="calendarView-burger-line"></div>
-          <!-- burger-line -->
-          <div class="calendarView-burger-line"></div>
-          <!-- burger-line -->
-          <div class="calendarView-burger-line"></div>
-          <!-- burger-line -->
+        <div class="sideCalendarView-num-date" *ngIf="selectedDay | async as activeDay">{{activeDay.toFormat('dd')}}
         </div>
-        <!-- hamburger -->
-
-
-        <div class="calendarView-num-date">27</div>
         <!--num-date -->
-        <div class="calendarView-day">THURSDAY</div>
+        <div class="calendarView-day">DAY</div>
         <!--day -->
         <div class="calendarView-current-events">Current Events
           <br/>
@@ -901,13 +879,9 @@
         <hr class="calendarView-event-line" />
         <div class="calendarView-add-event"><span class="calendarView-add">+</span></div>
         <!-- add-event -->
-
       </div>
       <!-- calendarView-calendar-left -->
-
     </div>
-    <!-- calendarView-container -->
-
   </div>
-
+    <!-- calendarView-container -->
 </ng-template>
