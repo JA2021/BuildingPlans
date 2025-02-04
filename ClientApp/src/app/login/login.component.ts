@@ -1002,7 +1002,7 @@ this.userService.login(email, password).pipe(
     if (this.otp != otpEntered) {
       alert("Invalid OTP");
     }
-    else {
+
     else {
     //Not sure what this does TBH
     this.sharedService.errorForRegister = false;
