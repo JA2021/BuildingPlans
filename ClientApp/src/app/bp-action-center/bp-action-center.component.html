@@ -8,6 +8,7 @@
     <mat-divider></mat-divider>
     <button mat-menu-item >Help</button>
   </mat-menu>
+
   <button mat-raised-button color="createWayleave" (click)="actionCentreView(content)" *ngIf="ActionCenter == true">Show My Actions</button>
   <button mat-raised-button color="createWayleave" *ngIf="this.CurrentApplicationBeingViewed[0].currentStage == 'LS Review' && this.CurrentApplicationBeingViewed[0].currentStatus == 'Waiting'" (click)=" getAllServiceItemsForLS(invoiceModal)"> Generate Invoice</button>
   <!-----------------------------Used when activating a build plan application at the building inspector stage ------------------------------>
