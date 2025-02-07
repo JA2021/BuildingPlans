@@ -20,9 +20,9 @@ body {
 }
 
 .innerDiv {
-    padding-left: 102px;
-    padding-right: 19px;
-    height: 100% !important;
+  padding-left: 102px;
+  padding-right: 19px;
+  height: 100vh !important;
 }
 
 .card {
