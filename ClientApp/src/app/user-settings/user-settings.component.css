@@ -96,6 +96,7 @@ mat-dialog-container#mat-dialog-0 {
   position: relative; /* Needed for positioning the tooltip */
   display: inline-block;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 /* Button styles */
@@ -330,3 +331,44 @@ mat-dialog-container#mat-dialog-0 {
   justify-content: space-around;
 }
 /* ---------------------end of card------------------------ */
+
+.editMyProfileHeader{
+  font-family: 'Nunito';
+  font-size: 30px;
+  width: 99%;
+  font-weight: 450;
+  background: #005870;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 4px;
+  margin-top: 4px;
+  padding-bottom: 0px;
+  border-radius: 7px;
+}
+.editMyProfileText{
+  color: hsl(0, 0%, 93%);
+  font-weight: 500;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 16px;
+  width: 100%;
+}
+
+.editMyProfileCloseBtn{
+  box-sizing: content-box;
+  width: 5px;
+  height: 5px;
+  padding: .25em .25em;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: 1;
+  margin-bottom: 10px;
+  filter: invert();
+}
+

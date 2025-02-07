@@ -9654,8 +9654,6 @@ selectedComments.forEach((comment, index) => {
     this.modalService.open(calendarView, {
       centered: true,
       size: 'xl',
-      backdrop: 'static', // Prevent clicking outside the modal to close it
-      keyboard: false
     })
   }
    //meetings: Meetings = {}; // No need for InputSignal, just a regular object
@@ -9671,13 +9669,32 @@ selectedComments.forEach((comment, index) => {
       .splitBy({ days: 1 })
       .map(d => d.start!)
       .filter(d => d !== null);
-
     const weeks: DateTime[][] = [];
     for (let i = 0; i < days.length; i += 7) {
       weeks.push(days.slice(i, i + 7));
     }
     return weeks;
   }
+  startDate: DateTime = DateTime.local().startOf('month');  // Default to the first of the current month
+endDate: DateTime = DateTime.local().plus({ days: 2 });  // Default to 2 days from now
+ // Check if the day is the start date
+isStartDate(day: DateTime): boolean {
+  return this.startDate && day.hasSame(this.startDate, 'day');
+}
+
+// Check if the day is the end date
+isEndDate(day: DateTime): boolean {
+  return this.endDate && day.hasSame(this.endDate, 'day');
+}
+isInRange(day: DateTime): boolean {
+  if (!day) return false;  // Return false if day is undefined or null
+  return this.startDate && this.endDate && day > this.startDate && day < this.endDate;
+}
+
+  // Prevent selection of start and end dates
+  // isSelectable(day: DateTime): boolean {
+  //   return !this.isStartDate(day) && !this.isEndDate(day);
+  // }
 
   // Select a month when clicked
   selectMonth(monthIndex: number): void {
@@ -9688,28 +9705,29 @@ selectedComments.forEach((comment, index) => {
 
   // Select a day when clicked
   selectDay(day: DateTime): void {
+    if (day.month !== this.firstDayOfActiveMonth.value.month) {
+      this.firstDayOfActiveMonth.next(day.startOf('month')); // Switch to the correct month
+    }
     this.selectedDay.next(day);
   }
 
   // Change the year when clicked
   changeYear(Isincrement: boolean,event:Event){
-    debugger;
     if(Isincrement == true){
-      debugger;
       this.firstDayOfActiveMonth.next(
         this.firstDayOfActiveMonth.value.plus({ year: 1})
       );
-      debugger;
 
     }
     else if(Isincrement == false){
-      debugger;
       this.firstDayOfActiveMonth.next(
         this.firstDayOfActiveMonth.value.plus({ year: -1})
       );
-      debugger;
     }
 
+  }
+  get selectedDayName(): string {
+    return this.selectedDay.value.toFormat('EEEE'); // Example: "Monday"
   }
 }
 

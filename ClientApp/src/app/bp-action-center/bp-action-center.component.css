@@ -682,35 +682,11 @@ input.mat-input-element {
   }
 
 /* ---------------calendar view ------------------- */
-.calendarViewModal{
-  height: 70vh;
-}
-
 body {
   width: 50%;
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-}
-
-.calendarView-base {
-  width: 100%;
-  height: 620px;
-  border-radius: 20px;
-  background-color: white;
-  position: relative;
-  z-index: -1;
-  color: #161616;
-}
-
-.calendarView-year {
-  color: #E8E8E8;
-  font-size: 30px;
-  float: right;
-  position: relative;
-  right: 75px;
-  top: 20px;
-  font-weight: bold;
 }
 
 .calendarView-triangle-left {
@@ -753,43 +729,53 @@ body {
   color: #27e879 !important;
 }
 
-.calendarView-months {
-  color: #AAAAAA;
-  position: relative;
-  word-spacing: 10px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 500;
-  margin-top: -74px;
-  margin-left: -350px;
-}
-
-.calendarView-month-line {
-  border-color: #E8E8E8;
-  position: relative;
-  top: 85px;
-  width: 57%;
-  left: 178px;
-}
-
 .calendarView-days {
   color: #AAAAAA;
   position: relative;
   font-size: 18px;
-  left: 426px;
-  top: 107px;
-  word-spacing: 48px;
+  left: 450px;
+  top: 105px;
+  word-spacing: 52px;
   font-weight: 600;
 }
 
 .calendarView-num-dates {
   float: right;
   position: relative;
-  top: 110px;
-  right: 80px;
+  top: 75px;
+  right: -35px;
   z-index: 1;
   line-height: 3;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  flex-direction: column;
+  gap: 10px;
 }
+
+.calendarView-num-dates div {
+  display: flex;
+  justify-content: center; /* Aligns days properly */
+  gap: 10px; /* Adjust spacing between individual days */
+}
+
+.calendarView-num-dates span {
+  display: inline-block;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 8px; /* Optional rounded effect */
+}
+
+.calendarView-num-dates span:hover {
+  background-color: lightblue; /* Change to your preferred hover color */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+
 
 .calendarView-active-day {
   width: 35px;
@@ -816,17 +802,16 @@ body {
 }
 
 .calendarView-grey {
-  color: #AAAAB1;
+  color: #5d92a0;
 }
 
 .calendarView-calendar-left {
-  width: 300px;
-  height: 500px;
-  border-radius: 20px 0px 0px 20px;
-  background-color: #2ECC71;
-  position: relative;
-  z-index: -1;
-  bottom: 500px;
+  width: 32%;
+  height: 100%;
+  border-radius: 9px 0px 0px 9px;
+  background-color: #005870;
+  position: fixed;
+  top: 0;
   color: white;
 }
 
@@ -850,24 +835,8 @@ body {
 
 .calendarView-num-date {
   font-size: 150px;
-  width: 50%;
-  margin: 0 auto;
-  font-weight: 700;
-}
-
-.calendarView-day {
-  width: 50%;
-  margin: 0px auto;
-  font-size: 30px;
-  position: relative;
-  bottom: 60px;
-}
-
-.calendarView-current-events {
-  font-size: 15px;
-  position: relative;
-  margin-left: 25px;
-  bottom: 30px;
+  margin: 80px 0px;
+  text-align: center;
 }
 
 .calendarView-posts {
@@ -1021,7 +990,7 @@ label.radio-card {
 .calendarView-base {
   width: 100%;
   height: 600px;
-  border-radius: 20px;
+  border-radius: 9px;
   background-color: white;
   position: relative;
   z-index: -1;
@@ -1033,8 +1002,8 @@ label.radio-card {
   font-size: 30px;
   float: right;
   position: absolute;
-  right: 35px;
-  top: 31px;
+  right: 297px;
+  top: 11px;
   font-weight: bold;
   z-index: 1;
 }
@@ -1082,7 +1051,7 @@ label.radio-card {
 .calendarView-months {
   color: #AAAAAA;
   position: relative;
-  word-spacing: 10px;
+  word-spacing: 20px;
   cursor: pointer;
   font-size: 17px;
   font-weight: 500;
@@ -1094,32 +1063,9 @@ label.radio-card {
   position: relative;
   top: 96px;
   width: 55%;
-  left: 390px;
+  left: 432px;
 }
 
-.calendarView-days {
-  color: #AAAAAA;
-  position: relative;
-  font-size: 18px;
-  left: 406px;
-  top: 107px;
-  word-spacing: 48px;
-  font-weight: 600;
-}
-
-.calendarView-num-dates {
-  position: absolute;
-  top: 195px;
-  z-index: 1;
-  font-size: 20px;
-  word-spacing: 70px;
-  cursor: pointer;
-}
-
-.calendarView-num-dates :hover{
-  /* box-shadow: 0 20px 30px -13px rgba(23, 82, 255, 0.45); */
-  /* transform: translateY(-3px); */
-}
 
 .calendarView-active-day {
   width: 35px;
@@ -1149,37 +1095,24 @@ label.radio-card {
   color: #AAAAB1;
 }
 
-.calendarView-calendar-left {
-  width: 30%;
-  height: 600px;
-  border-radius: 20px 0px 0px 20px;
-  background-color: #005870;
-  position: relative;
-  z-index: -1;
-  bottom: 209px;
-  color: white;
-}
 
 .sideCalendarView-num-date {
   font-size: 150px;
-  margin: 120px;
-  padding-top: 90px;
-  margin-left: 75px;
+  margin: 80px;
+  margin-left: 100px;
 }
 
 .calendarView-day {
-  width: 50%;
-  margin: 0px auto;
-  font-size: 30px;
-  position: relative;
-  bottom: 60px;
+  margin: 34px 0px;
+  text-align: center;
+  font-size: 29px;
 }
 
 .calendarView-current-events {
   font-size: 15px;
   position: relative;
   margin-left: 25px;
-  bottom: 30px;
+  top: 0px;
 }
 
 .calendarView-posts {
@@ -1224,35 +1157,6 @@ label.radio-card {
   border-color: #27e879 !important;
 }
 
-.calendarView-first-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.calendarView-second-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.calendarView-third-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.calendarView-fourth-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.calendarView-fifth-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.calendarView-sixth-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
 
 .calendarHeader {
       color: #454545;
@@ -1270,9 +1174,9 @@ label.radio-card {
 
 .calendarMonthsDiv{
   display: flex;
-  width: 50%;
+  width: 60%;
   margin-top: -547px;
-  margin-left: 71%;
+  margin-left: 440px;
 }
 
 .calendarDaysDiv{
@@ -1282,17 +1186,52 @@ label.radio-card {
   justify-content: flex-end;
   margin-left: 30%;
 }
+.calendarDaysDivs :hover{
+  background-color: lightblue; /* Change to your preferred hover color */
+  border-radius: 5px; /* Optional for a rounded effect */
+}
 
 .calendarView-container{
-  margin-top: -19px;
+  margin-top: -32px;
+  margin-left: -16px;
+  margin-right: -16px;
+  height: 100vh;
 }
 .buttonYears{
   background: transparent;
-  color: #cccccc;
+  color: #e8e8e8;
   border: none;
   padding: 5px 5px;
   margin: 10px;
   cursor: pointer;
 }
+
+.calendarView-highlighted {
+  background-color: #0085aa77; /* Example color */
+  color: white;
+  border-radius: 50%;
+}
+.calendarView-start-date, .calendarView-end-date {
+  background-color: #005870 !important; /* Darker color */
+  color: white !important;
+  border-radius: 50%;
+}
+
+/* Lighter trail dates */
+.calendarView-trail {
+  background-color: #006c8a79; /* Lighter color for intermediate dates */
+  color: white;
+}
+
+/* Highlight selected day */
+.calendarView-selected {
+  background-color: #005870; /* Example selection color */
+  color: white;
+}
+.try{
+  display: flex;
+  padding-bottom: 20px !important;
+}
+
 /*---------------- calendar view ending------------- */
 

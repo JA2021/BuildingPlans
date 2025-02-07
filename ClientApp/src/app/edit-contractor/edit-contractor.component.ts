@@ -53,10 +53,10 @@ export class EditContractorComponent implements OnInit {
   ContractorList: ContractorList[] = [];
 
   CurrentUser: any;
-  stringifiedData: any;  
+  stringifiedData: any;
   constructor(private modalService: NgbModal, private shared: SharedService, private professionalService: ProfessionalService) { }
 
-  displayedColumns: string[] = ['ProfessinalType', 'name', 'surname', 'phoneNumber', 'CIBRating', 'email', 'actions'];
+  displayedColumns: string[] = ['ProfessinalType', 'name', 'surname', 'phoneNumber', 'email', 'actions'];
   dataSource = this.ContractorList;
   @ViewChild(MatTable) ContractorTable: MatTable<ContractorList> | undefined;
 
@@ -93,7 +93,7 @@ export class EditContractorComponent implements OnInit {
           tempContactorList.ProfessinalType = current.professinalType;
           tempContactorList.professionalRegNo = current.professionalRegNo;
           tempContactorList.professinalID = current.professinalID;
-        
+
           this.ContractorList.push(tempContactorList);
           this.ContractorTable?.renderRows();
         }

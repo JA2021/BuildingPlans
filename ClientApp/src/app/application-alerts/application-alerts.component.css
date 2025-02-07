@@ -81,7 +81,7 @@ table {
   width: 98.8%;
   height: 505px;
   z-index: 2;
-  background: rgba(255, 255, 255, .95);
+  background: white;
   backdrop-filter: blur(24px);
   border-radius: 10px;
   overflow: auto;
@@ -229,19 +229,19 @@ table {
 
 .cardAlerts{
   display: flex;
-  flex-direction: column; /* Stack children vertically */
+  flex-direction: column;
   width: 100%;
   margin-left: 0;
   top: -13px;
   padding: 20px;
-  border-radius: 40px;
-  background-color: #dddddd !important;
+  border-radius: 10px;
+  background-color: #dddddd4f !important;
   margin-bottom: 25px;
-  overflow: visible; /* Allow content to expand */
+  overflow: visible;
   text-overflow: ellipsis;
-  white-space: normal; /* Ensure text wraps */
-  box-shadow: inset 0px -2px 6px 1px #fffafa !important;
-  border: none;
+  white-space: normal;
+  box-shadow: inset 0px -2px 6px 1px #ffc5c5 !important;
+  border: 2px solid #ff6e6e;
   transition: transform 0.3s ease;
   cursor: pointer;
 }

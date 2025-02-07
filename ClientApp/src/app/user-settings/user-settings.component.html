@@ -170,39 +170,39 @@
       </div>
           <div class="row">
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="toa" placeholder="Type of Applicant" disabled>
-                <label for="toa">Type of applicant</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Type of applicant</mat-label>
+                <input matInput  type="text"  [(ngModel)]="toa" readonly="">
+              </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantName" placeholder="Enter First Name" disabled>
-                <label for="name">Name</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput  type="text"  [(ngModel)]="internalApplicantName" readonly="">
+              </mat-form-field>
             </div>
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantSurname" placeholder="Enter Surname" disabled>
-                <label for="surname">Surname</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Surname</mat-label>
+                <input matInput  type="text"  [(ngModel)]="internalApplicantSurname" readonly="">
+              </mat-form-field>
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantDirectorate" placeholder="Enter Surname" disabled>
-                <label for="surname">Department</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Department</mat-label>
+                <input matInput  type="text"  [(ngModel)]="internalApplicantDirectorate" placeholder="Department Name" readonly="">
+              </mat-form-field>
             </div>
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" [(ngModel)]="internalApplicantBranch" placeholder="Enter Branch" disabled>
-                <label for="Branch">Branch</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Branch</mat-label>
+                <input matInput  type="text" [(ngModel)]="internalApplicantBranch" placeholder="Branch Code" readonly="">
+              </mat-form-field>
             </div>
           </div>
           <!--<div class="row">
@@ -221,30 +221,30 @@
       </div>-->
           <div class="row">
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="email" class="form-control" [(ngModel)]="internalApplicantEmail" placeholder="Contact Details: Email" disabled>
-                <label for="applicantEmail">Email</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput  type="text" [(ngModel)]="internalApplicantEmail" readonly="">
+              </mat-form-field>
             </div>
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNo" placeholder="Contact Details: Telephone" disabled>
-                <label for="applicantTellNo">Tel. Number</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Tel. Number</mat-label>
+                <input matInput  type="text" [(ngModel)]="internalApplicantTellNo" readonly="">
+              </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="email" class="form-control" [(ngModel)]="internalApplicantEmailAlt" placeholder="Contact Details: Alt. Email" disabled>
-                <label for="applicantEmail">Alternative Email</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Alternative Email</mat-label>
+                <input matInput  type="text" [(ngModel)]="internalApplicantEmailAlt" placeholder="Alternative Email" readonly="">
+              </mat-form-field>
             </div>
             <div class="col">
-              <div class="form-floating mb-3 mt-3">
-                <input type="tel" class="form-control" [(ngModel)]="internalApplicantTellNoAlt" placeholder="Contact Details: Alt. Telephone" disabled>
-                <label for="applicantTellNo">Alternative Tel. Number</label>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Alternative Tel. Number</mat-label>
+                <input matInput  type="text" [(ngModel)]="internalApplicantTellNoAlt" placeholder="Alternative Number" readonly="">
+              </mat-form-field>
             </div>
           </div>
           <!------------------ cards for engineer and contractor------------ -->
@@ -312,9 +312,9 @@
 <!-- ----------------modal for engineers----------------- -->
 
 <ng-template #userProfileEngineerModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Engineers linked to profile</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="editMyProfileHeader">
+    <h4 class="editMyProfileText" id="modal-basic-title">Engineers linked to profile</h4>
+    <button type="button" class="editMyProfileCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
         <app-edit-engineer></app-edit-engineer>
@@ -322,9 +322,9 @@
 </ng-template>
 
 <ng-template #userProfileContractorModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Contractors linked to profile</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="editMyProfileHeader">
+    <h4 class="editMyProfileText" id="modal-basic-title">Contractors linked to profile</h4>
+    <button type="button" class="editMyProfileCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <app-edit-contractor></app-edit-contractor>
@@ -334,9 +334,9 @@
 <!-- end of engineer modal -->
 
 <ng-template #userProfileEditModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit my profile</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="editMyProfileHeader">
+    <h4 class="editMyProfileText" id="modal-basic-title">Edit my profile</h4>
+    <button type="button" class="editMyProfileCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
 
@@ -459,31 +459,31 @@
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantNameEdit" placeholder="Enter First Name">
-            <label for="name">Name</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantNameEdit" placeholder="Enter First Name">
+          </mat-form-field>
         </div>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantSurnameEdit" placeholder="Enter Surname">
-            <label for="surname">Surname</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Surname</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantSurnameEdit" placeholder="Enter Surname">
+          </mat-form-field>
         </div>
       </div>
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantDirectorateEdit" placeholder="Enter Surname" disabled>
-            <label for="surname">Department</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantDirectorateEdit" disabled="">
+          </mat-form-field>
         </div>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantBranchEdit" placeholder="Enter Branch" >
-            <label for="Branch">Branch</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Branch</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantBranchEdit" placeholder="Enter Branch Code">
+          </mat-form-field>
         </div>
       </div>
       <!--<div class="row">
@@ -503,30 +503,30 @@
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantTellNoEdit" placeholder="Enter New Telephone">
-            <label for="applicantTelNo">Telephone</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantTellNoEdit" placeholder="Enter New Telephone">
+          </mat-form-field>
         </div>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="email" class="form-control" [(ngModel)]="internalApplicantEmailEdit" disabled>
-            <label for="applicantEmail">Email</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantEmailEdit" disabled>
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="internalApplicantTellNoAltEdit" placeholder="Enter New Alt. Telephone">
-            <label for="applicantOtherTelephoneAlt">Alt Telephone</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Alt Telephone</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantTellNoAltEdit" placeholder="Enter New Alt. Telephone">
+          </mat-form-field>
         </div>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="email" class="form-control" [(ngModel)]="internalApplicantEmailAltEdit" placeholder="Enter New Alt. Email">
-            <label for="applicantOtherEmailAlt">Alt Email</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Alt Email</mat-label>
+            <input matInput  type="text" [(ngModel)]="internalApplicantEmailAltEdit" placeholder="Enter New Alt. Email">
+          </mat-form-field>
         </div>
       </div>
 
