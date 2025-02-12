@@ -55,18 +55,23 @@ button {
   color: #fff;
 }
 
+.edit {
+  background-color: #a2bfc6;
+  color: #fff;
+}
+
 .mat-blue {
   background-color: #20c997;
   color: #fff;
 }
 
 .mat-warn {
-  background-color: #9d2235;
+  background-color: #f45050;
   color: #fff;
 }
 
 .mat-orange {
-  background-color: #ff9900;
+  background-color: #a2bfc6;
   color: #fff;
 }
 
@@ -250,3 +255,4 @@ h3 {
   hyphens: auto;
   text-align: center;
 }
+

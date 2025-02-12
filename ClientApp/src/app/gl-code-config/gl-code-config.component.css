@@ -14,7 +14,7 @@ button {
 }
 
 .mat-success {
-  background-color: #446414;
+  background-color: #a2bfc6;
   color: #fff;
 }
 
@@ -29,12 +29,12 @@ button {
 }
 
 .mat-blue {
-  background-color: #20c997;
+  background-color: #a2bfc6;
   color: #fff;
 }
 
 .mat-warn {
-  background-color: #9d2235;
+  background-color: #f45050;
   color: #fff;
 }
 

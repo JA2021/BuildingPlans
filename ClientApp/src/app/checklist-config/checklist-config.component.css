@@ -5,13 +5,13 @@
 }
 .mat-blue {
   margin: 5px;
-  background-color:#9FA8DA;
+  background-color:#a2bfc6;
   width: auto;
   color: black;
 }
 .mat-orange {
   margin: 5px;
-  background-color: #ff9900;
+  background-color: #82A9B3;
   color: black;
   width: auto;
 }
@@ -65,7 +65,7 @@ table {
   -webkit-hyphens: auto;
   hyphens: auto;
   text-align: center;
-  
+
 }
 .mat-column-FAName {
   word-wrap: break-word !important;
@@ -157,6 +157,6 @@ table {
 }
 h6{
     text-align:center;
-    
+
     font-size:25px;
 }

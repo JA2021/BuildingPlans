@@ -36,7 +36,7 @@
     <th mat-header-cell *matHeaderCellDef>actions</th>
     <td mat-cell *matCellDef="let i = index">
       <button mat-raised-button color="blue" matTooltip="Edit Occupation Classification" (click)=" EditClassfication(i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/pencil.svg" class="icon4"></button>
-      <button mat-raised-button color="warn" matTooltip="Add Occupation Classification" (click)="onDeleteClassification(i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/trash-can.svg" class="icon4"></button>
+      <button mat-raised-button color="warn" matTooltip="Delete Occupation Classification" (click)="onDeleteClassification(i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/trash-can.svg" class="icon4"></button>
     </td>
     <td mat-cell *matCellDef="let element">  </td>
   </ng-container>
@@ -47,9 +47,9 @@
 
 <ng-template #newClass let-modal>
 
-  <div class="modal-header">
-    <h6 class="modal-title">Add a new Occupation classification</h6>
-    <button type="button" class="btn-close" aria-label="Close" (click)="CLearData();modal.dismiss('Cross click')"></button>
+  <div class="standardHeader">
+    <p class="standardText">Add a new Occupation classification</p>
+    <button type="button" class="standardCloseBtn" aria-label="Close" (click)="CLearData();modal.dismiss('Cross click')"></button>
   </div>
 
   <div class="modal-body">
@@ -57,42 +57,35 @@
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupationName" name="occupationName" placeholder="Enter the new Occupation Name">
-            <label for="occupationName">Occupation Name * </label>
-          </div>
-        </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupation Name*</mat-label>
+            <input matInput  type="text" [(ngModel)]="occupationName" name="occupationName" placeholder=" ">
+          </mat-form-field>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupationCode" name="occupationCode" placeholder="Enter the new Occupation Code">
-            <label for="occupationCode">Occupation Code * </label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupation Code*</mat-label>
+            <input matInput  type="text" [(ngModel)]="occupationCode" name="occupationCode" placeholder=" ">
+          </mat-form-field>
+        </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy</mat-label>
+            <input matInput  type="text" [(ngModel)]="occupancy" name="occupancy" placeholder=" ">
+          </mat-form-field>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="itemTypeID" name="itemTypeID" placeholder="Enter the new Item Type ID">
-            <label for="itemTypeID">Item Type ID * </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupancy" name="occupancy" placeholder="Enter the new Occupancy">
-            <label for="occupancy">Occupancy</label>
-          </div>
-        </div>
-      </div>
-
-      <p>NB* : If the text does not fix you can extent the size of the box</p>
+      <p style="color: grey; font-style: italic;">NB* : If the text does not fit, you may adjust the size of the box to accommodate it.</p>
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <textarea class="form-control occupancyDesc" [(ngModel)]="occupancyDescription" name="occupancyDescription" placeholder="Enter Occupancy Description"></textarea>
-            <label for="occupancyDescription">Occupancy Description </label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy Description</mat-label>
+            <textarea matInput  type="text" [(ngModel)]="occupancyDescription" name="occupancyDescription" placeholder="Enter Occupancy Description"></textarea>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -107,9 +100,9 @@
 </ng-template>
 
 <ng-template #editClass let-modal>
-  <div class="modal-header">
-    <h6 class="modal-title">Edit Occupation Classification</h6>
-    <button type="button" class="btn-close" aria-label="Close" (click)=" CLearData();modal.dismiss('Cross click')"></button>
+  <div class="standardHeader">
+    <p class="standardText">Edit Occupation Classification</p>
+    <button type="button" class="standardCloseBtn" aria-label="Close" (click)=" CLearData();modal.dismiss('Cross click')"></button>
   </div>
 
   <div class="modal-body">
@@ -117,42 +110,36 @@
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupationName" name="occupationName" placeholder="Enter Occupation Name">
-            <label for="occupationName">Occupation Name</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy Name</mat-label>
+            <input matInput  type="text" [(ngModel)]="occupationName" name="occupationName" placeholder="Enter Occupation Name">
+          </mat-form-field>
         </div>
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupationCode" name="occupationCode" placeholder="Enter Occupation Code">
-            <label for="occupationCode">Occupation Code</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy Code</mat-label>
+            <input matInput  type="text"  [(ngModel)]="occupationCode" name="occupationCode" placeholder="Enter Occupation Code">
+          </mat-form-field>
         </div>
       </div>
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="itemTypeID" name="itemTypeID" placeholder="Enter the new Item Type ID">
-            <label for="itemTypeID">Item Type ID * </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control" [(ngModel)]="occupancy" name="occupancy" placeholder="Enter Occupancy">
-            <label for="occupancy">Occupancy</label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy</mat-label>
+            <input matInput  type="text" [(ngModel)]="occupancy" name="occupancy" placeholder="Enter Occupancy">
+          </mat-form-field>
         </div>
       </div>
 
-      <p>NB* : If the text does not fix you can extent the size of the box</p>
+      <p style="color: grey; font-style: italic;">NB* : If the text does not fit, you may adjust the size of the box to accommodate it.</p>
 
       <div class="row">
         <div class="col">
-          <div class="form-floating mb-3 mt-3">
-            <textarea class="form-control occupancyDesc" [(ngModel)]="occupancyDescription" name="occupancyDescription" placeholder="Enter Occupancy Description"></textarea>
-            <label for="occupancyDescription">Occupancy Description </label>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Occupancy Description</mat-label>
+            <textarea matInput  type="text" [(ngModel)]="occupancyDescription" name="occupancyDescription" placeholder="Enter Occupancy Description"></textarea>
+          </mat-form-field>
         </div>
       </div>
 

@@ -1,4 +1,5 @@
 .mat-create {
+  margin-top: 10px;
   background-color: #005870;
   color: #fff;
 }
@@ -35,4 +36,9 @@ table {
   width: 100%;
   margin: 0 auto;
   margin-bottom: 30px;
+}
+
+.orange{
+  background-color: #a2bfc6;
+  color: #fff;
 }

@@ -19,13 +19,14 @@
 
 .no-button, .yes-button {
   background-color: #005870;
+  margin-left: 6px;
   color: #fff;
 }
 
   .yes-button:hover {
-    background-color: #9d2235;
+    background-color: #5e8d17;
   }
 
   .no-button:hover {
-    background-color: #446414;
+    background-color: #f45050;
   }

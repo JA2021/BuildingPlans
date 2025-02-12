@@ -4,6 +4,8 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { ConfigService } from 'src/app/service/Config/config.service';
 import { DatePipe } from '@angular/common';
 import { MatTable } from '@angular/material/table';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 
 export interface AlertList {
@@ -32,17 +34,17 @@ export class SystemAlertConfigComponent implements OnInit {
   bannerColor: string = "white"; //default
 
   canCreateApp: boolean = true; //default - imagine it's a simple announcement
-  startDate: Date = new Date();
-  endDate: Date = new Date();
+  startDate: any;
+  endDate: any;
   currentDate: string;
   //Banner Kyle 26-01-24
   editBannerMessage: string;
-  editStartDate: string;
-  editEndDate: string;
+  editStartDate: any;
+  editEndDate: any;
   configId: number;
 
   canUpdate: boolean;
-  bannerMessage: string = "Testing";
+  bannerMessage: string = "";
   alertType: string;
    //Banner Kyle 26-01-24
   CurrentUser: any;
@@ -61,27 +63,28 @@ export class SystemAlertConfigComponent implements OnInit {
 
     setTimeout(() => {
       this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
-      this.CurrentUser = JSON.parse(this.stringifiedData); 
+      this.CurrentUser = JSON.parse(this.stringifiedData);
       this.findLiveAlert();
 
     }, 100);
   }
 
   openCreateModal(newAlert:any) {
-    this.modalService.open(newAlert, { backdrop: 'static', centered: true, size: 'xl' });
+    this.modalService.open(newAlert, { backdrop: 'static', centered: true, size: 'lg' });
   }
 
   createNewAlert() {
+
     const isConfirmed = window.confirm('Are you sure you want to create this system alert?');
-      if(isConfirmed) { 
+      if(isConfirmed) {
         this.alertCreate();
-        
+
       }
   }
 
   alertCreate() {
      //Banner Kyle 26-01-24
-    
+
     const start = this.startDate.toString();
     const end = this.endDate.toString();
     const match = this.Alerts.map(x => (start >= x.startDate && end <= x.endDate) || (start <= x.startDate && end <= x.endDate) || (end >= x.startDate && end <= x.endDate));
@@ -91,13 +94,21 @@ export class SystemAlertConfigComponent implements OnInit {
 
     }
     else {
+      debugger;
       this.config.addUpdateConfig(0, "Alert", this.bannerMessage, this.startDate + " " + this.endDate, this.createValue.toString(), this.showDatesValue.toString(), this.CurrentUser.appUserId).subscribe((data: any) => {
         if (data.responseCode == 1) {
+          debugger;
           alert(data.responseMessage);
           this.findLiveAlert();
-          this.modalService.dismissAll(); 
+          this.modalService.dismissAll();
+          this.bannerMessage=null;
+          this.endDate=null;
+          this.startDate=null;
+          this.disableCreate=null;
+          this.showDates=null;
         }
         else {
+          debugger;
           alert(data.responseMessage);
         }
 
@@ -106,7 +117,7 @@ export class SystemAlertConfigComponent implements OnInit {
         console.log("Error: ", error);
       })
     }
-   
+
   }
 
   getCurrentDate(): string {
@@ -114,7 +125,7 @@ export class SystemAlertConfigComponent implements OnInit {
     const year = currentDate.getFullYear();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
-   
+
     return `${year}-${month}-${day}`;
   }
 
@@ -131,9 +142,9 @@ export class SystemAlertConfigComponent implements OnInit {
           tempAlertList.createdById = current.createdById;
           tempAlertList.dateCreated = current.dateCreated;
 
-          let dateValues = current.utilitySlot1.split(' ');
-          tempAlertList.startDate = dateValues[0];
-          tempAlertList.endDate = dateValues[1];
+          let dateValues = current.utilitySlot1.split(" ");
+          tempAlertList.startDate = dateValues[1] + " " + dateValues[2] + " " + dateValues[3];
+          tempAlertList.endDate = dateValues[11] + " " + dateValues[12] + " " + dateValues[13];
 
           if (current.utilitySlot2 == "0") {
             tempAlertList.disabledCreate = false;
@@ -151,17 +162,17 @@ export class SystemAlertConfigComponent implements OnInit {
           //Banner Kyle 26-01-24
           this.currentDate = this.getCurrentDate();
           if (this.currentDate >= dateValues[0] && this.currentDate <= dateValues[1]) {
-            
+
             tempAlertList.status = "Active";
           }
 
           if (this.currentDate > dateValues[0] && this.currentDate > dateValues[1]) {
-            
+
             tempAlertList.status = "Completed";
           }
 
           if (this.currentDate < dateValues[0] && this.currentDate < dateValues[1]) {
-            
+
             tempAlertList.status = "Pending";
           }
            //Banner Kyle 26-01-24
@@ -174,7 +185,7 @@ export class SystemAlertConfigComponent implements OnInit {
       }
       console.log("Seeking alerts response", data);
       this.alertsTable?.renderRows();
-      
+
     }, error => {
       console.log("Error: ", error);
     })
@@ -199,15 +210,16 @@ export class SystemAlertConfigComponent implements OnInit {
     const current = this.Alerts[index];
     this.configId = current.configAlertId;
     this.editBannerMessage = current.message;
-    this.editStartDate = current.startDate;
-    this.editEndDate = current.endDate;
+    // Convert existing dates into Date objects for proper binding
+    this.editStartDate = new Date(current.startDate);
+    this.editEndDate = new Date(current.endDate);
     this.disableCreate = current.disabledCreate;
     this.showDates = current.showDates;
     this.openEditAlert(editAlert);
   }
 
   onSaveEdittedAlert() {
-    
+
     const start = this.editStartDate.toString();
     const end = this.editEndDate.toString();
     const match = this.Alerts.map(x => x.configAlertId != this.configId && ((start >= x.startDate && end <= x.endDate) || (start <= x.startDate && end <= x.endDate) || (end >= x.startDate && end <= x.endDate)));
@@ -233,8 +245,8 @@ export class SystemAlertConfigComponent implements OnInit {
       })
     }
 
-   
-   
+
+
      //Banner Kyle 26-01-24
   }
   onDisableCreate() {
@@ -252,7 +264,7 @@ export class SystemAlertConfigComponent implements OnInit {
     else if(this.disableCreate == false) {
       this.createValue = 0;
     }
-    
+
   }
 
   onShowDatesChange() {

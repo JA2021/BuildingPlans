@@ -27,14 +27,14 @@ table {
 
 .mat-blue {
   margin: 5px;
-  background-color: #005870;
+  background-color: #a2bfc6;
   color: #ccdee2;
   width: 20px;
 }
 
 .mat-warn {
   margin: 5px;
-  background-color: #5e1420;
+  background-color: #f45050;
   color: #ccdee2;
   width: 20px;
 }
@@ -124,11 +124,6 @@ h6 {
   -webkit-hyphens: auto;
   hyphens: auto;
   text-align: center;
-}
-
-::ng-deep .mat-option {
-  max-width: 50% !important;
-  box-sizing: border-box;
 }
 
 ::ng-deep .mat-select-panel {

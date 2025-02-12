@@ -25,12 +25,18 @@
 
 
         <div class="PropertyOwnerDetails animationSlideUp">
-          <h3 >Property Owner Details</h3>
-          <p class="Name">{{firstName}} {{surname}}</p>
-          <p class="Email"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/at.svg" class="icon3"> {{email}}</p>
-          <p class="CellNo"><img src="assets/fontawesome-free-6.4.2-web/svgs/solid/phone.svg" class="icon3"> {{cellNo}}</p>
-          <div class="bottom-0">
-            <button mat-raised-button color="expand2" (click)="openExpand('POD',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
+          <div class="propertyOwnerDiv">
+            <h3 style="text-align: center;" >Property Owner</h3>
+            <!-- <p *ngIf="!firstName && !surname">there are no details</p> -->
+            <p class="Name">{{firstName}} {{surname}}</p>
+            <div class="bottom-theDetails">
+              <button mat-raised-button color="expand2" (click)="openExpand('POD',expand)" matTooltip="Expand"><img class="expandBTN" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/expand.svg"></button>
+            </div>
+          </div>
+          <span class="propertyOwner-architectDetails-line"></span>
+          <div class="archirectDeetsDiv">
+            <h3 style="text-align: center;">Architect Linked</h3>
+            <p class="Name">{{architectName}} {{architectSurname}}</p>
           </div>
         </div>
 
@@ -72,7 +78,7 @@
                       <div class="card2">
                         <p class="detailsCardName">Application Details</p>
                       </div>
-                      <div class="cardIndent">
+                      <div class="cardIndentIndividualView">
                       <p class="dot">Application Type: {{bpApplicationType}}</p>
                       <p class="dot">LS Number: {{ lsNumber }}</p>
                       <p *ngIf="BPApplicationProjectNumber"class="dot">Project Number: {{ BPApplicationProjectNumber }}</p>
@@ -148,7 +154,7 @@
                     <div class="card2">
                       <p class="detailsCardName">Property Details Of Development</p>
                     </div>
-                    <div class="cardIndent">
+                    <div class="cardIndentIndividualView">
                        <!-- Property Details Section -->
                     <p class="dot">Property Description - {{ propertyDescription }}</p>
                     <p class="dot">Premises Name - {{ premisesName }}</p>
@@ -182,7 +188,7 @@
                   <div class="card2">
                     <p class="detailsCardName">Plan Details</p>
                   </div>
-                  <div class="cardIndent">
+                  <div class="cardIndentIndividualView">
                       <p class="dot">Type Of Development - {{ typeOfDev }}</p>
                       <p class="dot">Property Value - {{ propertyValue }}</p>
                       <p  class="dot" *ngIf="bpApplicationType != 'Town Planning'">Occupation Classification - {{ occupationClassification }}</p>
@@ -798,10 +804,9 @@
 
 
   <div *ngIf="ExpandTrackerInfo">
-    <div class="modal-header">
-
-      <h4>Tracker</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
+    <div class="appExpandProfileHeaderComments">
+      <h4 class="appExpandProfileText">Tracker</h4>
+      <button type="button" class="appExpandProfileCloseBtn" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
 
     <mat-tab-group>
@@ -913,9 +918,9 @@
   <!-- #region comments -->
 
   <div *ngIf="ExpandComments">
-    <div class="modal-header">
-      <h4>Comments</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
+    <div class="appExpandProfileHeaderComments">
+      <h4 class="appExpandProfileText">Comments</h4>
+      <button type="button" class="appExpandProfileCloseBtn" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
     <mat-tab-group>
 
@@ -1014,9 +1019,9 @@
   <!-- #region documents -->
 
   <div *ngIf="ExpandDocuments">
-    <div class="modal-header">
-      <h4>Documents</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
+    <div class="appExpandProfileHeaderComments">
+      <h4 class="appExpandProfileText">Documents</h4>
+      <button type="button" class="appExpandProfileCloseBtn" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
     <mat-tab-group dynamicHeight>
 
@@ -1067,10 +1072,10 @@
   <!-- #endregion -->
   <!-- #region Application details -->
 
-  <div *ngIf="ExpandDetails">
-    <div class="modal-header">
-      <h4>Application Details</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
+  <div *ngIf="ExpandDetails" style="max-height: 70vh; overflow-y: auto;">
+    <div class="appExpandProfileHeader">
+      <h4 class="appExpandProfileText">Expanded View</h4>
+      <button type="button" class="appExpandProfileCloseBtn" aria-label="Close" (click)="closeExpanded();modal.dismiss('Cross click')"></button>
     </div>
 
     <google-map height="300px"
@@ -1085,9 +1090,7 @@
       </map-marker>
     </google-map>
 
-    <mat-tab-group>
-
-      <mat-tab label="Application Details">
+    <div class="holdingExpandedDetails">
         <div class="applicationDeatails">
 
 
@@ -1146,15 +1149,13 @@
             </div>
           </div>
         </div>
-      </mat-tab>
+      </div>
 <!--      <mat-tab label="Public Facing" *ngIf="this.CurrentUserProfile[0].isInternal == true">
         <button mat-raised-button color="blue" (click)="openInternalComment(newInternalComment)" matTooltip="View Application Details"><img class="icon5" src="../../assets/fontawesome-free-6.4.2-web/svgs/solid/comment.svg"> Create New Internal Comment</button>
         <div *ngIf="InternalCommentsList.length === 0">
           <h5>Nothing here yet</h5>
         </div>
       </mat-tab>-->
-
-    </mat-tab-group>
 
   </div>
 

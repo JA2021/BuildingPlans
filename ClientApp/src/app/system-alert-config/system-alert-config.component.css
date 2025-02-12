@@ -30,7 +30,7 @@ table {
 }
 
 .mat-warni {
-  background-color: #9d2235;
+  background-color: #f45050;
   color: #fff;
 }
 
@@ -57,7 +57,9 @@ mat-column-StartDate, mat-column-EndtDate, mat-column-DateCreated {
 }*/
 /*Banner Kyle 26-01-24*/
 .mat-orange {
-  background-color: #ff9900;
+  background-color: #a2bfc6;
+  right: 8px;
+  margin-bottom: 10px;
   color: #fff;
 }
 .mat-column-actions {
@@ -127,3 +129,22 @@ mat-column-StartDate, mat-column-EndtDate, mat-column-DateCreated {
 .cont56{
   padding-top: 20px;
 }
+
+::ng-deep .mat-datepicker-toggle {
+  font-size: 24px; /* Increase icon size */
+}
+
+::ng-deep .mat-checkbox-inner-container{
+    display: inline-block;
+    height: 10px !important;
+    line-height: 0;
+    margin: auto;
+    margin-right: 19px;
+    order: 0;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 10px !important;
+    flex-shrink: 0;
+}
+

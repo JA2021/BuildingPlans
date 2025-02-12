@@ -42,7 +42,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
   newAccessGroup: string;
   newAccessGroupDes: string;
 
-  
+
   accessGroupId: number;
   accessGroupName: string;
   accessGroupDescription: string;
@@ -54,7 +54,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
   CurrentUser; any;
 
   functionalArea: string;
-  
+
   ngOnInit(): void {
     this.GetAllAccessGroups();
     this.stringifiedData = JSON.parse(JSON.stringify(localStorage.getItem('LoggedInUserInfo')));
@@ -69,11 +69,11 @@ export class BPAccessGroupsConfigComponent implements OnInit {
     this.modalService.open(editAccessGroup, { centered: true, size: 'xl' });
   }
   GetAllAccessGroups() {
-    
+
     this.AccessGroupsList.splice(0, this.AccessGroupsList.length);
     this.bpAccessGroupsService.getAllAccessgroups().subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempAccessGroup = {} as AccessGroupList;
           const current = data.dateSet[i];
@@ -103,7 +103,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
   }
 
   AddAccessGroup() {
-    
+
     let accessGroupName = this.newAccessGroup;
     let accessGroupDes = this.newAccessGroupDes
     if (accessGroupName == undefined || accessGroupName.trim() == "" || accessGroupDes == undefined || accessGroupDes.trim() == "") {
@@ -112,7 +112,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
     else {
       this.bpAccessGroupsService.addUpdateAccessGroup(0, accessGroupName, accessGroupDes, this.CurrentUser.appUserId).subscribe((data: any) => {
         if (data.responseCode == 1) {
-          
+
           this.modalService.dismissAll();
           alert(data.responseMessage);
           this.GetAllAccessGroups();
@@ -127,7 +127,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
         console.log("Error: ", error);
       })
     }
-   
+
   }
 
   GetAccessGroupForEdit(index: any, editAccessGroup:any) {
@@ -156,13 +156,13 @@ export class BPAccessGroupsConfigComponent implements OnInit {
   }
 
   SaveEdittedAccessGroup() {
-    
+
     if (this.oldAccessGroupName == this.accessGroupName && this.oldAccessGroupDescription == this.accessGroupDescription) {
       alert("No changes were made to access group information")
     }
 
     else {
-      
+
       this.bpAccessGroupsService.addUpdateAccessGroup(this.accessGroupId, this.accessGroupName, this.accessGroupDescription, this.CurrentUser.appUserId).subscribe((data: any) => {
         if (data.responseCode == 1) {
           alert(data.responseMessage);
@@ -194,7 +194,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
   selectedAccessGroupID: number;
 
   getAllBPRoles(linkrole: any) {
-   
+
 
     this.RolesList.splice(0, this.RolesList.length);
 
@@ -203,7 +203,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
         for (let i = 0; i < data.dateSet.length; i++) {
           const current = data.dateSet[i];
           const tempRole = {} as RolesList;
-          
+
           tempRole.RoleID = current.roleID;
           tempRole.RoleName = current.roleName;
           tempRole.RoleDescription = current.roleDescription;
@@ -225,10 +225,10 @@ export class BPAccessGroupsConfigComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-    
+
     })
   }
- 
+
   onLinkRoleToAccessGroup(index: any,linkrole:any) {
     let roleLink = this.RolesList[index];
 
@@ -247,7 +247,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-    
+
     })
   }
 
@@ -274,8 +274,7 @@ export class BPAccessGroupsConfigComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-    
-    })
 
+    })
   }
 }

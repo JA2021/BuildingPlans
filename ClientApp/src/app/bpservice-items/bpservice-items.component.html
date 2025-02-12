@@ -38,10 +38,10 @@
 </table>
 
 <ng-template #addService let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" *ngIf="isEdit != true">Add New Service Item</h4>
-    <h4 class="modal-title" *ngIf=" isEdit == true">Edit Service Item</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="standardHeader">
+    <p class="standardText" *ngIf="isEdit != true">Add New Service Item</p>
+    <p class="standardText" *ngIf=" isEdit == true">Edit Service Item</p>
+    <button type="button" class="standardCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
 
   <div class="modal-body">

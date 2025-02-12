@@ -1,12 +1,12 @@
 <!--<h1 mat-dialog-title>Confirmation</h1>
 <div mat-dialog-content>-->
-<div class="confirm-dialog">
+<div class="confirm-dialog" style="border-radius: 10px;">
   <h3>{{ data.message }}</h3>
 
 <!--<div mat-dialog-actions>-->
   <div class="actions">
-    <button mat-button class="no-button" (click)="onConfirm(false)">No</button>&nbsp;&nbsp;
     <button mat-button class="yes-button" (click)="onConfirm(true)">Yes</button>
+    <button mat-button class="no-button" (click)="onConfirm(false)">No</button>&nbsp;&nbsp;
   </div>
 </div>
 

@@ -34,9 +34,7 @@
     <app-mandatory-docs-config></app-mandatory-docs-config>
   </mat-tab>-->
     <!-----------------------------------------------------------GL Code configuration-------------------------------------------------------------->
-    <mat-tab label="GL Code">
-      <app-gl-code-config></app-gl-code-config>
-    </mat-tab>
+
 
     <!-----------------------------------------------------------Service Items configuration-------------------------------------------------------------->
     <mat-tab label="Occupation Classifications">
@@ -132,7 +130,7 @@
               Question : {{faqList.Question}}
             </mat-panel-title>
           </div>
-          <button mat-raised-button color="warn" (click)="onFAQDelete(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          <button mat-raised-button color="warn" (click)="onFAQDelete(i)"><img src="assets/fontawesome-free-6.4.2-web/svgs/regular/trash-can-solid-white.svg" aria-hidden="true" class="icon4" style="filter: invert();"></button>
         </mat-expansion-panel-header>
 
         <mat-label>Answer : {{faqList.Answer}}</mat-label>
@@ -152,29 +150,27 @@
     </mat-tab>
 
     <!--Building plans Department documents upload-->
-    <mat-tab label=" Building plans Department documents upload">
-      <app-bpdepartment-doc-required-uploads></app-bpdepartment-doc-required-uploads>
-    </mat-tab>
+
   </mat-tab-group>
 </div>
 
 <!--FAQ-->
 <ng-template #FAQModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Creating a new FAQ entry</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="standardHeader ">
+    <p class="standardText">Creating a new FAQ entry</p>
+    <button type="button" class="standardCloseBtn" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
 
-    <div class="form-floating mb-3 mt-3">
-      <input type="text" class="form-control" placeholder="Question" [(ngModel)]="question" id="question" name="question">
-      <label for="question">Question</label>
-    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Question</mat-label>
+      <input matInput  type="text"  [(ngModel)]="question" id="question" name="question" placeholder="Enter Question">
+    </mat-form-field>
 
-    <div class="form-floating mb-3 mt-3">
-      <input type="text" class="form-control" placeholder="Answer" [(ngModel)]="answer" id="answer" name="answer">
-      <label for="answer">Answer</label>
-    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Answer</mat-label>
+      <input matInput  type="text"  [(ngModel)]="answer" id="answer" name="answer" placeholder="Enter Answer">
+    </mat-form-field>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-outline-success" (click)="addFAQ();modal.close('Save click')">Save</button>

@@ -62,11 +62,11 @@ export class BPDepartmentConfigComponent implements OnInit {
 
   getAllBPDepartments() {
     this.DepartmentList.splice(0, this.DepartmentList.length);
-    
+
     this.bpDepartService.getDepartmentsList().subscribe((data: any) => {
 
       if (data.responseCode == 1) {
-        
+
 
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempDepartmentList = {} as DepartmentList;
@@ -106,7 +106,7 @@ export class BPDepartmentConfigComponent implements OnInit {
 
   onDepartmentCreate() {
     let newDeptName = this.addDepartment.controls["newDeptName"].value;
-    
+
     this.bpDepartService.addUpdateDepartment(0, newDeptName, false, "Testing Create", this.selectedFunctionalArea).subscribe((data: any) => {
 
       if (data.responseCode == 1) {
@@ -137,10 +137,10 @@ export class BPDepartmentConfigComponent implements OnInit {
   }
 
   setCurrentDepartmentID(index: any) {
-  
+
   }
   onDeleteDepartment(index: any) {
-    
+
     const dialogRef = this.dialog.open(BpConfirmModalComponent, {
       data: {
         message: "Are you sure to delete '" + this.DepartmentList[index].departmentName + "' ?" }
@@ -186,7 +186,7 @@ export class BPDepartmentConfigComponent implements OnInit {
             message: data.responseMessage
           }
         });
-        
+
 
         this.selectedDepartmentID = data.dateSet[0].departmentID;
         this.selectedDepartmentName = data.dateSet[0].departmentName;
@@ -219,7 +219,7 @@ export class BPDepartmentConfigComponent implements OnInit {
         }
       });
     }
-    else { 
+    else {
     this.bpDepartService.addUpdateDepartment(this.selectedDepartmentID, this.selectedDepartmentName, false, "Testing Update").subscribe((data: any) => {
 
       if (data.responseCode == 1) {
@@ -252,10 +252,10 @@ export class BPDepartmentConfigComponent implements OnInit {
   }
 
   GetAllFunctionalAreas() {
-    
+
     this.bpFunctionalAreasService.getAllFunctionalAreas().subscribe((data: any) => {
       if (data.responseCode == 1) {
-        
+
         for (let i = 0; i < data.dateSet.length; i++) {
           const tempFunctionalAreasList = {} as FunctionalAreasList;
           const current = data.dateSet[i];
@@ -284,5 +284,5 @@ export class BPDepartmentConfigComponent implements OnInit {
     })
   }
 
- 
+
 }

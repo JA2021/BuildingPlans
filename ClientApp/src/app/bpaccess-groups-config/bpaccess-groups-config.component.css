@@ -31,7 +31,7 @@ table {
   -webkit-hyphens: auto;
   hyphens: auto;
   text-align: left;
-  
+
 }
 .mat-column-AccessGroupDescription {
   word-wrap: break-word !important;
@@ -53,17 +53,17 @@ table {
   margin: 10px;
 }
 .mat-blue {
-  background-color: #20c997;
+  background-color: #a2bfc6;
   color: #fff;
 }
 
 .mat-warn {
-  background-color: #9d2235;
+  background-color: #f45050;
   color: #fff;
 }
 
 .mat-orange {
-  background-color: #ff9900;
+  background-color: #a2bfc6;
   color: #fff;
 }
 .mat-success {

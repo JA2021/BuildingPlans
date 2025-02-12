@@ -65,3 +65,9 @@ table {
   cursor: pointer;
   position: absolute;
 }
+
+.eyeIcon{
+  filter: invert();
+  width: 15px;
+  height: 15px;
+}

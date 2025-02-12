@@ -29,13 +29,13 @@ h6 {
 }
 .mat-blue {
   margin: 5px;
-  background-color: #005870;
+  background-color: #a2bfc6;
   color: #ccdee2;
   width: 20px;
 }
 .mat-warn {
   margin: 5px;
-  background-color: #5e1420;
+  background-color: #f45050;
   color: #ccdee2;
   width: 20px;
 }
@@ -43,7 +43,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 10% !important;
+  width: 6% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -51,7 +51,7 @@ h6 {
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
-  text-align:left;
+  text-align:center;
 }
 .mat-column-OccupationCode {
   word-wrap: break-word !important;
@@ -85,7 +85,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 20% !important;
+  width: 23% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -99,7 +99,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 10% !important;
+  width: 13% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -113,7 +113,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 10% !important;
+  width: 7% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -128,7 +128,7 @@ h6 {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
-  width: 10% !important;
+  width: 7% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
@@ -141,3 +141,4 @@ h6 {
 .occupancyDesc{
     height:100%;
 }
+
