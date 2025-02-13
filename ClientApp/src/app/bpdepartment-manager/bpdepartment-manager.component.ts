@@ -16,7 +16,7 @@ export interface UserProfileList {
   FunctionalArea: string;
   SubDepartmentName: string;
   PhoneNumber: string;
- 
+
 }
 
 export interface AccessGroupsList {
@@ -73,12 +73,12 @@ export class BPDepartmentManagerComponent implements OnInit {
   selectedDepartment: any;
   selectedUser; any;
   accessGroupUserLinkID: number;
-  
+
 
   filterFunctionalArea: string;
   filterSubDepartment: string;
   filterAccessGroupID : number;
-  
+
   firstName: string = "";
   surname: string = "";
   emailAddress: string = "";
@@ -119,7 +119,7 @@ export class BPDepartmentManagerComponent implements OnInit {
 
           this.AllUsers.push(tempUser);
         }
-        
+
         this.dataSourceUser = this.AllUsers;
         this.allUsersTable?.renderRows();
 
@@ -635,7 +635,7 @@ export class BPDepartmentManagerComponent implements OnInit {
   }
 
   openAllUsersFilter(AllUserFilter: any) {
-    
+
     this.modalService.open(AllUserFilter, { centered: true, size: 'xl' });
   }
 
@@ -660,7 +660,7 @@ export class BPDepartmentManagerComponent implements OnInit {
       }
     }, error => {
       console.log("All Access Groups Error",error)
-    }) 
+    })
   }
 
   onFilterAllUsersList() {
@@ -669,13 +669,13 @@ export class BPDepartmentManagerComponent implements OnInit {
     this.newList = this.AllUsers.filter(item => {
       const matchesFunctionalArea = this.filterFunctionalArea ? item.FunctionalArea === this.filterFunctionalArea : true;
       const matchesSubDepartment = this.filterSubDepartment ? item.SubDepartmentName === this.filterSubDepartment : true;
-    
+
       return matchesFunctionalArea && matchesSubDepartment ;
     });
 
     this.dataSourceUser = this.newList;
     this.dataSource = this.newList;
-    
+
   }
 
   resetAllUserFilter() {
@@ -736,14 +736,17 @@ export class BPDepartmentManagerComponent implements OnInit {
           tempUser.SubDepartmentName = current.subDepartmentName;
 
           this.newList.push(tempUser);
-         
+
         }
         this.dataSource = this.newList;
-      } 
+      }
     })
   }
 
   resetLinkedUserFilter() {
     this.dataSource = this.internalUserList;
+  }
+  openAllExternalUsers(allExternalUsers: any) {
+    this.modalService.open(allExternalUsers, { centered: true, size: 'xl' });
   }
 }
